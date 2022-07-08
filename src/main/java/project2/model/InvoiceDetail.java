@@ -9,12 +9,6 @@ public class InvoiceDetail {
     @Column(name = "id_invoice_detail")
     private Long idInvoiceDetail;
 
-    @Column(name = "warning")
-    private int warning;
-
-    @Column(name = "warning_date")
-    private String warningDate;
-
     @ManyToOne
     @JoinColumn(name = "id_invoice",nullable = false)
     private Invoice invoice;
@@ -26,13 +20,6 @@ public class InvoiceDetail {
     public InvoiceDetail() {
     }
 
-    public InvoiceDetail(Long idInvoiceDetail, int warning, String warningDate, Invoice invoice, Product product) {
-        this.idInvoiceDetail = idInvoiceDetail;
-        this.warning = warning;
-        this.warningDate = warningDate;
-        this.invoice = invoice;
-        this.product = product;
-    }
 
     public Long getIdInvoiceDetail() {
         return idInvoiceDetail;
@@ -40,22 +27,6 @@ public class InvoiceDetail {
 
     public void setIdInvoiceDetail(Long idInvoiceDetail) {
         this.idInvoiceDetail = idInvoiceDetail;
-    }
-
-    public int getWarning() {
-        return warning;
-    }
-
-    public void setWarning(int warning) {
-        this.warning = warning;
-    }
-
-    public String getWarningDate() {
-        return warningDate;
-    }
-
-    public void setWarningDate(String warningDate) {
-        this.warningDate = warningDate;
     }
 
     public Invoice getInvoice() {

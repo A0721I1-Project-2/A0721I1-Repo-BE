@@ -55,6 +55,10 @@ public class Product {
     @JsonBackReference(value = "product_invoiceDetail")
     private List<InvoiceDetail> invoiceDetailList;
 
+    @ManyToOne(targetEntity = Cart.class)
+    @JoinColumn(name = "id_cart", nullable = false)
+    private Cart cart;
+
     @ManyToMany
     @JoinTable(
             name = "product_member",
