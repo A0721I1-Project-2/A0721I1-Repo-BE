@@ -42,6 +42,10 @@ public class Payment {
     @JoinColumn(name = "id_transport", nullable = false)
     private Transport transport;
 
+    @ManyToOne(targetEntity = Cart.class)
+    @JoinColumn(name = "id_cart", nullable = false)
+    private Cart cart;
+
     @OneToMany(mappedBy = "payment")
     @JsonBackReference(value = "payment_invoice")
     private List<Invoice> invoiceList;
