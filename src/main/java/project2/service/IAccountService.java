@@ -18,4 +18,6 @@ public interface IAccountService{
 
     void delele(Account account);
 
+    /* Get account by username */
+    Optional<Account> getAccountByUsername(String username);
 }
