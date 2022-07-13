@@ -18,4 +18,10 @@ public interface IMemberService {
     void deleteById(Long id);
 
     void delele(Member member);
+
+    //SonLT View-Member
+    Member findMemberByIdAccount(Long id);
+
+    //SonLT Edit-Member
+    void editMember(Member member);
 }

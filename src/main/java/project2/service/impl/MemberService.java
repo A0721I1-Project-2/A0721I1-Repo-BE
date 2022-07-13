@@ -43,4 +43,18 @@ public class MemberService implements IMemberService {
     public void delele(Member member) {
 
     }
+
+    //SonLT View-Member
+    @Override
+    public Member findMemberByIdAccount(Long id) {
+            return iMemberRepository.findMemberByAccount_IdAccount(id);
+    }
+
+    //SonLT Edit-Member
+    @Override
+    public void editMember(Member member) {
+        iMemberRepository.save(member);
+    }
+
+
 }

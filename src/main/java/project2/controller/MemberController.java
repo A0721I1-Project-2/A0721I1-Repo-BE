@@ -16,6 +16,7 @@ import project2.service.IAccountService;
 import project2.service.IMemberService;
 import project2.service.IRankService;
 import project2.service.IRoleService;
+import project2.service.impl.MemberService;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -100,4 +101,24 @@ public class MemberController {
 
         }
     }
+
+    //SonLT View-Member
+    @GetMapping("/profile/{idAccount}")
+    public ResponseEntity<Member> findMember(@PathVariable Long idAccount){
+        Member member = iMemberService.findMemberByIdAccount(idAccount);
+        if (member == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }
+    }
+
+    //SonLT Edit-Member
+    @PutMapping("/profile/edit")
+    public ResponseEntity<Member> updateMember(@RequestBody Member member){
+        iMemberService.editMember(member);
+        return new ResponseEntity<Member>(member, HttpStatus.OK);
+    }
+
+
 }

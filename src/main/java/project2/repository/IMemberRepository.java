@@ -6,4 +6,7 @@ import project2.model.Member;
 
 @Repository
 public interface IMemberRepository extends JpaRepository<Member, Long> {
+
+    //SonLT View-Member
+    Member findMemberByAccount_IdAccount(Long id);
 }
