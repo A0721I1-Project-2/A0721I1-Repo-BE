@@ -10,9 +10,11 @@ public interface IRoleService {
 
     Iterable<Role> saveAll(Iterable<Role> roles);
 
-    Optional<Role> findById(Long id);
+    Role findById(Long id);
 
     List<Role> findAll();
+
+    Optional<Role> findByName(String nameRole);
 
     void deleteById(Long id);
 
