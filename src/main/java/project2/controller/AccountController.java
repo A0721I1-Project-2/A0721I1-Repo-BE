@@ -12,7 +12,6 @@ import project2.service.IAccountService;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/account")
