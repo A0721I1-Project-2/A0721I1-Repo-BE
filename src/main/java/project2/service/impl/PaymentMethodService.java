@@ -1,5 +1,6 @@
 package project2.service.impl;
 
+
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
@@ -9,7 +10,6 @@ import project2.model.OrderProduct;
 import project2.model.PaymentMethod;
 import project2.repository.IPaymentMethodRepository;
 import project2.service.IPaymentMethodService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -142,4 +142,5 @@ public class PaymentMethodService implements IPaymentMethodService {
         payer.setPayerInfo(payerInfo);
         return payer;
     }
+
 }
