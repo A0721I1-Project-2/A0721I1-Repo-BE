@@ -6,4 +6,7 @@ import project2.model.Account;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, Long> {
+    Account findAccountByUsername(String username);
+
+    Account getAccountByUsername(String username);
 }
