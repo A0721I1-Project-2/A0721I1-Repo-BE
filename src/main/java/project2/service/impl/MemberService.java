@@ -11,14 +11,12 @@ import java.util.Optional;
 
 @Service
 public class MemberService implements IMemberService {
-
-    //Detail Account SonLT
     @Autowired
-    IMemberRepository iMemberRepository;
+    private IMemberRepository iMemberRepository;
 
     @Override
     public Member save(Member member) {
-        return null;
+        return iMemberRepository.save(member);
     }
 
     @Override
@@ -33,7 +31,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public List<Member> findAll() {
-        return iMemberRepository.findAll();
+        return null;
     }
 
     @Override
@@ -45,4 +43,18 @@ public class MemberService implements IMemberService {
     public void delele(Member member) {
 
     }
+
+    //SonLT View-Member
+    @Override
+    public Member findMemberByIdAccount(Long id) {
+            return iMemberRepository.findMemberByAccount_IdAccount(id);
+    }
+
+    //SonLT Edit-Member
+    @Override
+    public void editMember(Member member) {
+        iMemberRepository.save(member);
+    }
+
+
 }
