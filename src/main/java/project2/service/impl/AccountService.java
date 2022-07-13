@@ -1,7 +1,9 @@
 package project2.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project2.model.Account;
+import project2.repository.IAccountRepository;
 import project2.service.IAccountService;
 
 import java.util.List;
@@ -9,9 +11,11 @@ import java.util.Optional;
 
 @Service
 public class AccountService implements IAccountService {
+    @Autowired
+    private IAccountRepository iAccountRepository;
     @Override
     public Account save(Account account) {
-        return null;
+        return iAccountRepository.save(account);
     }
 
     @Override
@@ -21,12 +25,12 @@ public class AccountService implements IAccountService {
 
     @Override
     public Optional<Account> findById(Long id) {
-        return Optional.empty();
+        return iAccountRepository.findById(id);
     }
 
     @Override
     public List<Account> findAll() {
-        return null;
+        return iAccountRepository.findAll();
     }
 
     @Override
