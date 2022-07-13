@@ -18,6 +18,9 @@ public interface IAccountService{
 
     void delele(Account account);
 
+    /* Get accounts by role name -TuanNHA */
+    List<Account> getAccountsByRoleName(String roleName);
+
     /* Get account by username */
     Optional<Account> getAccountByUsername(String username);
 }

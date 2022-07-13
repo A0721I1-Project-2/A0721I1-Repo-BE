@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project2.model.Account;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -12,4 +13,14 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
     /* Get account by username */
     @Query(value = "select * from account where `account`.username = ?1" , nativeQuery = true)
     Optional<Account> getAccountByUsername(String username);
+
+    /* Get accounts by role name -TuanNHA */
+    @Query(value = "select * from `account` \n" +
+            "inner join `account_role`\n" +
+            "on `account_role`.id_account = `account_role`.id_account\n" +
+            "inner join `role`\n" +
+            "on `role`.id_role = `account_role`.id_role\n" +
+            "where `role`.name_role = ?1 \n" +
+            "group by `account`.id_account" , nativeQuery=true)
+    List<Account> getAccountsByRole(String nameRole);
 }

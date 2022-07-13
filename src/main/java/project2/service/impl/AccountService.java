@@ -43,7 +43,13 @@ public class AccountService implements IAccountService {
 
     }
 
-    /* Get account by username */
+    /* Get accounts by role name -TuanNHA */
+    @Override
+    public List<Account> getAccountsByRoleName(String roleName) {
+        return this.accountRepository.getAccountsByRole(roleName);
+    }
+
+    /* Get account by username -TuanNHA*/
     @Override
     public Optional<Account> getAccountByUsername(String username) {
         return this.accountRepository.getAccountByUsername(username);
