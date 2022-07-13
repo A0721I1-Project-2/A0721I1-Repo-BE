@@ -12,26 +12,38 @@ import java.util.List;
 public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
+
+    //VinhTQ
+    @Override
+    public Product findProductById(long id) {
+        return productRepository.findproductById(id);
+    }
+
     //HauLST
     @Override
     public List<Product> getAllProductAuntion() {
         return productRepository.findAllProductAuction();
     }
+
     //HauLST
     @Override
     public List<Product> getAllProductFinishedAuntion() {
         return productRepository.findAllProductFinishedAuction();
     }
+
     //HauLST
     @Override
     public List<Product> gettAllProductAuntionAndTypeProduct(String nameTypeProduct) {
         return productRepository.gettAllProductAuntionAndTypeProduct(nameTypeProduct);
     }
+
     //HauLST
     @Override
-    public List<Product> searchProductByNameByTypeProductByPrice(String nameProduct, String nameTypeProduct, Double min, Double max) {
+    public List<Product> searchProductByNameByTypeProductByPrice(String nameProduct, String nameTypeProduct, Double
+            min, Double max) {
         return productRepository.searchProductByNameByTypeProductByPrice(nameProduct, nameTypeProduct, min, max);
     }
+
     //HauLST
     @Override
     public List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min) {

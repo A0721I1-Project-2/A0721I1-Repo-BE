@@ -1,10 +1,10 @@
 package project2.service;
-
+import java.util.List;
 import project2.model.Product;
 
-import java.util.List;
-
 public interface IProductService {
+    //VinhTQ
+    Product findProductById(long id);
     //HauLST
     List<Product> getAllProductAuntion();
     //HauLST

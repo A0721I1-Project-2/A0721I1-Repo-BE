@@ -20,6 +20,13 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'org.springframework.security:spring-security-test'
+    //VinhTQ
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
+    implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.7.1'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
+    // https://mvnrepository.com/artifact/org.springframework/spring-context-support
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.12'
 }
 
 tasks.named('test') {

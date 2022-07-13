@@ -9,6 +9,12 @@ import java.util.List;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
+    //VinhTQ
+    @Query(value = "select * from product " +
+            "join product_member on product_member.id_product = product.id_product " +
+            "join member on member.id_member = product_member.id_member " +
+            "where product.id_product =?1", nativeQuery = true)
+    Product findproductById(long id);
 
     //HauLST - List sp đang đấu giá, và sắp xếp theo thời gian còn lại từ ít nhất -> nhiều nhất
     @Query(value = "select * from Product inner join TypeProduct on Product.id_product_type = TypeProduct.id_product_type \n" +
