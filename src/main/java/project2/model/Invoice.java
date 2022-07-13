@@ -19,8 +19,8 @@ public class Invoice {
     @Column(name = "date_created")
     private LocalDate dateCreated;
 
-    @Column(name = "id_status_invoice")
-    private Long idStatusInvoice;
+    @Column(name = "status_invoice")
+    private Boolean statusInvoice;
 
     @Column(name = "flag_delete")
     private Boolean flagDelete;
@@ -40,11 +40,11 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(Long idInvoice, Double totalPrice, LocalDate dateCreated, Long idStatusInvoice, Boolean flagDelete, Member member, List<InvoiceDetail> invoiceDetailList, Payment payment) {
+    public Invoice(Long idInvoice, Double totalPrice, LocalDate dateCreated, Boolean idStatusInvoice, Boolean flagDelete, Member member, List<InvoiceDetail> invoiceDetailList, Payment payment) {
         this.idInvoice = idInvoice;
         this.totalPrice = totalPrice;
         this.dateCreated = dateCreated;
-        this.idStatusInvoice = idStatusInvoice;
+        this.statusInvoice = idStatusInvoice;
         this.flagDelete = flagDelete;
         this.member = member;
         this.invoiceDetailList = invoiceDetailList;
@@ -75,12 +75,12 @@ public class Invoice {
         this.dateCreated = dateCreated;
     }
 
-    public Long getIdStatusInvoice() {
-        return idStatusInvoice;
+    public Boolean getIdStatusInvoice() {
+        return statusInvoice;
     }
 
-    public void setIdStatusInvoice(Long idStatusInvoice) {
-        this.idStatusInvoice = idStatusInvoice;
+    public void setIdStatusInvoice(Boolean idStatusInvoice) {
+        this.statusInvoice = idStatusInvoice;
     }
 
     public Boolean getFlagDelete() {
