@@ -17,5 +17,10 @@ public interface IAccountService{
     void deleteById(Long id);
 
     void delele(Account account);
+    //VinhTQ forgot password
+    void saveForgotPassword(Account account,String password);
+    void updateToken(Account account);
+    Account findAccountByToken(String token);
+    Account findAccountByEmailAndUsername(String email,String username);
 
 }
