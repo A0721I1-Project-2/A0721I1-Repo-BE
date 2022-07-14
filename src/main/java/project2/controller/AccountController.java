@@ -43,10 +43,10 @@ public class AccountController {
     /* Get account by username -TuanNHA */
     @RequestMapping(value = "/username&{username}" , method = RequestMethod.GET)
     public ResponseEntity<Account> getAccountByUsername(@PathVariable("username") String username) {
-        Optional<Account> account = accountService.getAccountByUsername(username);
+        Account account = accountService.getAccountByUsername(username);
 
-        if(account.isPresent()) {
-            return new ResponseEntity<>(account.get() , HttpStatus.OK);
+        if(account != null) {
+            return new ResponseEntity<>(account , HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
