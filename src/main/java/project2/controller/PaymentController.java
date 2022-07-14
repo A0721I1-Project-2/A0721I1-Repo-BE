@@ -1,6 +1,5 @@
 package project2.controller;
 
-
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
@@ -10,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project2.dto.PaymentDTO;
+import project2.model.*;
+import project2.service.*;
 import project2.model.PaymentMethod;
 import project2.model.Product;
 import project2.model.Transport;
@@ -17,8 +18,6 @@ import project2.service.IProductService;
 import project2.service.impl.PaymentMethodService;
 import project2.service.impl.PaymentService;
 import project2.service.impl.TransportService;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -38,6 +37,12 @@ public class PaymentController {
 
     @Autowired
     private TransportService transportService;
+
+    @Autowired
+    private IMemberService memberService;
+
+    @Autowired
+    private ICartService cartService;
 
 //    Get list paymen method
     @RequestMapping(value = "/payment-method", method = RequestMethod.GET)
@@ -109,7 +114,6 @@ public class PaymentController {
         return "redirect:/";
     }
 
-
     //QuangNV write method get product in cart
     @GetMapping("/getProduct/{idMember}")
     public ResponseEntity<List<Product>> getProductCart(@PathVariable Integer idMember){
@@ -126,13 +130,14 @@ public class PaymentController {
     @PostMapping("/savePayment")
     public ResponseEntity<project2.model.Payment> createPayment(@Valid @RequestBody PaymentDTO paymentDTO, BindingResult bindingResult){
         if (bindingResult.hasFieldErrors()){
+            System.out.println("ss");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         else {
             project2.model.Payment payment = new project2.model.Payment();
             payment.setIdPayment(paymentDTO.getIdPayment());
-            payment.setFullNameReceiver(paymentDTO.getFullNameReceiver());
-            payment.setAddressReceiver(paymentDTO.getAddressReceiver());
+            payment.setFullNameReceiver(paymentDTO.getFirstNameReceiver() + " " + paymentDTO.getLastNameReceiver());
+            payment.setAddressReceiver(paymentDTO.getAddressReceiver() + ", " +paymentDTO.getWard() + ", " +paymentDTO.getDistrict() + ", " +paymentDTO.getCity());
             payment.setPhoneReceiver(paymentDTO.getPhoneReceiver());
             payment.setEmailReceiver(paymentDTO.getEmailReceiver());
             payment.setFeeService(paymentDTO.getFeeService());
@@ -156,26 +161,29 @@ public class PaymentController {
             return new ResponseEntity<>(paymentList, HttpStatus.OK);
         }
     }
-//
-//    //QuangNV write method get all paymentMethod
-//    @GetMapping("/getPaymentMethod")
-//    public ResponseEntity<List<PaymentMethod>> getAllPaymentMethod(){
-//        List<PaymentMethod> paymentMethodList = paymentMethodService.getAllPaymentMethod();
-//        if (paymentMethodList.isEmpty()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        else return new ResponseEntity<>(paymentMethodList, HttpStatus.OK);
-//    }
-//
-//    //QuangNV write method get all transport
-//    @GetMapping("/getTransport")
-//    public ResponseEntity<List<Transport>> getAllTransport(){
-//        List<Transport> transportList = transportService.getAllTransport();
-//        if (transportList.isEmpty()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        else {
-//            return new ResponseEntity<>(transportList, HttpStatus.OK);
-//        }
-//    }
+
+    //QuangNV write method get all member
+    @GetMapping("/getMember/{id_member}")
+    public ResponseEntity<Member> getMemberById(@PathVariable String id_member){
+        Member member = memberService.findById(id_member);
+        if (member ==  null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }
+    }
+
+    //QuangNV write method get Cart by ID member
+    @GetMapping("/getCart/{id_member}")
+    public ResponseEntity<Cart> getCart(@PathVariable String id_member){
+        Long id_member1 = Long.parseLong(id_member);
+        Cart cart = cartService.findByIdMember(id_member1);
+        if (cart == null){
+            return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<>(cart, HttpStatus.OK);
+        }
+    }
 }
