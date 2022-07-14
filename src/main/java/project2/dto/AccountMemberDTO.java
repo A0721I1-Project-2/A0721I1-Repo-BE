@@ -6,7 +6,7 @@ import project2.model.Rank;
 import javax.validation.constraints.NotEmpty;
 
 public class AccountMemberDTO {
-    private Account account;
+
     private String emailMember;
     private String addressMember;
     private String phoneMember;
@@ -15,9 +15,9 @@ public class AccountMemberDTO {
     private Boolean flagDelete;
     private String dateOfBirthMember;
     private String nameMember;
+    private Account account;
 
-
-/*  @NotEmpty(message = "Confirm password not empty")
+    /*  @NotEmpty(message = "Confirm password not empty")
     private String confirmPassword;*/
 
     public AccountMemberDTO() {
