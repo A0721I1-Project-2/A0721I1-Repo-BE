@@ -10,4 +10,9 @@ public class CartService implements ICartService {
     @Autowired
     private ICartRepository iCartRepository;
 
+    //QuangNV
+    @Override
+    public Cart findByIdMember(Long id_member) {
+        return iCartRepository.getByIdMember(id_member);
+    }
 }
