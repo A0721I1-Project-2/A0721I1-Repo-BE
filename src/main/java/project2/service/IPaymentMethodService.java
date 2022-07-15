@@ -15,9 +15,7 @@ public interface IPaymentMethodService {
 
     Optional<PaymentMethod> getPaymentMethodById(Long id);
 
-    String authorizePayment() throws PayPalRESTException;
 
-    Payer getPayerInformation();
 
 
 }
