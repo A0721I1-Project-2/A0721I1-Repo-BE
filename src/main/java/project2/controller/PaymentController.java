@@ -146,7 +146,26 @@ public class PaymentController {
             payment.setMember(paymentDTO.getMember());
             payment.setTransport(paymentDTO.getTransport());
             payment.setCart(paymentDTO.getCart());
-            return new ResponseEntity<>(paymentService.save(payment), HttpStatus.OK);
+
+            // Check total and set flag Delete Product
+            List<Product> productList = paymentDTO.getProduct();
+            Double total = 0.0;
+            for (Integer i = 0 ; i< productList.size() ; i++){
+                productList.get(i).setFlagDelete(true);
+                productList.get(i).setCart(payment.getCart());
+                total = total + productList.get(i).getFinalPrice();
+            }
+            total += new Double(productList.size()*1);
+
+            // Check total fe success and save
+            if (total.intValue() == paymentDTO.getTotal().intValue()){
+                iProductService.saveListProduct(productList);
+                project2.model.Payment payment1 = paymentService.save(payment);
+                return new ResponseEntity<>(payment1, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
     }
 

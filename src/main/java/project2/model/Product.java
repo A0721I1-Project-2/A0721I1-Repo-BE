@@ -107,6 +107,14 @@ public class Product {
         this.codeProduct = codeProduct;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     public String getNameProduct() {
         return nameProduct;
     }
