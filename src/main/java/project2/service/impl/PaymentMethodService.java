@@ -6,8 +6,10 @@ import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project2.dto.PaymentDTO;
 import project2.model.OrderProduct;
 import project2.model.PaymentMethod;
+import project2.model.Product;
 import project2.repository.IPaymentMethodRepository;
 import project2.service.IPaymentMethodService;
 import java.util.ArrayList;
@@ -40,16 +42,17 @@ public class PaymentMethodService implements IPaymentMethodService {
     }
 
     //I : SEND TO PAYPAL ABOUT PAYER, TRANSACTION; O : RESPONSE URL FROM CHECKOUT
-    @Override
-    public String authorizePayment() throws PayPalRESTException {
-        Payer payer = getPayerInformation();
-        String product = "test1";
-        String subtotal = "10";
-        String shipping = "2";
-        String tax = "2";
-        String total = "14";
-        OrderProduct orderProduct = new OrderProduct(product,subtotal,shipping,tax,total);
-        List<Transaction> transactionList = getTransactionInformation(orderProduct);
+
+    public String authorizePayment(PaymentDTO paymentDTO) throws PayPalRESTException {
+
+        Payer payer = getPayerInformation(paymentDTO);
+//        String product = "test1";
+//        String subtotal = "10";
+//        String shipping = "2";
+//        String tax = "2";
+//        String total = "14";
+//        OrderProduct orderProduct = new OrderProduct(product,subtotal,shipping,tax,total);
+        List<Transaction> transactionList = getTransactionInformation(paymentDTO);
         RedirectUrls redirectUrls = getRedirectURLs();
         Payment requestPayment = new Payment();
         requestPayment.setTransactions(transactionList)
@@ -74,35 +77,43 @@ public class PaymentMethodService implements IPaymentMethodService {
         return approvalLink;
     }
 
-    public List<Transaction> getTransactionInformation(OrderProduct orderProduct){
+    public List<Transaction> getTransactionInformation(project2.dto.PaymentDTO paymentDTO){
         Details details = new Details();
+        List<Product> products = new ArrayList<>();
 
-        details.setShipping(orderProduct.getShipping());
+        for(Product product : paymentDTO.getCart().getProductList()){
+            products.add(product);
+        }
+
+
+        details.setShipping("0");
 //        details.setFee(String.format("%.2f", Float.parseFloat("2")));
-        details.setSubtotal(orderProduct.getSubtotal());
-        details.setTax(orderProduct.getTax());
-
+        details.setSubtotal(String.format("%.2f",products.get(1).getFinalPrice()));
+        details.setTax(String.format("%.2f", "1"));
 
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        amount.setTotal(orderProduct.getTotal());
+        amount.setTotal(String.format("%.2f",paymentDTO.getTotal()));
         amount.setDetails(details);
+
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription(orderProduct.getProductName());
+        transaction.setDescription(products.get(1).getNameProduct());
 
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<Item>();
 
-        Item item = new Item();
-        item.setCurrency("USD")
-                .setName(orderProduct.getProductName())
-                .setPrice(orderProduct.getSubtotal())
-                .setTax(orderProduct.getTax())
-                .setQuantity("1");
 
-        items.add(item);
+        Item item = new Item();
+        for(Product product : products){
+            item.setCurrency("USD")
+                    .setName(product.getNameProduct())
+                    .setPrice(String.format("%.2f", product.getFinalPrice()))
+                    .setTax(String.format("%.2f", "1"))
+                    .setQuantity("1");
+            items.add(item);
+        }
         itemList.setItems(items);
         transaction.setItemList(itemList);
 
@@ -130,15 +141,14 @@ public class PaymentMethodService implements IPaymentMethodService {
         return payment.execute(apiContext, paymentExecute);
     }
 
-    @Override
-    public Payer getPayerInformation() {
+    public Payer getPayerInformation(project2.dto.PaymentDTO paymentDTO) {
         Payer payer = new Payer();
-        payer.setPaymentMethod("paypal");
+        payer.setPaymentMethod(paymentDTO.getPaymentMethod().getNamePaymentMethod());
 
         PayerInfo payerInfo = new PayerInfo();
-        payerInfo.setFirstName("Kelvin")
-                .setLastName("Nguyen")
-                .setEmail("quang10a30504@gmail.com");
+        payerInfo.setFirstName(paymentDTO.getFirstNameReceiver())
+                .setLastName(paymentDTO.getLastNameReceiver())
+                .setEmail(paymentDTO.getEmailReceiver());
         payer.setPayerInfo(payerInfo);
         return payer;
     }

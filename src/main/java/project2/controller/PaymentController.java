@@ -1,7 +1,6 @@
 package project2.controller;
 
 
-import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import project2.service.impl.PaymentMethodService;
 import project2.service.impl.PaymentService;
 import project2.service.impl.TransportService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -58,14 +56,14 @@ public class PaymentController {
         return new ResponseEntity<>(transports, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/payer", method = RequestMethod.GET)
-    public ResponseEntity<Payer> getPayer() {
-        Payer payer = paymentMethodService.getPayerInformation();
-        if (payer == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(payer, HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/payer", method = RequestMethod.GET)
+//    public ResponseEntity<Payer> getPayer() {
+//        Payer payer = paymentMethodService.getPayerInformation();
+//        if (payer == null) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(payer, HttpStatus.OK);
+//    }
 
 //    @RequestMapping(value = "/transaction", method = RequestMethod.GET)
 //    public ResponseEntity<List<Transaction>> getTransaction() {
@@ -83,8 +81,9 @@ public class PaymentController {
 //    }
 
     @RequestMapping(value = "/authorize_payment", method = RequestMethod.POST)
-    public ResponseEntity<String> authorizePayment() throws PayPalRESTException {
-        String approvalLink = paymentMethodService.authorizePayment();
+    public ResponseEntity<String> authorizePayment(@ModelAttribute project2.dto.PaymentDTO paymentDTO) throws PayPalRESTException {
+        paymentMethodService.getPayerInformation(paymentDTO);
+        String approvalLink = paymentMethodService.authorizePayment(paymentDTO);
         if (approvalLink == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -131,7 +130,7 @@ public class PaymentController {
         else {
             project2.model.Payment payment = new project2.model.Payment();
             payment.setIdPayment(paymentDTO.getIdPayment());
-            payment.setFullNameReceiver(paymentDTO.getFullNameReceiver());
+            payment.setFullNameReceiver(paymentDTO.getFirstNameReceiver() + paymentDTO.getLastNameReceiver());
             payment.setAddressReceiver(paymentDTO.getAddressReceiver());
             payment.setPhoneReceiver(paymentDTO.getPhoneReceiver());
             payment.setEmailReceiver(paymentDTO.getEmailReceiver());
