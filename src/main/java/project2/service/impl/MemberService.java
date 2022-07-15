@@ -1,6 +1,8 @@
 package project2.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import project2.model.Member;
 import project2.repository.IMemberRepository;
@@ -11,8 +13,10 @@ import java.util.Optional;
 
 @Service
 public class MemberService implements IMemberService {
+
     @Autowired
     private IMemberRepository iMemberRepository;
+
 
     @Override
     public Member save(Member member) {
@@ -25,13 +29,23 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public Optional<Member> findById(Long id) {
-        return Optional.empty();
+    public Member findById(Long id) {
+        return iMemberRepository.findById(id).orElse(null);
     }
 
     @Override
-    public List<Member> findAll() {
-        return null;
+    public Page<Member> findAll(Pageable pageable) {
+        return iMemberRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Member> findAllList() {
+        return iMemberRepository.findAll();
+    }
+
+    @Override
+    public Page<Member> searchMember(String name, String email, String address, String phoneNumber, String nameRank, Pageable pageable) {
+        return iMemberRepository.searchAllMember(name, email, address, phoneNumber, nameRank, pageable);
     }
 
     @Override

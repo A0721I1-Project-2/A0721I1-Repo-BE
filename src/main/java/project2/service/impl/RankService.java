@@ -9,10 +9,23 @@ import project2.service.IRankService;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class RankService implements IRankService {
+
     @Autowired
     private IRankRepository iRankRepository;
+
+    @Override
+    public List<Rank> findAllRank() {
+        return iRankRepository.findAll();
+    }
+
+    @Override
+    public Rank findById(Long id) {
+        return iRankRepository.findById(id).orElse(null);
+    }
+
 
     @Override
     public List<Rank> findAll() {
