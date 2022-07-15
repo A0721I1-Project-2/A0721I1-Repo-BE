@@ -11,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface IMemberRepository extends JpaRepository<Member, Long> {
+
     Page<Member> findAll(Pageable pageable);
 
 
@@ -31,4 +32,8 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
                     "and (`member`.phone_member like concat('%' ,?4,'%') or ?4 is null ) " +
                     "and (`rank`.name_rank like concat('%' ,?5,'%') or ?5 is null )" , nativeQuery = true)
     Page<Member> searchAllMember(String name, String email, String address, String phoneNumber, String nameRank, Pageable pageable);
+
+    //SonLT View-Member
+    Member findMemberByAccount_IdAccount(Long id);
+
 }

@@ -15,11 +15,12 @@ import java.util.Optional;
 public class MemberService implements IMemberService {
 
     @Autowired
-    private IMemberRepository memberRepository;
+    private IMemberRepository iMemberRepository;
+
 
     @Override
     public Member save(Member member) {
-        return null;
+        return iMemberRepository.save(member);
     }
 
     @Override
@@ -29,22 +30,22 @@ public class MemberService implements IMemberService {
 
     @Override
     public Member findById(Long id) {
-        return memberRepository.findById(id).orElse(null);
+        return iMemberRepository.findById(id).orElse(null);
     }
 
     @Override
     public Page<Member> findAll(Pageable pageable) {
-        return memberRepository.findAll(pageable);
+        return iMemberRepository.findAll(pageable);
     }
 
     @Override
     public List<Member> findAllList() {
-        return memberRepository.findAll();
+        return iMemberRepository.findAll();
     }
 
     @Override
     public Page<Member> searchMember(String name, String email, String address, String phoneNumber, String nameRank, Pageable pageable) {
-        return memberRepository.searchAllMember(name, email, address, phoneNumber, nameRank, pageable);
+        return iMemberRepository.searchAllMember(name, email, address, phoneNumber, nameRank, pageable);
     }
 
     @Override
@@ -56,4 +57,18 @@ public class MemberService implements IMemberService {
     public void delele(Member member) {
 
     }
+
+    //SonLT View-Member
+    @Override
+    public Member findMemberByIdAccount(Long id) {
+            return iMemberRepository.findMemberByAccount_IdAccount(id);
+    }
+
+    //SonLT Edit-Member
+    @Override
+    public void editMember(Member member) {
+        iMemberRepository.save(member);
+    }
+
+
 }

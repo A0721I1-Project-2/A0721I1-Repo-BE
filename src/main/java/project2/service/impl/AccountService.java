@@ -12,11 +12,12 @@ import java.util.Optional;
 @Service
 public class AccountService implements IAccountService {
     @Autowired
-    private IAccountRepository accountRepository;
+
+    private IAccountRepository iAccountRepository;
 
     @Override
     public Account save(Account account) {
-        return null;
+        return iAccountRepository.save(account);
     }
 
     @Override
@@ -26,12 +27,12 @@ public class AccountService implements IAccountService {
 
     @Override
     public Optional<Account> findById(Long id) {
-        return Optional.empty();
+        return iAccountRepository.findById(id);
     }
 
     @Override
     public List<Account> findAll() {
-        return accountRepository.findAll();
+        return iAccountRepository.findAll();
     }
 
     @Override
