@@ -44,7 +44,7 @@ public class PaymentController {
     @Autowired
     private ICartService cartService;
 
-//    Get list paymen method
+//    Get list payment method
     @RequestMapping(value = "/payment-method", method = RequestMethod.GET)
     public ResponseEntity<List<PaymentMethod>> getPaymentMethods() {
         List<PaymentMethod> paymentMethods = paymentMethodService.getAllPaymentMethod();
@@ -89,6 +89,7 @@ public class PaymentController {
 
     @RequestMapping(value = "/authorize_payment", method = RequestMethod.POST)
     public ResponseEntity<String> authorizePayment() throws PayPalRESTException {
+//        System.out.println(paymentDTO.getMember().getNameMember());
         String approvalLink = paymentMethodService.authorizePayment();
         if (approvalLink == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
