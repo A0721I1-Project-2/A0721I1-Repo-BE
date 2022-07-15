@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project2.dto.PaymentDTO;
+import project2.model.*;
+import project2.service.*;
 import project2.model.PaymentMethod;
 import project2.model.Product;
 import project2.model.Transport;
@@ -36,6 +38,12 @@ public class PaymentController {
 
     @Autowired
     private TransportService transportService;
+
+    @Autowired
+    private IMemberService memberService;
+
+    @Autowired
+    private ICartService cartService;
 
 //    Get list paymen method
     @RequestMapping(value = "/payment-method", method = RequestMethod.GET)
@@ -81,7 +89,9 @@ public class PaymentController {
 //    }
 
     @RequestMapping(value = "/authorize_payment", method = RequestMethod.POST)
-    public ResponseEntity<String> authorizePayment(@ModelAttribute project2.dto.PaymentDTO paymentDTO) throws PayPalRESTException {
+    public ResponseEntity<String> authorizePayment(@RequestBody project2.dto.PaymentDTO paymentDTO) throws PayPalRESTException {
+
+        System.out.println(paymentDTO.getMember().getNameMember());
         paymentMethodService.getPayerInformation(paymentDTO);
         String approvalLink = paymentMethodService.authorizePayment(paymentDTO);
         if (approvalLink == null) {
@@ -108,7 +118,6 @@ public class PaymentController {
         return "redirect:/";
     }
 
-
     //QuangNV write method get product in cart
     @GetMapping("/getProduct/{idMember}")
     public ResponseEntity<List<Product>> getProductCart(@PathVariable Integer idMember){
@@ -125,13 +134,14 @@ public class PaymentController {
     @PostMapping("/savePayment")
     public ResponseEntity<project2.model.Payment> createPayment(@Valid @RequestBody PaymentDTO paymentDTO, BindingResult bindingResult){
         if (bindingResult.hasFieldErrors()){
+            System.out.println("ss");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         else {
             project2.model.Payment payment = new project2.model.Payment();
             payment.setIdPayment(paymentDTO.getIdPayment());
-            payment.setFullNameReceiver(paymentDTO.getFirstNameReceiver() + paymentDTO.getLastNameReceiver());
-            payment.setAddressReceiver(paymentDTO.getAddressReceiver());
+            payment.setFullNameReceiver(paymentDTO.getFirstNameReceiver() + " " + paymentDTO.getLastNameReceiver());
+            payment.setAddressReceiver(paymentDTO.getAddressReceiver() + ", " +paymentDTO.getWard() + ", " +paymentDTO.getDistrict() + ", " +paymentDTO.getCity());
             payment.setPhoneReceiver(paymentDTO.getPhoneReceiver());
             payment.setEmailReceiver(paymentDTO.getEmailReceiver());
             payment.setFeeService(paymentDTO.getFeeService());
@@ -140,7 +150,26 @@ public class PaymentController {
             payment.setMember(paymentDTO.getMember());
             payment.setTransport(paymentDTO.getTransport());
             payment.setCart(paymentDTO.getCart());
-            return new ResponseEntity<>(paymentService.save(payment), HttpStatus.OK);
+
+            // Check total and set flag Delete Product
+            List<Product> productList = paymentDTO.getProduct();
+            Double total = 0.0;
+            for (Integer i = 0 ; i< productList.size() ; i++){
+                productList.get(i).setFlagDelete(true);
+                productList.get(i).setCart(payment.getCart());
+                total = total + productList.get(i).getFinalPrice();
+            }
+            total += new Double(productList.size()*1);
+
+            // Check total fe success and save
+            if (total.intValue() == paymentDTO.getTotal().intValue()){
+                iProductService.saveListProduct(productList);
+                project2.model.Payment payment1 = paymentService.save(payment);
+                return new ResponseEntity<>(payment1, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
         }
     }
 
@@ -155,26 +184,29 @@ public class PaymentController {
             return new ResponseEntity<>(paymentList, HttpStatus.OK);
         }
     }
-//
-//    //QuangNV write method get all paymentMethod
-//    @GetMapping("/getPaymentMethod")
-//    public ResponseEntity<List<PaymentMethod>> getAllPaymentMethod(){
-//        List<PaymentMethod> paymentMethodList = paymentMethodService.getAllPaymentMethod();
-//        if (paymentMethodList.isEmpty()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        else return new ResponseEntity<>(paymentMethodList, HttpStatus.OK);
-//    }
-//
-//    //QuangNV write method get all transport
-//    @GetMapping("/getTransport")
-//    public ResponseEntity<List<Transport>> getAllTransport(){
-//        List<Transport> transportList = transportService.getAllTransport();
-//        if (transportList.isEmpty()){
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        else {
-//            return new ResponseEntity<>(transportList, HttpStatus.OK);
-//        }
-//    }
+
+    //QuangNV write method get all member
+    @GetMapping("/getMember/{id_member}")
+    public ResponseEntity<Member> getMemberById(@PathVariable String id_member){
+        Member member = memberService.findById(id_member);
+        if (member ==  null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }
+    }
+
+    //QuangNV write method get Cart by ID member
+    @GetMapping("/getCart/{id_member}")
+    public ResponseEntity<Cart> getCart(@PathVariable String id_member){
+        Long id_member1 = Long.parseLong(id_member);
+        Cart cart = cartService.findByIdMember(id_member1);
+        if (cart == null){
+            return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else {
+            return new ResponseEntity<>(cart, HttpStatus.OK);
+        }
+    }
 }

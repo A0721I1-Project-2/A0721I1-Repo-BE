@@ -24,8 +24,8 @@ public class PaymentMethodService implements IPaymentMethodService {
     private static final String MODE = "sandbox";
 
     //RESPONSE URL CANCEL & SUCCESS AFTER BUYER PAYMENT
-    private static final String URL_CANCEL = "http://localhost:8080/payment/cancelUrl";
-    private static final String URL_SUCCSESS = "http://localhost:8080/payment/successUrl";
+    private static final String URL_CANCEL = "http://localhost:4200/";
+    private static final String URL_SUCCSESS = "http://localhost:4200/";
 
     @Autowired
     private IPaymentMethodRepository paymentMethodRepository;
@@ -46,12 +46,6 @@ public class PaymentMethodService implements IPaymentMethodService {
     public String authorizePayment(PaymentDTO paymentDTO) throws PayPalRESTException {
 
         Payer payer = getPayerInformation(paymentDTO);
-//        String product = "test1";
-//        String subtotal = "10";
-//        String shipping = "2";
-//        String tax = "2";
-//        String total = "14";
-//        OrderProduct orderProduct = new OrderProduct(product,subtotal,shipping,tax,total);
         List<Transaction> transactionList = getTransactionInformation(paymentDTO);
         RedirectUrls redirectUrls = getRedirectURLs();
         Payment requestPayment = new Payment();
@@ -78,18 +72,19 @@ public class PaymentMethodService implements IPaymentMethodService {
     }
 
     public List<Transaction> getTransactionInformation(project2.dto.PaymentDTO paymentDTO){
-        Details details = new Details();
         List<Product> products = new ArrayList<>();
-
-        for(Product product : paymentDTO.getCart().getProductList()){
+        Double subTotal = 0.0;
+        Double tax = 0.0 ;
+        for(Product product : paymentDTO.getProduct()){
             products.add(product);
+            subTotal += product.getFinalPrice();
+            tax = tax + 1;
         }
-
-
-        details.setShipping("0");
+        Details details = new Details();
+        details.setShipping(String.format("%.2f", Float.parseFloat("0")));
 //        details.setFee(String.format("%.2f", Float.parseFloat("2")));
-        details.setSubtotal(String.format("%.2f",products.get(1).getFinalPrice()));
-        details.setTax(String.format("%.2f", "1"));
+        details.setSubtotal(String.format("%.2f", subTotal));
+        details.setTax(String.format("%.2f", tax));
 
         Amount amount = new Amount();
         amount.setCurrency("USD");
@@ -106,11 +101,11 @@ public class PaymentMethodService implements IPaymentMethodService {
 
 
         Item item = new Item();
-        for(Product product : products){
+        for(int i = 0; i < products.size(); i++){
             item.setCurrency("USD")
-                    .setName(product.getNameProduct())
-                    .setPrice(String.format("%.2f", product.getFinalPrice()))
-                    .setTax(String.format("%.2f", "1"))
+                    .setName(products.get(i).getNameProduct())
+                    .setPrice(String.format("%.2f", products.get(i).getFinalPrice()))
+                    .setTax(String.format("%.2f", Float.parseFloat("1")))
                     .setQuantity("1");
             items.add(item);
         }

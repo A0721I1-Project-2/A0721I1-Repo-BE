@@ -21,4 +21,10 @@ public class ProductService implements IProductService {
     public List<Product> getProductInCart(int i) {
         return iProductRepository.getProductInCart(i);
     }
+
+    @Override
+    public void saveListProduct(List<Product> productList) {
+        iProductRepository.saveAll(productList);
+    }
+
 }
