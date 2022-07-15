@@ -96,20 +96,22 @@ public class MemberController {
         return new ResponseEntity<>(memberPageSearch, HttpStatus.OK);
     }
 
-    @PostMapping("/member/Block/")
-    public ResponseEntity<Member> blockMember(@RequestBody Long[] blockArray) {
+    @PostMapping("/member/Block")
+    public ResponseEntity<?> blockMember(@RequestBody Long[] blockArray) {
         for (Long id : blockArray) {
             Member member = memberService.findById(id);
             member.getAccount().setBlock(true);
+            iMemberService.save(member);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/member/unBlock/")
-    public ResponseEntity<Member> unBlockMember(@RequestBody Long[] unBlockArray) {
+    @PostMapping("/member/unBlock")
+    public ResponseEntity<?> unBlockMember(@RequestBody Long[] unBlockArray) {
         for (Long id : unBlockArray) {
             Member member = memberService.findById(id);
             member.getAccount().setBlock(false);
+            iMemberService.save(member);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
