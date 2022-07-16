@@ -31,12 +31,12 @@ public class Member {
     private String emailMember;
 
     @Column(name = "address_member")
-    @NotEmpty(message = "Address not empty")
+/*    @NotEmpty(message = "Address not empty")*/
     private String addressMember;
 
     @Column(name = "phone_member")
     @NotEmpty(message = "Phone not empty")
-    @Pattern(regexp = "^(84|0[3|5|7|8|9])+([0-9]{8})$", message = "Phone number must correct format")
+    @Pattern(regexp = "^(84|0[3|5|7|8|9])+([0-9]{9})$", message = "Phone number must correct format")
     private String phoneMember;
 
     @Column(name = "id_card_member")
