@@ -9,6 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface IRoleRepository extends JpaRepository<Role, Long> {
+
     @Query(value = "select * from role where name_role = ?1",nativeQuery = true)
-    Optional<Role> findByNameRole(String nameRole);
+    Role findByNameRole(String roleName);
+
 }

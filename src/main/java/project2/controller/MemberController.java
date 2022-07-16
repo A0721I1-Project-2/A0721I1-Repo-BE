@@ -73,7 +73,7 @@ public class MemberController {
             account.setPassword(EncrypPasswordJWT.EncrypPasswordUtils(accountMemberDTO.getPassword()));
 
             /*Set row mặc định*/
-            Role role = iRoleService.findByName("ROLE_MEMBER").get();
+            Role role = iRoleService.findByName("ROLE_MEMBER");
             roles.add(role);
             account.setRoles(roles);
 
