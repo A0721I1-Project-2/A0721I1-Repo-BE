@@ -34,7 +34,7 @@ public class AccountService implements IAccountService,UserDetailsService {
 
     @Override
     public Optional<Account> findById(Long id) {
-        return Optional.empty();
+        return accountRepository.findById(id);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class AccountService implements IAccountService,UserDetailsService {
 
     /* Get accounts by role name -TuanNHA */
     @Override
-    public List<Account> getAccountsByRoleName(String roleName) {
-        return this.accountRepository.getAccountsByRole(roleName);
+    public List<Account> getAccountsByRoleName() {
+        return this.accountRepository.getAccountsByRoleMember();
     }
 
     @Transactional
@@ -77,6 +77,6 @@ public class AccountService implements IAccountService,UserDetailsService {
 
     @Override
     public Account getAccountByUsername(String username) {
-        return accountRepository.getAccountByUsername(username);
+        return accountRepository.getAccByUsername(username);
     }
 }

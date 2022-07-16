@@ -28,10 +28,21 @@ public class AccountController {
         return new ResponseEntity<>(accounts , HttpStatus.OK);
     }
 
+    /* Get account by id - TuanNHA */
+    @RequestMapping(value = "/account/id={accountId}" , method = RequestMethod.GET)
+    public ResponseEntity<Account> getAccountById(@PathVariable("accountId") Long id) {
+        Optional<Account> account = this.accountService.findById(id);
+
+        if(account.isPresent()) {
+            return new ResponseEntity<>(account.get() , HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     /* Get accounts by role member -TuanNHA */
     @RequestMapping(value = "/members" , method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAccountsByRoleMember() {
-        List<Account> accounts = this.accountService.getAccountsByRoleName("ROLE_MEMBER");
+        List<Account> accounts = this.accountService.getAccountsByRoleName();
 
         if(accounts.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

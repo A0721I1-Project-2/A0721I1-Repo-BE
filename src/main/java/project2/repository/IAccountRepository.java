@@ -10,15 +10,18 @@ import java.util.Optional;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, Long> {
+    /* Get account by username */
+    @Query(value = "select * from `account` where `account`.`username` = ?1" , nativeQuery = true)
+    Account getAccByUsername(String username);
+
+
     /* Get accounts by role name -TuanNHA */
     @Query(value = "select * from `account` \n" +
-            "inner join `account_role`\n" +
-            "on `account_role`.id_account = `account_role`.id_account\n" +
-            "inner join `role`\n" +
-            "on `role`.id_role = `account_role`.id_role\n" +
-            "where `role`.name_role = ?1 \n" +
-            "group by `account`.id_account" , nativeQuery=true)
-    List<Account> getAccountsByRole(String nameRole);
+            "inner join account_role\n" +
+            "on account_role.id_account = `account`.id_account\n" +
+            "group by `account`.id_account\n" +
+            "having count(account_role.id_role) = 1" , nativeQuery=true)
+    List<Account> getAccountsByRoleMember();
 
     Account findAccountByUsername(String username);
 

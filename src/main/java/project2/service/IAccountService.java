@@ -24,5 +24,5 @@ public interface IAccountService {
     Account getAccountByUsername(String username);
 
     /* Get accounts by role name -TuanNHA */
-    List<Account> getAccountsByRoleName(String roleName);
+    List<Account> getAccountsByRoleName();
 }
