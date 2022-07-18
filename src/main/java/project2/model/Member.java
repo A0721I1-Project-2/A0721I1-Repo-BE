@@ -31,7 +31,7 @@ public class Member {
     private String emailMember;
 
     @Column(name = "address_member")
-/*    @NotEmpty(message = "Address not empty")*/
+    @NotEmpty(message = "Address not empty")
     private String addressMember;
 
     @Column(name = "phone_member")

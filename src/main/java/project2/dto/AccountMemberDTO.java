@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 public class AccountMemberDTO {
 
     private String emailMember;
-    /*    private String addressMember;*/
+    /*private String addressMember;*/
     private String city;
     private String district;
     private String ward;
