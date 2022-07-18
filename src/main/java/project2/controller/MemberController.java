@@ -99,7 +99,7 @@ public class MemberController {
         return new ResponseEntity<>(memberPageSearch, HttpStatus.OK);
     }
 
-    @PostMapping("/member/Block")
+    @PostMapping("/member/block")
     public ResponseEntity<?> blockMember(@RequestBody Long[] blockArray) {
         for (Long id : blockArray) {
             Member member = memberService.findById(id);
@@ -114,6 +114,16 @@ public class MemberController {
         for (Long id : unBlockArray) {
             Member member = memberService.findById(id);
             member.getAccount().setBlock(false);
+            iMemberService.save(member);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/member/delete")
+    public ResponseEntity<?> deleteMember(@RequestBody Long[] blockArray) {
+        for (Long id : blockArray) {
+            Member member = memberService.findById(id);
+            member.getAccount().setFlagDelete(true);
             iMemberService.save(member);
         }
         return new ResponseEntity<>(HttpStatus.OK);
