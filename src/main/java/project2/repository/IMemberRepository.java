@@ -9,4 +9,5 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
 
     @Query(value = "select nameMember from Member")
     void getTransactionByMember();
+
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +56,10 @@ public class Member {
     @ManyToOne(targetEntity = Rank.class)
     @JoinColumn(name = "id_rank",nullable = false)
     private Rank rank;
+
+    @OneToOne(mappedBy = "member")
+    @JsonBackReference(value = "member_cart")
+    private Cart cart;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

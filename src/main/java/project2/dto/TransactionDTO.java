@@ -9,7 +9,8 @@ public class TransactionDTO {
     private Double initialBidPrice;
     private Double finalBidPrice;
     private Double serviceFee;
-    String status;
+    private String status;
+    private Long totalPage;
 
     public TransactionDTO() {
     }
@@ -24,6 +25,14 @@ public class TransactionDTO {
         this.finalBidPrice = finalBidPrice;
         this.serviceFee = serviceFee;
         this.status = status;
+    }
+
+    public Long getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(Long totalPage) {
+        this.totalPage = totalPage;
     }
 
     public String getTransaction_ID() {

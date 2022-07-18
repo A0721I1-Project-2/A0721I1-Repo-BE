@@ -1,5 +1,6 @@
 package project2.service.impl;
 
+import org.springframework.stereotype.Service;
 import project2.model.Account;
 import project2.model.Role;
 import project2.service.IRoleService;
@@ -7,6 +8,7 @@ import project2.service.IRoleService;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RoleService implements IRoleService {
 
     @Override
