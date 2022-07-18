@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project2.dto.AccountMemberDTO;
 import project2.dto.ValidateAccountDTO;
+import project2.jwt.EncrypPasswordJWT;
 import project2.model.Account;
 import project2.model.Member;
 import project2.model.Rank;
@@ -20,10 +21,12 @@ import project2.service.IRankService;
 import project2.service.IRoleService;
 
 import javax.validation.Valid;
+import java.util.*;
 import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 @RestController
 @CrossOrigin("*")
@@ -128,13 +131,13 @@ public class MemberController {
 
 
     //Bin code method create account member
-    @PostMapping("/saveNewAccountMember")
+    @PostMapping("/member/saveNewAccountMember")
     public ResponseEntity<?> saveAccountMember(@Valid @RequestBody AccountMemberDTO accountMemberDTO, BindingResult bindingResult) {
         Boolean check = true;
         validateAccountDTO.validate(accountMemberDTO, bindingResult);
         List<Account> accountList = iAccountService.findAll();
         for (Integer i = 0; i < accountList.size(); i++) {
-            if (accountList.get(i).getUsername().equals(accountMemberDTO.getAccount().getUsername())) {
+            if (accountList.get(i).getUsername().equals(accountMemberDTO.getUsername())) {
                 check = false;
                 break;
             }
@@ -152,11 +155,11 @@ public class MemberController {
 
             Set<Role> roles = new HashSet<>();
             /* Set data for Account */
-            account.setUsername(accountMemberDTO.getAccount().getUsername());
-            account.setPassword(accountMemberDTO.getAccount().getPassword());
+            account.setUsername(accountMemberDTO.getUsername());
+            account.setPassword(EncrypPasswordJWT.EncrypPasswordUtils(accountMemberDTO.getPassword()));
 
             /*Set row mặc định*/
-            Role role = iRoleService.findByName("ROLE_MEMBER").get();
+            Role role = iRoleService.findByName("ROLE_MEMBER");
             roles.add(role);
             account.setRoles(roles);
 
@@ -165,7 +168,7 @@ public class MemberController {
             member.setAccount(iAccountService.findById(accountCreated.getIdAccount()).get());
             member.setNameMember(accountMemberDTO.getNameMember());
             member.setEmailMember(accountMemberDTO.getEmailMember());
-            member.setAddressMember(accountMemberDTO.getAddressMember());
+            member.setAddressMember(accountMemberDTO.getCity() + "," + accountMemberDTO.getDistrict() + "," + accountMemberDTO.getWard());
             member.setDateOfBirthMember(accountMemberDTO.getDateOfBirthMember());
             member.setFlagDelete(false);
             member.setIdCardMember(accountMemberDTO.getIdCardMember());
@@ -178,8 +181,21 @@ public class MemberController {
             iMemberService.save(member);
 
             return new ResponseEntity<>(HttpStatus.CREATED);
-
         }
+    }
+
+    //bin code check username
+    @GetMapping("/checkUsername")
+    public ResponseEntity<List<Account>> checkId(@RequestParam String username) {
+        List<Account> list = iAccountService.findAll();
+        List<Account> accounts = new ArrayList<>();
+        for (Integer i = 0; i < list.size(); i++) {
+            if (list.get(i).getUsername().equals(username)) {
+                accounts.add(list.get(i));
+                return new ResponseEntity<>(accounts, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     //SonLT View-Member

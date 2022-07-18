@@ -6,19 +6,64 @@ import project2.model.Rank;
 import javax.validation.constraints.NotEmpty;
 
 public class AccountMemberDTO {
-    private Account account;
+
     private String emailMember;
-    private String addressMember;
+/*    private String addressMember;*/
+    private String city;
+    private String district;
+    private String ward;
     private String phoneMember;
     private String idCardMember;
     private String paypalMember;
     private Boolean flagDelete;
     private String dateOfBirthMember;
     private String nameMember;
+    private String username;
+    private String password;
 
 
-/*  @NotEmpty(message = "Confirm password not empty")
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /*  @NotEmpty(message = "Confirm password not empty")
     private String confirmPassword;*/
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getWard() {
+        return ward;
+    }
+
+    public void setWard(String ward) {
+        this.ward = ward;
+    }
 
     public AccountMemberDTO() {
     }
@@ -39,14 +84,6 @@ public class AccountMemberDTO {
         this.dateOfBirthMember = dateOfBirthMember;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public String getEmailMember() {
         return emailMember;
     }
@@ -55,13 +92,13 @@ public class AccountMemberDTO {
         this.emailMember = emailMember;
     }
 
-    public String getAddressMember() {
+  /*  public String getAddressMember() {
         return addressMember;
     }
 
     public void setAddressMember(String addressMember) {
         this.addressMember = addressMember;
-    }
+    }*/
 
     public String getPhoneMember() {
         return phoneMember;

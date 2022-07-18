@@ -37,9 +37,10 @@ public class RoleService implements IRoleService {
     }
 
     @Override
-    public Optional<Role> findByName(String nameRole) {
+    public Role findByName(String nameRole) {
         return iRoleRepository.findByNameRole(nameRole);
     }
+
 
     @Override
     public void deleteById(Long id) {

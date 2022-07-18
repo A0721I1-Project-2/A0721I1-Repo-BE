@@ -14,7 +14,8 @@ public interface IRoleService {
 
     List<Role> findAll();
 
-    Optional<Role> findByName(String nameRole);
+
+    Role findByName(String nameRole);
 
     void deleteById(Long id);
 
