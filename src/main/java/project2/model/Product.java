@@ -56,7 +56,7 @@ public class Product {
     private List<InvoiceDetail> invoiceDetailList;
 
     @ManyToOne(targetEntity = Cart.class)
-    @JoinColumn(name = "id_cart", nullable = false)
+    @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
     @ManyToMany
