@@ -2,10 +2,8 @@ package project2.service.impl;
 import org.springframework.stereotype.Service;
 import project2.service.IPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import project2.model.Payment;
 import project2.repository.IPaymentRepository;
-import project2.service.IPaymentService;
 import java.util.List;
 
 @Service
