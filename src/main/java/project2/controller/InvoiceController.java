@@ -11,11 +11,29 @@ import project2.config.MailPW;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import project2.dto.InvoiceDTO;
+import project2.model.ImageProduct;
+import project2.model.InvoiceDetail;
+import project2.service.impl.InvoiceDetailService;
+
+import java.util.List;
 
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/payment")
+@RequestMapping("/manager/invoice-status/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class InvoiceController {
+    @Autowired
+    private InvoiceDetailService invoiceDetailService;
+    @GetMapping("/status")
+    public ResponseEntity<List<InvoiceDetail>> findAllStatusInvoice() {
+        List<InvoiceDetail> invoices = invoiceDetailService.findAllStatusInvoice();
+        if (invoices.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity(invoices, HttpStatus.OK);
+        }
+    }
+    ////tutt7 sendEmail
     @Autowired
     private JavaMailSender mailSender;
     @GetMapping("/sendMail")
@@ -35,4 +53,14 @@ public class InvoiceController {
         mailSender.send(message);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
+//    @GetMapping("/img_product")
+//    public ResponseEntity<List<ImageProduct>> findAllImageprodut(@RequestParam int id) {
+//        List<ImageProduct> list = invoiceDetailService.findAllImageProduct(id);
+//        if (list.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        } else {
+//            return new ResponseEntity(list, HttpStatus.OK);
+//        }
+//    }
 }
