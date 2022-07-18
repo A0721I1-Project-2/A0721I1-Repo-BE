@@ -14,4 +14,5 @@ public interface IPaymentRepository extends JpaRepository<Payment, Long> {
 
     @Query(value = "select * from payment", nativeQuery = true)
     List<Payment> getAllPayment();
+
 }

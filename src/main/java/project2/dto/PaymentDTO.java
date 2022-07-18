@@ -4,6 +4,11 @@ import project2.model.*;
 
 import java.util.List;
 
+import project2.model.Cart;
+import project2.model.Member;
+import project2.model.PaymentMethod;
+import project2.model.Transport;
+
 public class PaymentDTO {
     private Long idPayment;
     private String firstNameReceiver;
@@ -23,23 +28,7 @@ public class PaymentDTO {
     private Double total;
     private List<Product> product;
 
-    public PaymentDTO(Long idPayment, String firstNameReceiver, String lastNameReceiver, String city, String district, String ward, String addressReceiver, String emailReceiver, String phoneReceiver, Double feeService, String descriptionReceiver, Member member, PaymentMethod paymentMethod, Cart cart, Transport transport, Double total) {
-        this.idPayment = idPayment;
-        this.firstNameReceiver = firstNameReceiver;
-        this.lastNameReceiver = lastNameReceiver;
-        this.city = city;
-        this.district = district;
-        this.ward = ward;
-        this.addressReceiver = addressReceiver;
-        this.emailReceiver = emailReceiver;
-        this.phoneReceiver = phoneReceiver;
-        this.feeService = feeService;
-        this.descriptionReceiver = descriptionReceiver;
-        this.member = member;
-        this.paymentMethod = paymentMethod;
-        this.cart = cart;
-        this.transport = transport;
-        this.total = total;
+    public PaymentDTO() {
     }
 
     public PaymentDTO(Long idPayment, String firstNameReceiver, String lastNameReceiver, String city, String district, String ward, String addressReceiver, String emailReceiver, String phoneReceiver, Double feeService, String descriptionReceiver, Member member, PaymentMethod paymentMethod, Cart cart, Transport transport, Double total, List<Product> product) {
@@ -62,19 +51,16 @@ public class PaymentDTO {
         this.product = product;
     }
 
-    public PaymentDTO() {
+    public Long getIdPayment() {
+        return idPayment;
+    }
+
+    public void setIdPayment(Long idPayment) {
+        this.idPayment = idPayment;
     }
 
     public String getFirstNameReceiver() {
         return firstNameReceiver;
-    }
-
-    public List<Product> getProduct() {
-        return product;
-    }
-
-    public void setProduct(List<Product> product) {
-        this.product = product;
     }
 
     public void setFirstNameReceiver(String firstNameReceiver) {
@@ -111,54 +97,6 @@ public class PaymentDTO {
 
     public void setWard(String ward) {
         this.ward = ward;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public Transport getTransport() {
-        return transport;
-    }
-
-    public void setTransport(Transport transport) {
-        this.transport = transport;
-    }
-
-    public Long getIdPayment() {
-        return idPayment;
-    }
-
-    public void setIdPayment(Long idPayment) {
-        this.idPayment = idPayment;
     }
 
     public String getAddressReceiver() {
@@ -199,5 +137,53 @@ public class PaymentDTO {
 
     public void setDescriptionReceiver(String descriptionReceiver) {
         this.descriptionReceiver = descriptionReceiver;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Transport getTransport() {
+        return transport;
+    }
+
+    public void setTransport(Transport transport) {
+        this.transport = transport;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
     }
 }

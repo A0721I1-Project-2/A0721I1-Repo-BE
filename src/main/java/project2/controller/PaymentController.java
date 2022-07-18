@@ -1,7 +1,7 @@
 package project2.controller;
 
-import com.paypal.api.payments.Payer;
-import com.paypal.api.payments.Payment;
+
+import com.google.gson.Gson;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +18,7 @@ import project2.service.IProductService;
 import project2.service.impl.PaymentMethodService;
 import project2.service.impl.PaymentService;
 import project2.service.impl.TransportService;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -25,6 +26,8 @@ import java.util.List;
 @RequestMapping("/manager/payment/api")
 @CrossOrigin(origins = "*")
 public class PaymentController {
+
+    private static final Gson gson = new Gson();
 
     @Autowired
     private IProductService iProductService;
@@ -43,6 +46,11 @@ public class PaymentController {
 
     @Autowired
     private ICartService cartService;
+
+    @ModelAttribute("cart")
+    public PaymentDTO setupCart(){
+        return new PaymentDTO();
+    }
 
 //    Get list payment method
     @RequestMapping(value = "/payment-method", method = RequestMethod.GET)
@@ -63,56 +71,42 @@ public class PaymentController {
         return new ResponseEntity<>(transports, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/payer", method = RequestMethod.GET)
-    public ResponseEntity<Payer> getPayer() {
-        Payer payer = paymentMethodService.getPayerInformation();
-        if (payer == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(payer, HttpStatus.OK);
-    }
-
-//    @RequestMapping(value = "/transaction", method = RequestMethod.GET)
-//    public ResponseEntity<List<Transaction>> getTransaction() {
-//        String product = "test1";
-//        String subtotal = "10";
-//        String shipping = "2";
-//        String tax = "2";
-//        String total = "14";
-//        OrderProduct orderProduct = new OrderProduct(product,subtotal,shipping,tax,total);
-//        List<Transaction> transactionList = paymentMethodService.getTransactionInformation(orderProduct);
-//        if (transactionList == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(transactionList, HttpStatus.OK);
-//    }
-
     @RequestMapping(value = "/authorize_payment", method = RequestMethod.POST)
-    public ResponseEntity<String> authorizePayment() throws PayPalRESTException {
-//        System.out.println(paymentDTO.getMember().getNameMember());
-        String approvalLink = paymentMethodService.authorizePayment();
+    public ResponseEntity<String> authorizePayment(@RequestBody project2.dto.PaymentDTO paymentDTO) throws PayPalRESTException {
+        System.out.println(paymentDTO.getMember().getNameMember());
+        paymentMethodService.getPayerInformation(paymentDTO);
+        String approvalLink = paymentMethodService.authorizePayment(paymentDTO);
         if (approvalLink == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(approvalLink, HttpStatus.OK);
+        return ResponseEntity.ok(gson.toJson(approvalLink));
     }
 
-    @GetMapping("cancelUrl")
-    public String cancelPay(){
-        return "cancel.html";
+    @RequestMapping(value = "/cancelUrl", method = RequestMethod.GET)
+    public void method(HttpServletResponse httpServletResponse) {
+        httpServletResponse.setHeader("Location", "http://localhost:4200/payment/payment-cart");
+        httpServletResponse.setStatus(302);
     }
 
-    @GetMapping("successUrl")
-    public String successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId){
+    @GetMapping("/successUrl")
+//    public void methodSuccess(HttpServletResponse httpServletResponse) {
+//        httpServletResponse.setHeader("Location", "http://localhost:4200/home/show-home");
+//        httpServletResponse.setStatus(302);
+//    }
+    public void successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, HttpServletResponse httpServletResponse){
         try {
-            Payment payment = paymentMethodService.executePayment(paymentId, payerId);
+            com.paypal.api.payments.Payment payment = paymentMethodService.executePayment(paymentId, payerId);
             if(payment.getState().equals("approved")){
-                return "success";
+                httpServletResponse.setHeader("Location", "http://localhost:4200/home/show-home");
+                httpServletResponse.setStatus(302);
+            }
+            else {
+                httpServletResponse.setHeader("Location", "http://localhost:4200/payment/payment-cart");
+                httpServletResponse.setStatus(302);
             }
         } catch (PayPalRESTException e) {
             System.out.println(e.getMessage());
         }
-        return "redirect:/";
     }
 
     //QuangNV write method get product in cart

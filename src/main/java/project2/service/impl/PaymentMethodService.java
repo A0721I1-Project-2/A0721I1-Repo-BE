@@ -5,29 +5,35 @@ import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import project2.model.OrderProduct;
+import project2.dto.PaymentDTO;
 import project2.model.PaymentMethod;
+import project2.model.Product;
 import project2.repository.IPaymentMethodRepository;
 import project2.service.IPaymentMethodService;
+import project2.service.IPaymentService;
+import project2.service.IProductService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PaymentMethodService implements IPaymentMethodService {
+
     //SELLER INFOR
     private static final String CLIENT_ID = "ARDVlALPHdMzIMrlMUAYuqBWDR6RizGTvzWpaVtU8oe34mTrYVecThSFVIheQyYY3H_k6MCn3S_0p4QA";
     private static final String CLIENT_SECRET = "EEAQm74YoZxBbqFX_oitOeuwmTNdzuYf9IygTgh3dZPAMNX4EGXFdK5wHqBEWWn7xI28LghuKYSHnnci";
     private static final String MODE = "sandbox";
 
     //RESPONSE URL CANCEL & SUCCESS AFTER BUYER PAYMENT
-    private static final String URL_CANCEL = "http://localhost:8080/payment/cancelUrl";
-    private static final String URL_SUCCSESS = "http://localhost:8080/payment/successUrl";
+    private static final String URL_CANCEL = "http://localhost:8080/manager/payment/api/cancelUrl";
+    private static final String URL_SUCCSESS = "http://localhost:8080/manager/payment/api/successUrl";
 
     @Autowired
     private IPaymentMethodRepository paymentMethodRepository;
-
 
     @Override
     public List<PaymentMethod> getAllPaymentMethod() {
@@ -40,16 +46,10 @@ public class PaymentMethodService implements IPaymentMethodService {
     }
 
     //I : SEND TO PAYPAL ABOUT PAYER, TRANSACTION; O : RESPONSE URL FROM CHECKOUT
-    @Override
-    public String authorizePayment() throws PayPalRESTException {
-        Payer payer = getPayerInformation();
-        String product = "test1";
-        String subtotal = "10";
-        String shipping = "2";
-        String tax = "2";
-        String total = "14";
-        OrderProduct orderProduct = new OrderProduct(product,subtotal,shipping,tax,total);
-        List<Transaction> transactionList = getTransactionInformation(orderProduct);
+
+    public String authorizePayment(PaymentDTO paymentDTO) throws PayPalRESTException {
+        Payer payer = getPayerInformation(paymentDTO);
+        List<Transaction> transactionList = getTransactionInformation(paymentDTO);
         RedirectUrls redirectUrls = getRedirectURLs();
         Payment requestPayment = new Payment();
         requestPayment.setTransactions(transactionList)
@@ -74,41 +74,48 @@ public class PaymentMethodService implements IPaymentMethodService {
         return approvalLink;
     }
 
-    public List<Transaction> getTransactionInformation(OrderProduct orderProduct){
+    public List<Transaction> getTransactionInformation(project2.dto.PaymentDTO paymentDTO){
+        List<Product> products = new ArrayList<>();
+        Double subTotal = 0.0;
+        Double tax = 0.0 ;
+        for(Product product : paymentDTO.getProduct()){
+            products.add(product);
+            subTotal += product.getFinalPrice();
+            tax = tax + 1;
+        }
         Details details = new Details();
-
-        details.setShipping(orderProduct.getShipping());
+        details.setShipping(String.format("%.2f", Float.parseFloat("0")));
 //        details.setFee(String.format("%.2f", Float.parseFloat("2")));
-        details.setSubtotal(orderProduct.getSubtotal());
-        details.setTax(orderProduct.getTax());
-
+        details.setSubtotal(String.format("%.2f", subTotal));
+        details.setTax(String.format("%.2f", tax));
 
         Amount amount = new Amount();
         amount.setCurrency("USD");
-        amount.setTotal(orderProduct.getTotal());
+        amount.setTotal(String.format("%.2f",paymentDTO.getTotal()));
         amount.setDetails(details);
+
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription(orderProduct.getProductName());
+//        transaction.setDescription(products.get(1).getNameProduct());
 
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<Item>();
 
-        Item item = new Item();
-        item.setCurrency("USD")
-                .setName(orderProduct.getProductName())
-                .setPrice(orderProduct.getSubtotal())
-                .setTax(orderProduct.getTax())
-                .setQuantity("1");
 
-        items.add(item);
+        Item item = new Item();
+        for(int i = 0; i < products.size(); i++){
+            item.setCurrency("USD")
+                    .setName(products.get(i).getNameProduct())
+                    .setPrice(String.format("%.2f", products.get(i).getFinalPrice()))
+                    .setTax(String.format("%.2f", Float.parseFloat("1")))
+                    .setQuantity("1");
+            items.add(item);
+        }
         itemList.setItems(items);
         transaction.setItemList(itemList);
-
         List<Transaction> transactionList = new ArrayList<Transaction>();
         transactionList.add(transaction);
-
         return transactionList;
     }
 
@@ -117,7 +124,6 @@ public class PaymentMethodService implements IPaymentMethodService {
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl(URL_CANCEL);
         redirectUrls.setReturnUrl(URL_SUCCSESS);
-
         return redirectUrls;
     }
     //CHECK SUCCESS AND FAIL AFTER PAYMENTED
@@ -130,17 +136,14 @@ public class PaymentMethodService implements IPaymentMethodService {
         return payment.execute(apiContext, paymentExecute);
     }
 
-    @Override
-    public Payer getPayerInformation() {
+    public Payer getPayerInformation(project2.dto.PaymentDTO paymentDTO) {
         Payer payer = new Payer();
-        payer.setPaymentMethod("paypal");
-
+        payer.setPaymentMethod(paymentDTO.getPaymentMethod().getNamePaymentMethod());
         PayerInfo payerInfo = new PayerInfo();
-        payerInfo.setFirstName("Kelvin")
-                .setLastName("Nguyen")
-                .setEmail("quang10a30504@gmail.com");
+        payerInfo.setFirstName(paymentDTO.getFirstNameReceiver())
+                .setLastName(paymentDTO.getLastNameReceiver())
+                .setEmail(paymentDTO.getEmailReceiver());
         payer.setPayerInfo(payerInfo);
         return payer;
     }
-
 }

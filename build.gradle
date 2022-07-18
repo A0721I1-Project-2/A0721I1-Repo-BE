@@ -21,8 +21,9 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'org.springframework.security:spring-security-test'
     // https://mvnrepository.com/artifact/com.paypal.sdk/rest-api-sdk
-    implementation group: 'com.paypal.sdk', name: 'rest-api-sdk', version: '1.13.1'
+    implementation group: 'com.paypal.sdk', name: 'rest-api-sdk', version: '1.14.0'
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()
