@@ -97,6 +97,7 @@ public class PaymentController {
         if (approvalLink == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        System.out.println(approvalLink);
         return new ResponseEntity<>(approvalLink, HttpStatus.OK);
     }
 
