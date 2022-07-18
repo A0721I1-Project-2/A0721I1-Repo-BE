@@ -1,21 +1,15 @@
 package project2.service.impl;
 
-
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import project2.dto.PaymentDTO;
 import project2.model.PaymentMethod;
 import project2.model.Product;
 import project2.repository.IPaymentMethodRepository;
 import project2.service.IPaymentMethodService;
-import project2.service.IPaymentService;
-import project2.service.IProductService;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,5 @@
 package project2.controller;
 
-
 import com.google.gson.Gson;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,21 +88,16 @@ public class PaymentController {
     }
 
     @GetMapping("/successUrl")
-//    public void methodSuccess(HttpServletResponse httpServletResponse) {
-//        httpServletResponse.setHeader("Location", "http://localhost:4200/home/show-home");
-//        httpServletResponse.setStatus(302);
-//    }
     public void successPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, HttpServletResponse httpServletResponse){
         try {
             com.paypal.api.payments.Payment payment = paymentMethodService.executePayment(paymentId, payerId);
             if(payment.getState().equals("approved")){
                 httpServletResponse.setHeader("Location", "http://localhost:4200/home/show-home");
-                httpServletResponse.setStatus(302);
             }
             else {
                 httpServletResponse.setHeader("Location", "http://localhost:4200/payment/payment-cart");
-                httpServletResponse.setStatus(302);
             }
+            httpServletResponse.setStatus(302);
         } catch (PayPalRESTException e) {
             System.out.println(e.getMessage());
         }
