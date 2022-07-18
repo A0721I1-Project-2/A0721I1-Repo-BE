@@ -59,6 +59,10 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = false)
     private Cart cart;
 
+    @OneToOne
+    @JoinColumn(name = "id_member", nullable = false)
+    private Member member;
+
     @ManyToMany
     @JoinTable(
             name = "product_member",
@@ -70,7 +74,16 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Set<Member> members) {
+    public Product(Long idProduct, String codeProduct, String nameProduct,
+                   Double initialPrice, Double finalPrice,
+                   Double incrementPrice, String productDescription,
+                   String startDate, String endDate, String remainingTime,
+                   String createDay, Boolean flagDelete,
+                   TypeProduct typeProduct, ApprovalStatus approvalStatus,
+                   BiddingStatus biddingStatus,
+                   List<ImageProduct> imageProductList,
+                   List<InvoiceDetail> invoiceDetailList, Member member,
+                   Set<Member> members) {
         this.idProduct = idProduct;
         this.codeProduct = codeProduct;
         this.nameProduct = nameProduct;
@@ -88,7 +101,16 @@ public class Product {
         this.biddingStatus = biddingStatus;
         this.imageProductList = imageProductList;
         this.invoiceDetailList = invoiceDetailList;
+        this.member = member;
         this.members = members;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public Long getIdProduct() {
