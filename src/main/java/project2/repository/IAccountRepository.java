@@ -7,6 +7,7 @@ import project2.model.Account;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, Long> {
+
     //    @Query(value = "select * from account where toke = ?1",nativeQuery = true)
     Account findAccountByToken(String token);
 
@@ -14,4 +15,9 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
             "join member on member.id_account = account.id_account\n" +
             "where account.username = ?1 and member.email_member = ?2",nativeQuery = true)
     Account findAccountByUsernameAndEnmail(String username, String email);
+
+    Account findAccountByUsername(String username);
+
+    Account getAccountByUsername(String username);
+
 }
