@@ -49,6 +49,9 @@ public class Member {
     @Column(name = "flag_delete")
     private Boolean flagDelete;
 
+    @Column(name = "checked_clause")
+    private Boolean checkedClause;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_account", referencedColumnName = "id_account")
     private Account account;
@@ -77,6 +80,22 @@ public class Member {
     private Set<Product> products;
 
     public Member() {
+    }
+
+    public Boolean getCheckedClause() {
+        return checkedClause;
+    }
+
+    public void setCheckedClause(Boolean checkedClause) {
+        this.checkedClause = checkedClause;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember, String idCardMember, String paypalMember, Boolean flagDelete, Account account, List<Invoice> invoiceList, Double point, List<Payment> paymentList, Rank rank, Set<Product> products) {

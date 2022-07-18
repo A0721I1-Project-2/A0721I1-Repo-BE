@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 public class AccountMemberDTO {
 
     private String emailMember;
-/*    private String addressMember;*/
+    /*    private String addressMember;*/
     private String city;
     private String district;
     private String ward;
@@ -20,7 +20,15 @@ public class AccountMemberDTO {
     private String nameMember;
     private String username;
     private String password;
+    private Boolean checkedClause;
 
+    public Boolean getCheckedClause() {
+        return checkedClause;
+    }
+
+    public void setCheckedClause(Boolean checkedClause) {
+        this.checkedClause = checkedClause;
+    }
 
     public String getUsername() {
         return username;
