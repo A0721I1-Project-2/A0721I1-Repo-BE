@@ -4,7 +4,7 @@ import project2.model.Product;
 
 public interface IProductService {
     //VinhTQ
-    Product findProductById(long id);
+    Product findProductByIdForProductDetail(long id);
     //HauLST
     List<Product> getAllProductAuntion();
     //HauLST
