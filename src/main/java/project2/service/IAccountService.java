@@ -1,5 +1,6 @@
 package project2.service;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import project2.model.Account;
 
 import java.util.List;
@@ -17,10 +18,15 @@ public interface IAccountService{
     void deleteById(Long id);
 
     void delele(Account account);
+
     //VinhTQ forgot password
     void saveForgotPassword(Account account,String password);
     void updateToken(Account account);
     Account findAccountByToken(String token);
     Account findAccountByEmailAndUsername(String email,String username);
+
+    UserDetails loadUserByUsername(String username);
+    Account getAccountByUsername(String username);
+
 
 }
