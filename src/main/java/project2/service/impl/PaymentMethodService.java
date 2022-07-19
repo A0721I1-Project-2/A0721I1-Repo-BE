@@ -1,13 +1,11 @@
 package project2.service.impl;
 
-
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project2.dto.PaymentDTO;
-import project2.model.OrderProduct;
 import project2.model.PaymentMethod;
 import project2.model.Product;
 import project2.repository.IPaymentMethodRepository;
@@ -18,18 +16,18 @@ import java.util.Optional;
 
 @Service
 public class PaymentMethodService implements IPaymentMethodService {
+
     //SELLER INFOR
-    private static final String CLIENT_ID = "ARDVlALPHdMzIMrlMUAYuqBWDR6RizGTvzWpaVtU8oe34mTrYVecThSFVIheQyYY3H_k6MCn3S_0p4QA";
-    private static final String CLIENT_SECRET = "EEAQm74YoZxBbqFX_oitOeuwmTNdzuYf9IygTgh3dZPAMNX4EGXFdK5wHqBEWWn7xI28LghuKYSHnnci";
+    private static final String CLIENT_ID = "AWjQfUJ2fMAbZDPbeyzARVCZW6q-09J5plD6JUOKVAUiksF51lpdpeT1KSpyeWrq5UU0txtxmXokRYfq";
+    private static final String CLIENT_SECRET = "EEVxrdhjPN0fRkGLpZF8iKk84RzqEbNhuYV5-NTJHf3SBWBZczTYwtULBL6NwHbUHjlx3ceLh9Cl6NlS";
     private static final String MODE = "sandbox";
 
     //RESPONSE URL CANCEL & SUCCESS AFTER BUYER PAYMENT
-    private static final String URL_CANCEL = "http://localhost:4200/";
-    private static final String URL_SUCCSESS = "http://localhost:4200/";
+    private static final String URL_CANCEL = "http://localhost:8080/manager/payment/api/cancelUrl";
+    private static final String URL_SUCCSESS = "http://localhost:8080/manager/payment/api/successUrl";
 
     @Autowired
     private IPaymentMethodRepository paymentMethodRepository;
-
 
     @Override
     public List<PaymentMethod> getAllPaymentMethod() {
@@ -44,7 +42,6 @@ public class PaymentMethodService implements IPaymentMethodService {
     //I : SEND TO PAYPAL ABOUT PAYER, TRANSACTION; O : RESPONSE URL FROM CHECKOUT
 
     public String authorizePayment(PaymentDTO paymentDTO) throws PayPalRESTException {
-
         Payer payer = getPayerInformation(paymentDTO);
         List<Transaction> transactionList = getTransactionInformation(paymentDTO);
         RedirectUrls redirectUrls = getRedirectURLs();
@@ -80,6 +77,11 @@ public class PaymentMethodService implements IPaymentMethodService {
             subTotal += product.getFinalPrice();
             tax = tax + 1;
         }
+        for(Product product : products){
+            System.out.println("product name: " + product.getNameProduct());
+        }
+        System.out.println("sub " + subTotal);
+        System.out.println("tax " + tax);
         Details details = new Details();
         details.setShipping(String.format("%.2f", Float.parseFloat("0")));
 //        details.setFee(String.format("%.2f", Float.parseFloat("2")));
@@ -89,19 +91,21 @@ public class PaymentMethodService implements IPaymentMethodService {
         Amount amount = new Amount();
         amount.setCurrency("USD");
         amount.setTotal(String.format("%.2f",paymentDTO.getTotal()));
+        System.out.println(paymentDTO.getTotal());
         amount.setDetails(details);
 
 
         Transaction transaction = new Transaction();
         transaction.setAmount(amount);
-        transaction.setDescription(products.get(1).getNameProduct());
+//        transaction.setDescription(products.get(1).getNameProduct());
 
         ItemList itemList = new ItemList();
         List<Item> items = new ArrayList<Item>();
 
 
-        Item item = new Item();
+
         for(int i = 0; i < products.size(); i++){
+            Item item = new Item();
             item.setCurrency("USD")
                     .setName(products.get(i).getNameProduct())
                     .setPrice(String.format("%.2f", products.get(i).getFinalPrice()))
@@ -111,10 +115,8 @@ public class PaymentMethodService implements IPaymentMethodService {
         }
         itemList.setItems(items);
         transaction.setItemList(itemList);
-
         List<Transaction> transactionList = new ArrayList<Transaction>();
         transactionList.add(transaction);
-
         return transactionList;
     }
 
@@ -123,7 +125,6 @@ public class PaymentMethodService implements IPaymentMethodService {
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl(URL_CANCEL);
         redirectUrls.setReturnUrl(URL_SUCCSESS);
-
         return redirectUrls;
     }
     //CHECK SUCCESS AND FAIL AFTER PAYMENTED
@@ -139,7 +140,6 @@ public class PaymentMethodService implements IPaymentMethodService {
     public Payer getPayerInformation(project2.dto.PaymentDTO paymentDTO) {
         Payer payer = new Payer();
         payer.setPaymentMethod(paymentDTO.getPaymentMethod().getNamePaymentMethod());
-
         PayerInfo payerInfo = new PayerInfo();
         payerInfo.setFirstName(paymentDTO.getFirstNameReceiver())
                 .setLastName(paymentDTO.getLastNameReceiver())
@@ -147,5 +147,4 @@ public class PaymentMethodService implements IPaymentMethodService {
         payer.setPayerInfo(payerInfo);
         return payer;
     }
-
 }
