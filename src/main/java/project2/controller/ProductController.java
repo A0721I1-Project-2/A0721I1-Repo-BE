@@ -35,13 +35,16 @@ public class ProductController {
     @Autowired
     private SmtpAuthenticator smtpAuthenticator;
 
+    //HuyNN
     Map<Long, List<AuctionDTO>> auctionList = new HashMap<>();
 
+    //HuyNN
     @GetMapping("/getProductById/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         return new ResponseEntity<>(productService.getProductById(id).get(), HttpStatus.OK);
     }
 
+    //HuyNN
     @PostMapping("/createNewAuction/{productId}")
     public ResponseEntity createNewAuction(@RequestBody AuctionDTO auctionDTO, @PathVariable Long productId) {
         if (this.auctionList.containsKey(productId)) {
@@ -59,12 +62,14 @@ public class ProductController {
         }
     }
 
+    //HuyNN
     public void updateCurrentPrice(Long productId, Double price) {
         Product product = productService.getProductById(productId).get();
         product.setFinalPrice(price);
         productService.updateCurrentPrice(product);
     }
 
+    //HuyNN
     @GetMapping("/getAuctionList/{productId}")
     public ResponseEntity getAuctionList(@PathVariable Long productId) {
         if (this.auctionList.containsKey(productId)) {
@@ -77,18 +82,21 @@ public class ProductController {
         }
     }
 
+    //HuyNN
     @GetMapping("/checkPaymentAuctionProduct")
     public ResponseEntity checkPaymentAuctionProduct() {
         sendEmailAuctionProduct("test", "test", "test");
         return new ResponseEntity(null, HttpStatus.OK);
     }
 
+    //HuyNN
     @GetMapping("/getImageByProductId/{id}")
     public ResponseEntity<List<ImageProduct>> getImageByProductId(@PathVariable Long id) {
         Product product = productService.getProductById(id).get();
         return new ResponseEntity<List<ImageProduct>>(iImageProductService.findByProduct(product), HttpStatus.OK);
     }
 
+    //HuyNN
     public void sendEmailAuctionProduct(String email, String productName, String productImage) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
