@@ -286,7 +286,7 @@ public class ProductController {
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
-    //HauLST
+    //HauLST 
     @GetMapping("list/search/name={nameProduct}/type-product={typeProduct}/{min}")
     public ResponseEntity<List<Product>> searchPricesOver250(@PathVariable String nameProduct, @PathVariable String typeProduct, @PathVariable Double min) {
         List<Product> productList = productService.searchProductPricesOver250(nameProduct, typeProduct, min);
