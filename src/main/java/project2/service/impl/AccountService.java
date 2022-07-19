@@ -1,11 +1,8 @@
 package project2.service.impl;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
 import net.bytebuddy.utility.RandomString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.model.Account;
-
+import project2.model.Member;
 import project2.model.Role;
-
 import project2.repository.IAccountRepository;
 import project2.service.IAccountService;
 
@@ -61,7 +57,12 @@ public class AccountService implements IAccountService,UserDetailsService {
 
     }
 
+    // HuyNN
     @Override
+    public Account findByMember(Member member) {
+        return accountRepository.findByMember(member);
+    }
+
     public void saveForgotPassword(Account account, String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(password);
