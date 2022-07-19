@@ -6,4 +6,5 @@ import project2.model.Role;
 
 @Repository
 public interface IRoleRepository extends JpaRepository<Role, Long> {
+    Role findByNameRole(String roleName);
 }
