@@ -17,8 +17,13 @@ public class ProductController {
 
     //VinhTQ
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<Product> findProductById(@PathVariable() long id) {
-        return new ResponseEntity<Product>(productService.findProductById(id), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Product> findProductByIdForProductDetail(@PathVariable() long id) {
+        return new ResponseEntity<Product>(productService.findProductByIdForProductDetail(id), HttpStatus.OK);
+    }
+    //VinhTQ
+    @GetMapping("/highest-bidder/{id}")
+    public ResponseEntity<Product> finForProductDetail(@PathVariable() long id) {
+        return new ResponseEntity<Product>(productService.findProductByIdForProductDetail(id), HttpStatus.OK);
     }
     //HauLST
     @GetMapping("/list/auction")

@@ -15,8 +15,8 @@ public class ProductService implements IProductService {
 
     //VinhTQ
     @Override
-    public Product findProductById(long id) {
-        return productRepository.findproductById(id);
+    public Product findProductByIdForProductDetail(long id) {
+        return productRepository.findProductByIdForProductDetail(id);
     }
 
     //HauLST
