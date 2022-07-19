@@ -9,47 +9,61 @@ import project2.repository.IProductRepository;
 import project2.service.IProductService;
 
 import java.util.List;
+
 import java.util.Optional;
+
 
 @Service
 public class ProductService implements IProductService {
 
     @Autowired
-    IProductRepository iProductRepository;
+    private IProductRepository productRepository;
+
+    @Override
+    public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus) {
+        System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));
+        return productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus);
+    }
+
+    @Override
+    public List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus) {
+        System.out.println(productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus));
+        return productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus);
+    }
 
     //HieuDV
     @Override
     public Page<Product> getAllNotDeletedYet(Pageable pageable) {
-        return iProductRepository.findAllNotDeletedYet(pageable);
+        return productRepository.findAllNotDeletedYet(pageable);
     }
 
     //HieuDV
     @Override
     public List<Product> getAllNotDeletedYet() {
-        return iProductRepository.findAllNotDeletedYet();
+        return productRepository.findAllNotDeletedYet();
     }
 
     //HieuDV
     @Override
     public Page<Product> getAllProductByNameTypeSellerPriceStatus(String name, String typeProduct, String sellerName, String maxPrice, String minPrice, String BiddingStatus, Pageable pageable) {
-        return iProductRepository.findAllProductByNameTypeSellerPriceStatus(name, typeProduct, sellerName, maxPrice, minPrice, BiddingStatus, pageable);
+        return productRepository.findAllProductByNameTypeSellerPriceStatus(name, typeProduct, sellerName, maxPrice, minPrice, BiddingStatus, pageable);
     }
 
     //HieuDV
     @Override
     public List<Product> getAllProductByNameTypeSellerPriceStatusNotPagination(String name, String typeProduct, String sellerName, String maxPrice, String minPrice, String BiddingStatus) {
-        return iProductRepository.findAllProductByNameTypeSellerPriceStatus(name, typeProduct, sellerName, maxPrice, minPrice, BiddingStatus);
+        return productRepository.findAllProductByNameTypeSellerPriceStatus(name, typeProduct, sellerName, maxPrice, minPrice, BiddingStatus);
     }
 
     //HieuDV
     @Override
     public Optional<Product> getProductByIdProduct(Long id) {
-        return iProductRepository.findById(id);
+        return productRepository.findById(id);
     }
 
     //HieuDV
     @Override
     public void saveProduct(Product product) {
-        iProductRepository.save(product);
+        productRepository.save(product);
     }
 }

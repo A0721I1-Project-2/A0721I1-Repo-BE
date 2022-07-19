@@ -1,6 +1,19 @@
 package project2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import project2.model.Product;
+import project2.service.IProductService;
+import project2.service.impl.ProductService;
+
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +34,24 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
+    private IProductService productService;
+
+    //  BachLT
+    @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
+    public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable("biddingStatus") int biddingStatus) {
+        System.out.println(statsBegin.get() + "?- ?" + statsEnd.get() + "/? " + biddingStatus);
+        List<Product> productList = productService.getAllProductByEndDate(statsBegin.get(), statsEnd.get(), biddingStatus);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //  BachLT
+    @GetMapping("/statistic/currentMonth&biddingStatus")
+    public ResponseEntity<List<Product>> statsProductCurrentMonth(@RequestParam("currentMonth") int curMonth, @RequestParam("biddingStatus") int biddingStatus) {
+        System.out.println(curMonth + "?- ?" + biddingStatus);
+        List<Product> productList = productService.getAllProductAtCurrentMonth(curMonth, biddingStatus);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
     private IProductService iProductService;
 
 
@@ -32,7 +63,7 @@ public class ProductController {
         if (productList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(productList,HttpStatus.OK);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     //HieuDV
@@ -59,7 +90,7 @@ public class ProductController {
         if (productList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(productList,HttpStatus.OK);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     //HieuDV
@@ -74,13 +105,13 @@ public class ProductController {
         if (productList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(productList,HttpStatus.OK);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     //HieuDV
     @GetMapping("/product-detail")
     public ResponseEntity<Product> getProductByIdProduct(@RequestParam Long id) {
-        Optional<Product> product =iProductService.getProductByIdProduct(id);
+        Optional<Product> product = iProductService.getProductByIdProduct(id);
         if (!product.isPresent()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
