@@ -22,14 +22,18 @@ public class ProductController {
     private IProductService productService;
 
     //    ?statsBegin={statsBegin}&statsEnd={statsEnd}
-    @PostMapping("/statistic/{statsBegin}/{statsEnd}")
-    public ResponseEntity<List<Product>> getAllProductList(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd) {
-        List<Product> productList = productService.getAllProductByEndDate(statsBegin.get(), statsEnd.get());
-        if (productList == null) {
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(productList, HttpStatus.OK);
-        }
+    @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
+    public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable("biddingStatus") int biddingStatus) {
+        System.out.println(statsBegin.get() + "?- ?" + statsEnd.get()+"/? "+ biddingStatus);
+        List<Product> productList = productService.getAllProductByEndDate(statsBegin.get(), statsEnd.get(), biddingStatus);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
+
+    @GetMapping("/statistic/currentMonth&biddingStatus")
+    public ResponseEntity<List<Product>> statsProductCurrentMonth(@RequestParam("currentMonth") int curMonth, @RequestParam("biddingStatus") int biddingStatus) {
+        System.out.println(curMonth + "?- ?" + biddingStatus);
+        List<Product> productList = productService.getAllProductAtCurrentMonth(curMonth, biddingStatus);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
 }

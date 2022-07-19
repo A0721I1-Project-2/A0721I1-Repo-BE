@@ -14,8 +14,15 @@ public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
-    public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd)
-    {
-        return productRepository.findProductByEndDateAndBiddingStatus(statsBegin,statsEnd);
+    @Override
+    public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus) {
+        System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));
+        return productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus);
+    }
+
+    @Override
+    public List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus) {
+        System.out.println(productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus));
+        return productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus);
     }
 }

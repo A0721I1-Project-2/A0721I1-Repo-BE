@@ -7,5 +7,6 @@ import project2.repository.IProductRepository;
 import java.util.List;
 
 public interface IProductService {
-    List<Product> getAllProductByEndDate(String statsBegin, String statsEnd);
+    List<Product> getAllProductByEndDate(String statsBegin, String statsEnd,int biddingStatus);
+    List<Product> getAllProductAtCurrentMonth(int curMonth,int biddingStatus);
 }

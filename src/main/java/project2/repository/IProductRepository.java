@@ -12,17 +12,10 @@ import java.util.List;
 public interface IProductRepository extends JpaRepository<Product, Long> {
 
     // select all from product - BachLT
-    // countQuery="SELECT count(ALL) from Product",
-//    @Query(value="SELECT id_product,code_product,create_day,initial_price," +
-//            "final_price,increment_price,name_product,product_description," +
-//            "start_date,end_date,remaining_time," +
-//            "name_approval_status,name_bidding_status,name_product_type AS p FROM Product " +
-//            "INNER JOIN approvalstatus on Product.id_approval_status=approvalstatus.id_approval_status " +
-//            "INNER JOIN biddingstatus on Product.id_bidding_status=biddingstatus.id_bidding_status" +
-//            "INNER JOIN typeproduct on Product.id_product_type=typeproduct.id_product_type" +
-//            "WHERE end_date BETWEEN ?1 AND ?2"
-//    , nativeQuery=true)
-    @Query(value="select p from Product p where p.endDate between ?1 and ?2")
-    List<Product> findProductByEndDateAndBiddingStatus(String statsBegin,String statsEnd);
 
+    @Query(value = "SELECT p FROM Product p WHERE p.endDate between ?1 and ?2 and p.biddingStatus.idBiddingStatus= ?3")
+    List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd,  long biddingStatus);
+
+    @Query(value = "SELECT * FROM Product  WHERE MONTH(end_date)=?1 and id_bidding_status= ?2", nativeQuery = true)
+    List<Product> findProductByCurrentMonthAndBiddingStatus(int currentMonth, long biddingStatus);
 }
