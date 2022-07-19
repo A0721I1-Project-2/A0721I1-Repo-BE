@@ -176,7 +176,7 @@ public class MemberController {
             member.setPhoneMember(accountMemberDTO.getPhoneMember());
 
             /*Set rank default*/
-            Rank rank = iRankService.findByName("RANK_BẠC").get();
+            Rank rank = iRankService.findByName("RANK_SILVER").get();
             member.setRank(rank);
             iMemberService.save(member);
 
