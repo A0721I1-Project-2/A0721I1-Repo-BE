@@ -43,7 +43,7 @@ public class TransactionController {
     @GetMapping("/transaction-list")
     public ResponseEntity<Page<InvoiceDetail>> listTransaction(@RequestParam(name = "index", required = false, defaultValue = "0") Integer index)  {
 
-        Pageable pageable = PageRequest.of(index,4);
+        Pageable pageable = PageRequest.of(index,5);
         Page<InvoiceDetail> invoiceDetail = iInvoiceDetailRepository.findAllTransaction(pageable);
         if (invoiceDetail == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -56,7 +56,7 @@ public class TransactionController {
                                                       @PathVariable String nameBuyer,
                                                       @PathVariable String nameProduct,
                                                       @RequestParam("status") String status,
-                                                      @PageableDefault(size = 4) Pageable pageable) {
+                                                      @PageableDefault(size = 5) Pageable pageable) {
 
         if (nameSeller.equals("null")) {
             nameSeller = "";
@@ -80,14 +80,13 @@ public class TransactionController {
         if (invoiceDetails.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        System.out.println(invoiceDetails);
         return new ResponseEntity<>(invoiceDetails, HttpStatus.OK);
     }
 
     @GetMapping("/search-date/{startDate}/{endDate}")
     public ResponseEntity<Page<InvoiceDetail>> findByDate(@PathVariable("startDate") String startDate,
                                                           @PathVariable("endDate") String endDate,
-                                                          @PageableDefault(size = 4) Pageable pageable) {
+                                                          @PageableDefault(size = 5) Pageable pageable) {
 
 
         Page<InvoiceDetail> invoiceDetails = iInvoiceDetailRepository.searchDate(startDate, endDate, pageable);
