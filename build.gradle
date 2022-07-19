@@ -20,6 +20,10 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 //    testImplementation 'org.springframework.security:spring-security-test'
+
+    //HuyNN implement JavaMailSender
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
+    implementation group: 'org.springframework', name: 'spring-context-support', version: '5.3.12'
 }
 
 tasks.named('test') {
