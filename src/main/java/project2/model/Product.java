@@ -48,7 +48,7 @@ public class Product {
     private BiddingStatus biddingStatus;
 
     @OneToMany(mappedBy = "product")
-    @JsonBackReference(value = "product_imageProduct")
+// bỏ không dùng:->    @JsonBackReference(value = "product_imageProduct")
     private List<ImageProduct> imageProductList;
 
     @OneToMany(mappedBy = "product")

@@ -3,6 +3,7 @@ package project2.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 import project2.config.SmtpAuthenticator;
@@ -18,13 +19,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.*;
+import java.util.List;
+
 
 @RestController
+@CrossOrigin("http://localhost:4200/")
 @RequestMapping("/manager/product/api")
-@CrossOrigin(origins = "*")
 public class ProductController {
     @Autowired
-    private IProductService iProductService;
+    private IProductService productService;
 
     @Autowired
     private IImageProductService iImageProductService;
@@ -36,7 +39,7 @@ public class ProductController {
 
     @GetMapping("/getProductById/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        return new ResponseEntity<>(iProductService.getProductById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getProductById(id).get(), HttpStatus.OK);
     }
 
     @PostMapping("/createNewAuction/{productId}")
@@ -57,9 +60,9 @@ public class ProductController {
     }
 
     public void updateCurrentPrice(Long productId, Double price) {
-        Product product = iProductService.getProductById(productId).get();
+        Product product = productService.getProductById(productId).get();
         product.setFinalPrice(price);
-        iProductService.updateCurrentPrice(product);
+        productService.updateCurrentPrice(product);
     }
 
     @GetMapping("/getAuctionList/{productId}")
@@ -75,21 +78,21 @@ public class ProductController {
     }
 
     @GetMapping("/checkPaymentAuctionProduct")
-    public ResponseEntity checkPaymentAuctionProduct () {
+    public ResponseEntity checkPaymentAuctionProduct() {
         sendEmailAuctionProduct("test", "test", "test");
         return new ResponseEntity(null, HttpStatus.OK);
     }
 
     @GetMapping("/getImageByProductId/{id}")
     public ResponseEntity<List<ImageProduct>> getImageByProductId(@PathVariable Long id) {
-        Product product = iProductService.getProductById(id).get();
+        Product product = productService.getProductById(id).get();
         return new ResponseEntity<List<ImageProduct>>(iImageProductService.findByProduct(product), HttpStatus.OK);
     }
 
     public void sendEmailAuctionProduct(String email, String productName, String productImage) {
         Properties props = new Properties();
-        props.put("mail.smtp.host" , "smtp.gmail.com");
-        props.put("mail.stmp.user" , "a0721i1.2022@gmail.com");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.stmp.user", "a0721i1.2022@gmail.com");
 
         //To use TLS
         props.put("mail.smtp.auth", "true");
@@ -101,12 +104,12 @@ public class ProductController {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 
-        Session session  = Session.getDefaultInstance( props , smtpAuthenticator);
+        Session session = Session.getDefaultInstance(props, smtpAuthenticator);
         String to = "nguyennhathuy.cd@gmail.com";
         String from = "contact@a0721i1.com";
         String subject = "Successfully auctioned the product Samsung S22";
         MimeMessage msg = new MimeMessage(session);
-        MimeMessageHelper helper = new MimeMessageHelper(msg,"UTF-8");
+        MimeMessageHelper helper = new MimeMessageHelper(msg, "UTF-8");
 
         try {
             helper.setFrom(new InternetAddress(from));
@@ -218,12 +221,71 @@ public class ProductController {
                     "</table>";
             helper.setText(content, true);
             Transport transport = session.getTransport("smtp");
-            transport.connect("smtp.gmail.com" , 465 , "a0721i1.2022@gmail.com", "ykddrsefedbcbvos");
+            transport.connect("smtp.gmail.com", 465, "a0721i1.2022@gmail.com", "ykddrsefedbcbvos");
             transport.send(msg);
             System.out.println("fine!!");
-        }
-        catch(Exception exc) {
+        } catch (Exception exc) {
             System.out.println(exc);
         }
     }
+
+    //VinhTQ
+    @GetMapping("/find-by-id/{id}")
+    public ResponseEntity<Product> findProductById(@PathVariable() long id) {
+        return new ResponseEntity<Product>(productService.findProductById(id), HttpStatus.BAD_REQUEST);
+    }
+
+    //HauLST
+    @GetMapping("/list/auction")
+    public ResponseEntity<List<Product>> showListProductAuction() {
+        List<Product> productList = productService.getAllProductAuntion();
+
+        if (productList.isEmpty()) {
+            return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
+        } else {
+        }
+        return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+    }
+
+
+    // HauLST
+    @GetMapping("/list/finished-auction")
+    public ResponseEntity<List<Product>> showListProductFinishedAuction() {
+        List<Product> productList = productService.getAllProductFinishedAuntion();
+        if (productList.isEmpty()) {
+            return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+    }
+
+    //HauLST
+    @GetMapping("/list/auction/{typeProduct}")
+    public ResponseEntity<List<Product>> showListProductAuctionAndTypeProduct(@PathVariable String typeProduct) {
+        List<Product> productList = productService.gettAllProductAuntionAndTypeProduct(typeProduct);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+    }
+
+    //HauLST
+    @GetMapping("list/search/name={nameProduct}/type-product={typeProduct}/{min}/{max}")
+    public ResponseEntity<List<Product>> searchNameAndTypeAndPrices(@PathVariable String nameProduct, @PathVariable String typeProduct, @PathVariable Double min, @PathVariable Double max) {
+        List<Product> productList = productService.searchProductByNameByTypeProductByPrice(nameProduct, typeProduct, min, max);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HauLST
+    @GetMapping("list/search/name={nameProduct}/type-product={typeProduct}/{min}")
+    public ResponseEntity<List<Product>> searchPricesOver250(@PathVariable String nameProduct, @PathVariable String typeProduct, @PathVariable Double min) {
+        List<Product> productList = productService.searchProductPricesOver250(nameProduct, typeProduct, min);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
 }
+
