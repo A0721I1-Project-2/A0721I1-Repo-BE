@@ -25,6 +25,9 @@ public class Account {
     @Column(name = "last_login")
     private LocalDate last_login;
 
+    @Column(name = "token")
+    private String token;
+
     @Column(name = "flag_delete")
     private Boolean flagDelete;
 
@@ -116,5 +119,13 @@ public class Account {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
