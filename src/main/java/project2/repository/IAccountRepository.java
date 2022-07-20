@@ -4,9 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project2.model.Account;
+import project2.model.Member;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, Long> {
+    Account findByMember(Member member);
 
     //    @Query(value = "select * from account where toke = ?1",nativeQuery = true)
     Account findAccountByToken(String token);
@@ -19,5 +21,4 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
     Account findAccountByUsername(String username);
 
     Account getAccountByUsername(String username);
-
 }
