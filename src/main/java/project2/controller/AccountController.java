@@ -13,30 +13,36 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 @RestController
-@CrossOrigin("http://localhost:4200/")
-@RequestMapping("/manager/account/api")
+@CrossOrigin("*")
+@RequestMapping("/api/account")
 public class AccountController {
     @Autowired
     private IAccountService accountService;
     @Autowired
     private JavaMailSender mailSender;
+    //VinhTQ
     @GetMapping("/forgot-password")
-    public ResponseEntity<String> processForgotPasswordForm(@RequestParam String email, @RequestParam String username) {
+    public ResponseEntity<Object> processForgotPasswordForm(@RequestParam String email, @RequestParam String username) {
         String message = "";
         try {
             Account account = accountService.findAccountByEmailAndUsername(email, username);
             accountService.updateToken(account);
             String resetPasswordLink = "http://localhost:4200/home/change-password/" + account.getToken();
             sendEmail(email, resetPasswordLink);
-            message = "Chúng tôi đa gửi link thay đổi mật khẩu. Vui lòng mở email để kiểm tra";
-            return new ResponseEntity<String>(account.getToken(), HttpStatus.OK);
+            message = "We have sent a link to change the password. Please open email to check";
+            return new ResponseEntity<Object>(message, HttpStatus.OK);
         } catch (UnsupportedEncodingException | MessagingException exception) {
-            message = "Lỗi khi gửi email";
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+            message = "Error sending mail";
+            return new ResponseEntity<Object>(message, HttpStatus.OK);
         } catch (Exception exception) {
             exception.printStackTrace();
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+            message = "Exception Error";
+            return new ResponseEntity<Object>(message, HttpStatus.OK);
         }
+    }
+    @GetMapping("/check-account")
+    public ResponseEntity<Account> checkExistAccount(@RequestParam String email, @RequestParam String username){
+        return new ResponseEntity<Account>(accountService.findAccountByEmailAndUsername(email,username),HttpStatus.OK);
     }
 
     private ResponseEntity<Void> sendEmail(String email, String resetPasswordLink) throws UnsupportedEncodingException, MessagingException {
