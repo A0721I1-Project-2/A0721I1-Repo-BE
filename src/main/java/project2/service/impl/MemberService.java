@@ -11,6 +11,7 @@ import java.util.Optional;
 public class MemberService implements IMemberService {
     @Autowired
     private IMemberRepository memberRepository;
+
     @Override
     public Member save(Member member) {
         return null;
@@ -23,7 +24,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public Optional<Member> findById(Long id) {
-        return Optional.empty();
+        return memberRepository.findById(id);
     }
 
     @Override
