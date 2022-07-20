@@ -5,13 +5,29 @@ import org.springframework.stereotype.Service;
 import project2.model.Product;
 import project2.repository.IProductRepository;
 import project2.service.IProductService;
+import java.util.List;
+
+import java.util.Optional;
 
 import java.util.List;
+
 
 @Service
 public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
+
+    //HuyNN
+    @Override
+    public Optional<Product> getProductById(Long id) {
+        return productRepository.findById(id);
+    }
+
+    //HuyNN
+    @Override
+    public void updateCurrentPrice(Product product) {
+        productRepository.save(product);
+    }
 
     //VinhTQ
     @Override
