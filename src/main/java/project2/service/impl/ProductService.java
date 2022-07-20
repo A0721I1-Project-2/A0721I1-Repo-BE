@@ -2,36 +2,67 @@ package project2.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project2.dto.TransactionDTO;
 import project2.model.Product;
 import project2.repository.IProductRepository;
 import project2.service.IProductService;
+import java.util.List;
+
+import java.util.Optional;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
-public class ProductService {
+public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
-//
-////    @Override
-////    public String getNameProduct() {
-////        return productRepository.getNameProduct();
-////    }
-//
-//    public List<TransactionDTO> getAllTransaction() {
-//        return productRepository.findAll()
-//                .stream()
-//                .map(this::convert)
-//                .collect(Collectors.toList());
-//    }
-//
-//    private TransactionDTO convert(Product product) {
-//        TransactionDTO transactionDTO = new TransactionDTO();
-//        transactionDTO.setProductName(product.getNameProduct());
-//        transactionDTO.setFinalBidPrice(product.getFinalPrice());
-//        transactionDTO.setSuccessfulBiddingTime(product.getEndDate());
-//        return transactionDTO;
-//    }
+
+    //HuyNN
+    @Override
+    public Optional<Product> getProductById(Long id) {
+        return productRepository.findById(id);
+    }
+
+    //HuyNN
+    @Override
+    public void updateCurrentPrice(Product product) {
+        productRepository.save(product);
+    }
+
+    //VinhTQ
+    @Override
+    public Product findProductById(long id) {
+        return productRepository.findproductById(id);
+    }
+
+    //HauLST
+    @Override
+    public List<Product> getAllProductAuntion() {
+        return productRepository.findAllProductAuction();
+    }
+
+    //HauLST
+    @Override
+    public List<Product> getAllProductFinishedAuntion() {
+        return productRepository.findAllProductFinishedAuction();
+    }
+
+    //HauLST
+    @Override
+    public List<Product> gettAllProductAuntionAndTypeProduct(String nameTypeProduct) {
+        return productRepository.gettAllProductAuntionAndTypeProduct(nameTypeProduct);
+    }
+
+    //HauLST
+    @Override
+    public List<Product> searchProductByNameByTypeProductByPrice(String nameProduct, String nameTypeProduct, Double
+            min, Double max) {
+        return productRepository.searchProductByNameByTypeProductByPrice(nameProduct, nameTypeProduct, min, max);
+    }
+
+    //HauLST
+    @Override
+    public List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min) {
+        return productRepository.searchProductPricesOver250(nameProduct, nameTypeProduct, min);
+    }
 }

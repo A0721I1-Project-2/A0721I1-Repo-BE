@@ -13,69 +13,70 @@ import java.util.List;
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
 
-//    @Query(value = "select * from product \n" +
-//            "\tinner join invoicedetail\t \n" +
-//            "\ton invoicedetail.id_product = product.id_product\n" +
-//            "\tinner join invoice \n" +
-//            "\ton invoice.id_invoice = invoicedetail.id_invoice\n" +
-//            "    inner join payment\n" +
-//            "    on invoice.id_payment = payment.id_payment\n" +
-//            "\twhere (product.end_date between ?1 and ?2)" ,
-//            countQuery =  "select * from product \n" +
-//            "\tinner join invoicedetail\t \n" +
-//            "\ton invoicedetail.id_product = product.id_product\n" +
-//            "\tinner join invoice \n" +
-//            "\ton invoice.id_invoice = invoicedetail.id_invoice\n" +
-//            "    inner join payment\n" +
-//            "    on invoice.id_payment = payment.id_payment\n" +
-//            "\twhere name_product like ?1 ", nativeQuery = true)
-//    Page<Product> searchDate(Pageable pageable, String startDate, String endDate);
-//
-//    @Query(value = "select * from product \n" +
-//            "\tinner join invoicedetail\t \n" +
-//            "\ton invoicedetail.id_product = product.id_product\n" +
-//            "\tinner join invoice \n" +
-//            "\ton invoice.id_invoice = invoicedetail.id_invoice\n" +
-//            "    inner join payment\n" +
-//            "    on invoice.id_payment = payment.id_payment\n" +
-//            "\twhere name_product like ?1 ",
-//            countQuery =  "select * from product \n" +
-//                    "\tinner join invoicedetail\t \n" +
-//                    "\ton invoicedetail.id_product = product.id_product\n" +
-//                    "\tinner join invoice \n" +
-//                    "\ton invoice.id_invoice = invoicedetail.id_invoice\n" +
-//                    "    inner join payment\n" +
-//                    "    on invoice.id_payment = payment.id_payment\n" +
-//                    "\twhere name_product like ?1 ", nativeQuery = true)
-//    Page<Product> findAllByNameProduct(Pageable pageable, String name);
-//
-//    @Query(value = "select invoice.id_invoice, status_invoice, name_member, final_price, initial_price, fee_service from product \n" +
-//            "\tinner join invoicedetail\t \n" +
-//            "\ton invoicedetail.id_product = product.id_product\n" +
-//            "\tinner join invoice\n" +
-//            "\ton invoice.id_invoice = invoicedetail.id_invoice\n" +
-//            "    inner join payment\n" +
-//            "    on invoice.id_payment = payment.id_payment\n" +
-//            "    inner join `member`\n" +
-//            "    on invoice.id_member = `member`.id_member",
-//            countQuery =  "select * from product \n" +
-//            "\tinner join invoicedetail\t \n" +
-//            "\ton invoicedetail.id_product = product.id_product\n" +
-//            "\tinner join invoice \n" +
-//            "\ton invoice.id_invoice = invoicedetail.id_invoice\n" +
-//            "    inner join payment\n" +
-//            "    on invoice.id_payment = payment.id_payment\n" +
-//            "\twhere name_product like ?1 ", nativeQuery = true)
-//    Page<TransactionDTO> findAllTransaction
+    //VinhTQ
+    @Query(value = "select * from product " +
+            "join product_member on product_member.id_product = product.id_product " +
+            "join member on member.id_member = product_member.id_member " +
+            "where product.id_product =?1", nativeQuery = true)
+    Product findproductById(long id);
 
-    @Query(value = "select invoice.id_invoice, status_invoice, name_member, final_price, initial_price, fee_service from product \n" +
-            "\tinner join invoicedetail\t \n" +
-            "\ton invoicedetail.id_product = product.id_product\n" +
-            "\tinner join invoice\n" +
-            "\ton invoice.id_invoice = invoicedetail.id_invoice\n" +
-            "    inner join payment\n" +
-            "    on invoice.id_payment = payment.id_payment\n" +
-            "    inner join `member`\n" +
-            "    on invoice.id_member = `member`.id_member", nativeQuery = true)
-    List<Product> findAllTransaction();
+    //HauLST - List sp đang đấu giá, và sắp xếp theo thời gian còn lại từ ít nhất -> nhiều nhất
+    @Query(value = "select * from Product inner join TypeProduct on Product.id_product_type = TypeProduct.id_product_type \n" +
+            " inner join BiddingStatus on Product.id_bidding_status = BiddingStatus.id_bidding_status \n" +
+            " inner join ImageProduct on Product.id_product = ImageProduct.id_product\n" +
+            " inner join ApprovalStatus on Product.id_approval_status = ApprovalStatus.id_approval_status \n" +
+            " where BiddingStatus.name_bidding_status= \"auction\" and ApprovalStatus.name_approval_status = \"posted\" and (Product.end_date > now()) \n" +
+            " order by Product.end_date  asc", nativeQuery = true)
+    List<Product> findAllProductAuction();
+
+    //HauLST - List sp đấu giá đã kết thúc ( có thể thành công hoặc thất bại ), và sắp xếp theo thời gian tạo từ mới nhất -> cũ nhất
+    @Query(value = " select * from Product inner join TypeProduct on Product.id_product_type = TypeProduct.id_product_type \n" +
+            " inner join BiddingStatus on Product.id_bidding_status = BiddingStatus.id_bidding_status \n" +
+            " inner join ImageProduct on Product.id_product = ImageProduct.id_product\n" +
+            " inner join ApprovalStatus on Product.id_approval_status = ApprovalStatus.id_approval_status\n" +
+            " where ApprovalStatus.name_approval_status = \"posted\"\n" +
+            " and (Product.end_date <now()) \n" +
+            " order by Product.end_date desc", nativeQuery = true)
+    List<Product> findAllProductFinishedAuction();
+
+    //HauLST - List sp đang đấu giá và theo từng category, và có sắp xếp theo thời gian tạo từ mới nhất -> cũ nhất
+    @Query(value = "select * from Product inner join TypeProduct on Product.id_product_type = TypeProduct.id_product_type \n" +
+            " inner join BiddingStatus on Product.id_bidding_status = BiddingStatus.id_bidding_status \n" +
+            " inner join ImageProduct on Product.id_product = ImageProduct.id_product\n" +
+            " inner join ApprovalStatus on Product.id_approval_status = ApprovalStatus.id_approval_status \n" +
+            " where BiddingStatus.name_bidding_status= \"auction\" \n" +
+            " and ApprovalStatus.name_approval_status = \"posted\"\n" +
+            " and TypeProduct.name_product_type like %?1% \n" +
+            " and (Product.end_date > now()) \n" +
+            " order by Product.end_date asc", nativeQuery = true)
+    List<Product> gettAllProductAuntionAndTypeProduct(String nameTypeProduct);
+
+    //HauLST - Search sp theo nameProduct, typeProduct, prices range
+    @Query(value = "select * from Product \n" +
+            "inner join TypeProduct on Product.id_product_type = TypeProduct.id_product_type \n" +
+            "inner join BiddingStatus on Product.id_bidding_status = BiddingStatus.id_bidding_status \n" +
+            "inner join ImageProduct on Product.id_product = ImageProduct.id_product \n" +
+            "inner join ApprovalStatus on Product.id_approval_status = ApprovalStatus.id_approval_status\n" +
+            "where BiddingStatus.name_bidding_status= \"auction\" \n" +
+            "and ApprovalStatus.name_approval_status = \"posted\"\n" +
+            "and Product.name_product like %?1% \n" +
+            "and TypeProduct.name_product_type like %?2% \n" +
+            "and (Product.final_price between ?3 and ?4)\n" +
+            "order by Product.end_date asc", nativeQuery = true)
+    List<Product> searchProductByNameByTypeProductByPrice(String nameProduct, String nameTypeProduct, Double min, Double max);
+
+    //HauLST - Search sp theo nameProduct, typeProduct, prices range>250
+    @Query(value = "select * from Product \n" +
+            "inner join TypeProduct on Product.id_product_type = TypeProduct.id_product_type \n" +
+            "inner join BiddingStatus on Product.id_bidding_status = BiddingStatus.id_bidding_status \n" +
+            "inner join ImageProduct on Product.id_product = ImageProduct.id_product \n" +
+            "inner join ApprovalStatus on Product.id_approval_status = ApprovalStatus.id_approval_status\n" +
+            "where BiddingStatus.name_bidding_status= \"auction\" \n" +
+            "and ApprovalStatus.name_approval_status = \"posted\" and (Product.end_date > now()) \n" +
+            "and Product.name_product like %?1% \n" +
+            "and TypeProduct.name_product_type like %?2% \n" +
+            "and (Product.final_price >?3)\n" +
+            "order by Product.end_date asc", nativeQuery = true)
+    List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
+
 }
