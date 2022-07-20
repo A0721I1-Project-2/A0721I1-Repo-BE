@@ -23,7 +23,7 @@ public class Product {
     private Double finalPrice;
     @Column(name = "increment_price")
     private Double incrementPrice;
-    @Column(name = "product_description")
+    @Column(name = "product_description", length = 1000)
     private String productDescription;
     @Column(name = "start_date")
     private String startDate;
@@ -31,7 +31,7 @@ public class Product {
     private String endDate;
     @Column(name = "remaining_time")
     private String remainingTime;
-    @Column(name="create_day")
+    @Column(name = "create_day")
     private String createDay;
     @Column(name = "flag_delete")
     private Boolean flagDelete;
@@ -49,7 +49,7 @@ public class Product {
     private BiddingStatus biddingStatus;
 
     @OneToMany(mappedBy = "product")
-    @JsonBackReference(value = "product_imageProduct")
+// bỏ không dùng:->    @JsonBackReference(value = "product_imageProduct")
     private List<ImageProduct> imageProductList;
 
     @OneToMany(mappedBy = "product")
@@ -75,16 +75,8 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long idProduct, String codeProduct, String nameProduct,
-                   Double initialPrice, Double finalPrice,
-                   Double incrementPrice, String productDescription,
-                   String startDate, String endDate, String remainingTime,
-                   String createDay, Boolean flagDelete,
-                   TypeProduct typeProduct, ApprovalStatus approvalStatus,
-                   BiddingStatus biddingStatus,
-                   List<ImageProduct> imageProductList,
-                   List<InvoiceDetail> invoiceDetailList, Member member,
-                   Set<Member> members) {
+
+    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Set<Member> members) {
         this.idProduct = idProduct;
         this.codeProduct = codeProduct;
         this.nameProduct = nameProduct;
@@ -102,7 +94,7 @@ public class Product {
         this.biddingStatus = biddingStatus;
         this.imageProductList = imageProductList;
         this.invoiceDetailList = invoiceDetailList;
-        this.member = member;
+        this.cart = cart;
         this.members = members;
     }
 
@@ -256,5 +248,13 @@ public class Product {
 
     public void setMembers(Set<Member> members) {
         this.members = members;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

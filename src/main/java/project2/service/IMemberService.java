@@ -18,4 +18,6 @@ public interface IMemberService {
     void deleteById(Long id);
 
     void delele(Member member);
+
+    void getTransactionMember();
 }
