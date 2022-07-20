@@ -1,8 +1,11 @@
 package project2.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -25,9 +28,11 @@ public class Product {
     @Column(name = "product_description")
     private String productDescription;
     @Column(name = "start_date")
-    private String startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime startDate;
     @Column(name = "end_date")
-    private String endDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime endDate;
     @Column(name = "remaining_time")
     private String remainingTime;
     @Column(name="create_day")
@@ -44,7 +49,7 @@ public class Product {
     private ApprovalStatus approvalStatus;
 
     @ManyToOne(targetEntity = BiddingStatus.class)
-    @JoinColumn(name = "id_bidding_status", nullable = false)
+    @JoinColumn(name = "id_bidding_status", nullable = true)
     private BiddingStatus biddingStatus;
 
     @OneToMany(mappedBy = "product")
@@ -56,7 +61,7 @@ public class Product {
     private List<InvoiceDetail> invoiceDetailList;
 
     @ManyToOne(targetEntity = Cart.class)
-    @JoinColumn(name = "id_cart", nullable = false)
+    @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
     @ManyToMany
@@ -70,7 +75,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Set<Member> members) {
+    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, LocalDateTime startDate, LocalDateTime endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Set<Member> members) {
         this.idProduct = idProduct;
         this.codeProduct = codeProduct;
         this.nameProduct = nameProduct;
@@ -88,6 +93,7 @@ public class Product {
         this.biddingStatus = biddingStatus;
         this.imageProductList = imageProductList;
         this.invoiceDetailList = invoiceDetailList;
+        this.cart = cart;
         this.members = members;
     }
 
@@ -147,20 +153,28 @@ public class Product {
         this.productDescription = productDescription;
     }
 
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getRemainingTime() {
