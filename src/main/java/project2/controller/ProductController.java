@@ -1,17 +1,25 @@
 package project2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 import project2.config.SmtpAuthenticator;
-import project2.dto.AuctionDTO;
-import project2.model.ImageProduct;
 import project2.model.Product;
 import project2.service.IImageProductService;
 import project2.service.IProductService;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+import org.springframework.mail.javamail.MimeMessageHelper;
+import project2.dto.AuctionDTO;
+import project2.model.ImageProduct;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -19,13 +27,14 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.*;
-import java.util.List;
 
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
 @RequestMapping("/manager/product/api")
+
 public class ProductController {
+
     @Autowired
     private IProductService productService;
 
@@ -35,6 +44,32 @@ public class ProductController {
     @Autowired
     private SmtpAuthenticator smtpAuthenticator;
 
+    //  BachLT
+    @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
+    public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable("biddingStatus") int biddingStatus) {
+        System.out.println(statsBegin.get() + "?- ?" + statsEnd.get() + "/? " + biddingStatus);
+        List<Product> productList = productService.getAllProductByEndDate(statsBegin.get(), statsEnd.get(), biddingStatus);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //  BachLT
+    @GetMapping("/statistic/currentMonth&biddingStatus")
+    public ResponseEntity<List<Product>> statsProductCurrentMonth(@RequestParam("currentMonth") int curMonth, @RequestParam("biddingStatus") int biddingStatus) {
+        System.out.println(curMonth + "?- ?" + biddingStatus);
+        List<Product> productList = productService.getAllProductAtCurrentMonth(curMonth, biddingStatus);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HieuDV
+    @GetMapping("/list")
+    public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Product> productList = productService.getAllNotDeletedYet(pageable);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
 
     //HuyNN
     Map<Long, List<AuctionDTO>> auctionList = new HashMap<>();
@@ -243,6 +278,7 @@ public class ProductController {
     public ResponseEntity<Product> findProductByIdForProductDetail(@PathVariable() long id) {
         return new ResponseEntity<Product>(productService.findProductByIdForProductDetail(id), HttpStatus.OK);
     }
+
     //VinhTQ
     @GetMapping("/highest-bidder/{id}")
     public ResponseEntity<Product> finForProductDetail(@PathVariable() long id) {
@@ -292,7 +328,17 @@ public class ProductController {
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
-    //HauLST 
+    //HieuDV
+    @GetMapping("/list-not-pagination")
+    public ResponseEntity<List<Product>> getAllNotDeletedYetNotPagination() {
+        List<Product> productList = productService.getAllNotDeletedYet();
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HauLST
     @GetMapping("list/search/name={nameProduct}/type-product={typeProduct}/{min}")
     public ResponseEntity<List<Product>> searchPricesOver250(@PathVariable String nameProduct, @PathVariable String typeProduct, @PathVariable Double min) {
         List<Product> productList = productService.searchProductPricesOver250(nameProduct, typeProduct, min);
@@ -300,6 +346,55 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HieuDV
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Product>> getAllProductByNameTypeSellerPriceStatus(@RequestParam(defaultValue = "") String name,
+                                                                                      @RequestParam(defaultValue = "") String typeProduct,
+                                                                                      @RequestParam(defaultValue = "") String sellerName,
+                                                                                      @RequestParam(defaultValue = "") String maxPrice,
+                                                                                      @RequestParam(defaultValue = "") String minPrice,
+                                                                                      @RequestParam(defaultValue = "") String biddingStatus,
+                                                                                      @RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Product> productList = this.productService.getAllProductByNameTypeSellerPriceStatus(name, typeProduct, sellerName, maxPrice, minPrice, biddingStatus, pageable);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HieuDV
+    @GetMapping("/search-not-pagination")
+    public ResponseEntity<List<Product>> getAllProductByNameTypeSellerPriceStatusNotPagination(@RequestParam(defaultValue = "") String name,
+                                                                                               @RequestParam(defaultValue = "") String typeProduct,
+                                                                                               @RequestParam(defaultValue = "") String sellerName,
+                                                                                               @RequestParam(defaultValue = "") String maxPrice,
+                                                                                               @RequestParam(defaultValue = "") String minPrice,
+                                                                                               @RequestParam(defaultValue = "") String BiddingStatus) {
+        List<Product> productList = this.productService.getAllProductByNameTypeSellerPriceStatusNotPagination(name, typeProduct, sellerName, maxPrice, minPrice, BiddingStatus);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HieuDV
+    @GetMapping("/product-detail")
+    public ResponseEntity<Product> getProductByIdProduct(@RequestParam Long id) {
+        Optional<Product> product = this.productService.getProductByIdProduct(id);
+        if (!product.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(product.get(), HttpStatus.OK);
+    }
+
+    //HieuDV
+    @PostMapping("/update-bidding-status")
+    public ResponseEntity<Product> updateProductBiddingStatus(@RequestBody Product product) {
+        this.productService.saveProduct(product);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 

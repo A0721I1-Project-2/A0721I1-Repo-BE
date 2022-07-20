@@ -1,5 +1,11 @@
 package project2.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import project2.model.Member;
+import project2.service.impl.MemberService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 @RequestMapping("/api/account")
 @CrossOrigin(origins = "*")
 public class AccountController {
+
     @Autowired
     IMemberService iMemberService;
 
@@ -30,12 +37,11 @@ public class AccountController {
     private JavaMailSender mailSender;
 
 
-
     // HuyNN
     @GetMapping("/getAccountByMemberId/{id}")
     public ResponseEntity<Account> getAccountByMember(@PathVariable Long id) {
-        Member member = iMemberService.findById(id).get();
-        return new ResponseEntity<Account>(accountService.findByMember(member), HttpStatus.OK);
+        Member member = iMemberService.findById(id);
+        return new ResponseEntity<>(accountService.findByMember(member), HttpStatus.OK);
     }
 
     @GetMapping("/forgot-password")
