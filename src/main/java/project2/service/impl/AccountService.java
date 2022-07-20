@@ -1,5 +1,4 @@
 package project2.service.impl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,10 +20,14 @@ import java.util.Set;
 @Service
 public class AccountService implements IAccountService,UserDetailsService {
     @Autowired
-    private IAccountRepository accountRepository;
+
+
+    private IAccountRepository iAccountRepository;
+
+
     @Override
     public Account save(Account account) {
-        return null;
+        return iAccountRepository.save(account);
     }
 
     @Override
@@ -34,12 +37,12 @@ public class AccountService implements IAccountService,UserDetailsService {
 
     @Override
     public Optional<Account> findById(Long id) {
-        return accountRepository.findById(id);
+        return iAccountRepository.findById(id);
     }
 
     @Override
     public List<Account> findAll() {
-        return null;
+        return iAccountRepository.findAll();
     }
 
     @Override
@@ -54,12 +57,12 @@ public class AccountService implements IAccountService,UserDetailsService {
     /* Get accounts by role name -TuanNHA */
     @Override
     public List<Account> getAccountsByRoleName() {
-        return this.accountRepository.getAccountsByRoleMember();
+        return this.iAccountRepository.getAccountsByRoleMember();
     }
 
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findAccountByUsername(username);
+        Account account = iAccountRepository.findAccountByUsername(username);
 
         if (account == null) {
             throw new UsernameNotFoundException("user not found");
@@ -77,6 +80,6 @@ public class AccountService implements IAccountService,UserDetailsService {
 
     @Override
     public Account getAccountByUsername(String username) {
-        return accountRepository.getAccByUsername(username);
+        return iAccountRepository.getAccountByUsername(username);
     }
 }
