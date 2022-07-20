@@ -1,14 +1,18 @@
 package project2.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import project2.dto.TransactionDTO;
 import project2.model.Product;
 
 import java.util.List;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
+
     //VinhTQ
     @Query(value = "select * from product " +
             "join product_member on product_member.id_product = product.id_product " +
@@ -70,4 +74,5 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "and (Product.final_price >?3)\n" +
             "order by Product.end_date asc", nativeQuery = true)
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
+
 }

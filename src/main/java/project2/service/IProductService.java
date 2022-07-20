@@ -7,6 +7,7 @@ import project2.model.Product;
 import java.util.Optional;
 
 public interface IProductService {
+
     //HuyNN
     Optional<Product> getProductById(Long id);
     //HuyNN
