@@ -216,4 +216,12 @@ public class MemberController {
         iMemberService.editMember(member);
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
+
+    // HuyNN get member by id method
+    @GetMapping("/getMemberById/{id}")
+    public ResponseEntity<Member> getMemberById(@PathVariable Long id) {
+        return new ResponseEntity<Member>(iMemberService.findById(id), HttpStatus.OK);
+    }
 }
+
+
