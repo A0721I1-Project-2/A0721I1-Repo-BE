@@ -3,6 +3,7 @@ package project2.service;
 import project2.model.Member;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IMemberService {
     Member save(Member member);
@@ -11,9 +12,13 @@ public interface IMemberService {
 
     Member findById(String id);
 
+    Optional<Member> findById(Long id);
+
     List<Member> findAll();
 
     void deleteById(Long id);
 
     void delele(Member member);
+
+    void getTransactionMember();
 }

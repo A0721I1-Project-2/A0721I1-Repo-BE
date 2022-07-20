@@ -8,11 +8,12 @@ import project2.service.IMemberService;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class MemberService implements IMemberService {
     @Autowired
     private IMemberRepository iMemberRepository;
+
+    private IMemberRepository memberRepository;
 
     @Override
     public Member save(Member member) {
@@ -28,6 +29,9 @@ public class MemberService implements IMemberService {
     public Member findById(String id) {
         return iMemberRepository.findById(Long.parseLong(id)).orElse(null);
     }
+    public Optional<Member> findById(Long id) {
+        return memberRepository.findById(id);
+    }
 
     @Override
     public List<Member> findAll() {
@@ -42,5 +46,10 @@ public class MemberService implements IMemberService {
     @Override
     public void delele(Member member) {
 
+    }
+
+    @Override
+    public void getTransactionMember() {
+        memberRepository.getTransactionByMember();
     }
 }
