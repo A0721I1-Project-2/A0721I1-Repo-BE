@@ -1,5 +1,10 @@
 package project2.service;
 
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import project2.model.Account;
+
 import project2.model.Member;
 
 import java.util.List;
@@ -10,15 +15,23 @@ public interface IMemberService {
 
     Iterable<Member> saveAll(Iterable<Member> members);
 
-    Member findById(String id);
+    Member findById(Long id);
 
-    Optional<Member> findById(Long id);
+    Page<Member> findAll(Pageable pageable);
 
-    List<Member> findAll();
+    List<Member> findAllList();
+
+    Page<Member> searchMember(String name, String email, String address, String phoneNumber, String nameRank, Pageable pageable);
 
     void deleteById(Long id);
 
     void delele(Member member);
+
+    //SonLT View-Member
+    Member findMemberByIdAccount(Long id);
+
+    //SonLT Edit-Member
+    void editMember(Member member);
 
     void getTransactionMember();
 }
