@@ -1,6 +1,5 @@
 package project2.service;
 
-import project2.model.Account;
 import project2.model.Member;
 
 import java.util.List;
@@ -18,4 +17,6 @@ public interface IMemberService {
     void deleteById(Long id);
 
     void delele(Member member);
+
+    Member findMemberByIdAccount(Long IdAccount);
 }
