@@ -16,10 +16,10 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
     // select all from product - BachLT
 
-    @Query(value = "SELECT p FROM Product p WHERE p.endDate between ?1 and ?2 and p.biddingStatus.idBiddingStatus= ?3")
+    @Query(value = "SELECT p FROM Product p WHERE p.endDate between ?1 and ?2 and p.biddingStatus.idBiddingStatus= ?3 and p.flagDelete = 0")
     List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd, long biddingStatus);
 
-    @Query(value = "SELECT * FROM Product  WHERE MONTH(end_date)=?1 and id_bidding_status= ?2", nativeQuery = true)
+    @Query(value = "SELECT * FROM Product  WHERE MONTH(end_date)=?1 and id_bidding_status= ?2 and product.flag_delete = 0", nativeQuery = true)
     List<Product> findProductByCurrentMonthAndBiddingStatus(int currentMonth, long biddingStatus);
 
     //HieuDV

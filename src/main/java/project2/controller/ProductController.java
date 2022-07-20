@@ -34,13 +34,13 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    private IProductService productService;
+    private IProductService iProductService;
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
     public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable("biddingStatus") int biddingStatus) {
         System.out.println(statsBegin.get() + "?- ?" + statsEnd.get() + "/? " + biddingStatus);
-        List<Product> productList = productService.getAllProductByEndDate(statsBegin.get(), statsEnd.get(), biddingStatus);
+        List<Product> productList = iProductService.getAllProductByEndDate(statsBegin.get(), statsEnd.get(), biddingStatus);
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
@@ -48,13 +48,10 @@ public class ProductController {
     @GetMapping("/statistic/currentMonth&biddingStatus")
     public ResponseEntity<List<Product>> statsProductCurrentMonth(@RequestParam("currentMonth") int curMonth, @RequestParam("biddingStatus") int biddingStatus) {
         System.out.println(curMonth + "?- ?" + biddingStatus);
-        List<Product> productList = productService.getAllProductAtCurrentMonth(curMonth, biddingStatus);
+        List<Product> productList = iProductService.getAllProductAtCurrentMonth(curMonth, biddingStatus);
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
-
-    private IProductService iProductService;
-
-
+    
     //HieuDV
     @GetMapping("/list")
     public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
