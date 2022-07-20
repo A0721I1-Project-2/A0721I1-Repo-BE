@@ -29,6 +29,9 @@ public class AccountController {
     @Autowired
     private JavaMailSender mailSender;
 
+
+
+
     // HuyNN
     @GetMapping("/getAccountByMemberId/{id}")
     public ResponseEntity<Account> getAccountByMember(@PathVariable Long id) {
@@ -36,13 +39,13 @@ public class AccountController {
         return new ResponseEntity<Account>(accountService.findByMember(member), HttpStatus.OK);
     }
 
-    @PostMapping("/forgot-password")
+    @GetMapping("/forgot-password")
     public ResponseEntity<String> processForgotPasswordForm(@RequestParam String email, @RequestParam String username) {
         String message = "";
         try {
             Account account = accountService.findAccountByEmailAndUsername(email, username);
             accountService.updateToken(account);
-            String resetPasswordLink = "http://localhost:4200/forgot-password/reset-password/" + account.getToken();
+            String resetPasswordLink = "http://localhost:4200/home/change-password/" + account.getToken();
             sendEmail(email, resetPasswordLink);
             message = "Chúng tôi đa gửi link thay đổi mật khẩu. Vui lòng mở email để kiểm tra";
             return new ResponseEntity<String>(account.getToken(), HttpStatus.OK);
@@ -82,7 +85,7 @@ public class AccountController {
                 "  <meta charset=\"UTF-8\">\n" +
                 "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
                 "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-                "  <title>Reset Your Lingo Password</title>\n" +
+                "  <title>Reset Your Password Here</title>\n" +
                 "  <!--[if !mso]>\n" +
                 "      <!-- -->\n" +
                 "  <link href='https://fonts.googleapis.com/css?family=Asap:400,400italic,700,700italic' rel='stylesheet' type='text/css'>\n" +
@@ -340,21 +343,6 @@ public class AccountController {
                 " 100%; min-width:100%;\" width=\"100%\">\n" +
                 "                          <tbody>\n" +
                 "                            <tr>\n" +
-                "                              <td class=\"mcnTextContent\" style='mso-line-height-rule: exactly;\n" +
-                " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; word-break: break-word;\n" +
-                " color: #2a2a2a; font-family: \"Asap\", Helvetica, sans-serif; font-size: 12px;\n" +
-                " line-height: 150%; text-align: left; padding-top:9px; padding-right: 18px;\n" +
-                " padding-bottom: 9px; padding-left: 18px;' valign=\"top\">\n" +
-                "                                <a href=\"https://www.lingoapp.com\" style=\"mso-line-height-rule: exactly;\n" +
-                " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #2a2a2a;\n" +
-                " font-weight: normal; text-decoration: none\" target=\"_blank\" title=\"Lingo is the\n" +
-                " best way to organize, share and use all your visual assets in one place -\n" +
-                " all on your desktop.\">\n" +
-                "                                  <img align=\"none\" alt=\"Lingo is the best way to\n" +
-                " organize, share and use all your visual assets in one place - all on your desktop.\" height=\"32\" src=\"https://static.lingoapp.com/assets/images/email/lingo-logo.png\" style=\"-ms-interpolation-mode: bicubic; border: 0; outline: none;\n" +
-                " text-decoration: none; height: auto; width: 107px; height: 32px; margin: 0px;\" width=\"107\" />\n" +
-                "                                </a>\n" +
-                "                              </td>\n" +
                 "                            </tr>\n" +
                 "                          </tbody>\n" +
                 "                        </table>\n" +
@@ -383,10 +371,10 @@ public class AccountController {
                 "                              <td class=\"mcnImageContent\" style=\"mso-line-height-rule: exactly;\n" +
                 " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-right: 0px;\n" +
                 " padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;\" valign=\"top\">\n" +
-                "                                <a class=\"\" href=\"https://www.lingoapp.com\" style=\"mso-line-height-rule:\n" +
+                "                                <a class=\"\" href=\"http://localhost:4200/\" style=\"mso-line-height-rule:\n" +
                 " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color:\n" +
                 " #f57153; font-weight: normal; text-decoration: none\" target=\"_blank\" title=\"\">\n" +
-                "                                  <a class=\"\" href=\"https://www.lingoapp.com/\" style=\"mso-line-height-rule:\n" +
+                "                                  <a class=\"\" href=\"http://localhost:4200/\" style=\"mso-line-height-rule:\n" +
                 " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color:\n" +
                 " #f57153; font-weight: normal; text-decoration: none\" target=\"_blank\" title=\"\">\n" +
                 "                                    <img align=\"center\" alt=\"Forgot your password?\" class=\"mcnImage\" src=\"https://static.lingoapp.com/assets/images/email/il-password-reset@2x.png\" style=\"-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none;\n" +
@@ -495,11 +483,11 @@ public class AccountController {
                 " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
                 " font-family: 'Asap', Helvetica, sans-serif; font-size: 16px; padding-top:24px;\n" +
                 " padding-right:48px; padding-bottom:24px; padding-left:48px;\" valign=\"middle\">\n" +
-                "                                        <a class=\"mcnButton \" href=\""+resetPasswordLink+"\" style=\"mso-line-height-rule: exactly;\n" +
+                "                                        <a class=\"mcnButton \" href="+resetPasswordLink+" style=\"mso-line-height-rule: exactly;\n" +
                 " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; display: block; color: #f57153;\n" +
                 " font-weight: normal; text-decoration: none; font-weight: normal;letter-spacing:\n" +
                 " 1px;line-height: 100%;text-align: center;text-decoration: none;color:\n" +
-                " #FFFFFF; text-transform:uppercase;\" target=\""+ resetPasswordLink + " title=\"Review Lingo kit\n" +
+                " #FFFFFF; text-transform:uppercase;\" target=\"_blank\" title=\"Review your change password site\n" +
                 " invitation\">Reset password</a>\n" +
                 "                                      </td>\n" +
                 "                                    </tr>\n" +
@@ -558,17 +546,17 @@ public class AccountController {
                 " font-size: 20px; font-style: normal; font-weight: normal; line-height: 125%;\n" +
                 " letter-spacing: normal; text-align: center; display: block; margin: 0; padding:\n" +
                 " 0; text-align: left; width: 100%; font-size: 16px; font-weight: bold; '>What\n" +
-                " is Lingo?</h3>\n" +
+                " is A0721I1 Auction website?</h3>\n" +
                 "\n" +
                 "                              <p style='margin: 10px 0; padding: 0; mso-line-height-rule: exactly;\n" +
                 " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #2a2a2a;\n" +
                 " font-family: \"Asap\", Helvetica, sans-serif; font-size: 12px; line-height: 150%;\n" +
-                " text-align: left; text-align: left; font-size: 14px; '>Lingo is a visual asset manager made for collaboration. Build a central library for your team's visual assets. Empower creation and ensure consistency from your desktop.\n" +
+                " text-align: left; text-align: left; font-size: 14px; '>A0721I1 Auction is a website specializing in auction items, you can buy and sell auction items here at the lowest cost.\n" +
                 "                              </p>\n" +
                 "                              <div style=\"padding-bottom: 18px;\">\n" +
-                "                                <a href=\"https://www.lingoapp.com\" style=\"mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                "                                <a href=\"http://localhost:4200/\" style=\"mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
                 " -webkit-text-size-adjust: 100%; color: #f57153; font-weight: normal; text-decoration: none;\n" +
-                " font-size: 14px; color:#F57153; text-decoration:none;\" target=\"_blank\" title=\"Learn more about Lingo\">Learn More ❯</a>\n" +
+                " font-size: 14px; color:#F57153; text-decoration:none;\" target=\"_blank\" title=\"Learn more about A0721I1 Auction website\">Learn More ❯</a>\n" +
                 "                              </div>\n" +
                 "                            </td>\n" +
                 "                          </tr>\n" +
@@ -577,21 +565,6 @@ public class AccountController {
                 " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; min-width:100%;\" width=\"100%\">\n" +
                 "                          <tbody>\n" +
                 "                            <tr>\n" +
-                "                              <td style=\"mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
-                " -webkit-text-size-adjust: 100%; padding-top: 24px; padding-right: 18px;\n" +
-                " padding-bottom: 24px; padding-left: 18px; color: #7F6925; font-family: 'Asap',\n" +
-                " Helvetica, sans-serif; font-size: 12px;\" valign=\"top\">\n" +
-                "                                <div style=\"text-align: center;\">Made with\n" +
-                "                                  <a href=\"https://thenounproject.com/\" style=\"mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
-                " -webkit-text-size-adjust: 100%; color: #f57153; font-weight: normal; text-decoration:\n" +
-                " none\" target=\"_blank\">\n" +
-                "                                    <img align=\"none\" alt=\"Heart icon\" height=\"10\" src=\"https://static.lingoapp.com/assets/images/email/made-with-heart.png\" style=\"-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none;\n" +
-                " text-decoration: none; width: 10px; height: 10px; margin: 0px;\" width=\"10\" />\n" +
-                "                                  </a>by\n" +
-                "                                  <a href=\"https://thenounproject.com/\" style=\"mso-line-height-rule: exactly;\n" +
-                " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #f57153;\n" +
-                " font-weight: normal; text-decoration: none; color:#7F6925;\" target=\"_blank\" title=\"Noun Project - Icons for Everything\">Noun Project</a>in Culver City, CA 90232</div>\n" +
-                "                              </td>\n" +
                 "                            </tr>\n" +
                 "                            <tbody></tbody>\n" +
                 "                          </tbody>\n" +
@@ -611,7 +584,7 @@ public class AccountController {
                 "                              </td>\n" +
                 "                              <td style=\"mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
                 " -webkit-text-size-adjust: 100%\">\n" +
-                "                                <a href=\"https://www.instagram.com\" style=\"mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                "                                <a href=\"https://www.instagram.com/\" style=\"mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
                 " -webkit-text-size-adjust: 100%; color: #f57153; font-weight: normal; text-decoration:\n" +
                 " none\" target=\"_blank\">\n" +
                 "                                  <img alt=\"Instagram\" height=\"32\" src=\"https://static.lingoapp.com/assets/images/email/instagram-ic-32x32-email@2x.png\" style=\"-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none;\n" +
@@ -663,10 +636,10 @@ public class AccountController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @PostMapping("/reset_password")
-    public ResponseEntity<String> processResetPassword(@RequestParam(value = "token", required = false) String token,
-                                                       @RequestParam(value = "password", required = false) String password) {
-        String message = "";      // Tin nhắn gửi lên giao diện
+    @PostMapping("/change-password")
+    public ResponseEntity<String> processResetPassword(@RequestParam(value = "token") String token,
+                                                       @RequestParam(value = "password") String password) {
+        String message = "";
         Account account = accountService.findAccountByToken(token);
         if (account == null) {
             message = "token invaid";
@@ -674,6 +647,9 @@ public class AccountController {
             accountService.saveForgotPassword(account, password);
             message = "Đã thay đổi password thành công";
         }
+        System.out.println(password);
+        System.out.println(token);
+        System.out.println(message);
         return new ResponseEntity<String>(message, HttpStatus.OK);
     }
 }

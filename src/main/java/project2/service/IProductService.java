@@ -12,7 +12,7 @@ public interface IProductService {
     //HuyNN
     void updateCurrentPrice(Product product);
     //VinhTQ
-    Product findProductById(long id);
+    Product findProductByIdForProductDetail(long id);
     //HauLST
     List<Product> getAllProductAuntion();
     //HauLST
