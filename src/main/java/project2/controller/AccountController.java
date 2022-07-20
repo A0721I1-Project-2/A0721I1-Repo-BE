@@ -3,23 +3,42 @@ package project2.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 import project2.model.Account;
+import project2.model.Member;
 import project2.service.IAccountService;
+import project2.service.IMemberService;
+
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+
 @RestController
-@CrossOrigin("http://localhost:4200/")
-@RequestMapping("/manager/account/api")
+@RequestMapping("/api/account")
+@CrossOrigin(origins = "*")
 public class AccountController {
     @Autowired
+    IMemberService iMemberService;
+
+    @Autowired
     private IAccountService accountService;
+
     @Autowired
     private JavaMailSender mailSender;
+
+
+
+
+    // HuyNN
+    @GetMapping("/getAccountByMemberId/{id}")
+    public ResponseEntity<Account> getAccountByMember(@PathVariable Long id) {
+        Member member = iMemberService.findById(id).get();
+        return new ResponseEntity<Account>(accountService.findByMember(member), HttpStatus.OK);
+    }
+
     @GetMapping("/forgot-password")
     public ResponseEntity<String> processForgotPasswordForm(@RequestParam String email, @RequestParam String username) {
         String message = "";
