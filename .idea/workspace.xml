@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -32,19 +35,40 @@
       <change afterPath="$PROJECT_DIR$/.gradle/configuration-cache/gc.properties" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/AccountMemberDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/ValidateAccountDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/project2/jwt/EncrypPasswordJWT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Member.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IMemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IMemberRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IRankRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IRankRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IRoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IRoleRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IRankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IRankService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IRoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IRoleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/RankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/RankService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/RoleService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -86,6 +110,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectId" id="2Bf5Jk1PlP8RFc7M5F6Ullu56H5" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -108,10 +148,24 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="project2.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="project2.test" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Project2a07Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="project2.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="project2.Project2a07Application" />
@@ -151,100 +205,14 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="361" y="71" key="#Project_Structure" timestamp="1658315660468">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="361" y="71" key="#Project_Structure/0.0.1536.824@0.0.1536.824" timestamp="1658315660468" />
-    <state x="612" y="196" key="#com.intellij.ide.util.MemberChooser" timestamp="1657715198472">
-      <screen x="0" y="0" width="1536" height="912" />
-    </state>
-    <state x="2685" y="222" key="#com.intellij.ide.util.MemberChooser/0.0.1536.912/1920.0.1920.1032@1920.0.1920.1032" timestamp="1657548305909" />
-    <state x="612" y="196" key="#com.intellij.ide.util.MemberChooser/0.0.1536.912@0.0.1536.912" timestamp="1657715198472" />
-    <state x="490" y="259" width="433" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1658220222181">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="490" y="259" width="433" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728@0.0.1366.728" timestamp="1658220222181" />
-    <state x="551" y="325" width="433" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.912@0.0.1536.912" timestamp="1657719118314" />
-    <state x="549" y="211" key="FileChooserDialogImpl" timestamp="1657710985903">
-      <screen x="0" y="0" width="1536" height="912" />
-    </state>
-    <state x="549" y="211" key="FileChooserDialogImpl/0.0.1536.912/1920.0.1920.1032@0.0.1536.912" timestamp="1657631898439" />
-    <state x="549" y="211" key="FileChooserDialogImpl/0.0.1536.912@0.0.1536.912" timestamp="1657710985903" />
-    <state width="1478" height="208" key="GridCell.Tab.0.bottom" timestamp="1658315924396">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1323" height="389" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
-    <state width="1478" height="208" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1658315924396" />
-    <state width="1493" height="239" key="GridCell.Tab.0.bottom/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1478" height="208" key="GridCell.Tab.0.center" timestamp="1658315924396">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1323" height="389" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
-    <state width="1478" height="208" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1658315924396" />
-    <state width="1493" height="239" key="GridCell.Tab.0.center/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1478" height="208" key="GridCell.Tab.0.left" timestamp="1658315924396">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1323" height="389" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
-    <state width="1478" height="208" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1658315924396" />
-    <state width="1493" height="239" key="GridCell.Tab.0.left/0.0.1536.912@0.0.1536.912" timestamp="1658029565544" />
-    <state width="1478" height="208" key="GridCell.Tab.0.right" timestamp="1658315924396">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1323" height="389" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
-    <state width="1478" height="208" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1658315924396" />
-    <state width="1493" height="239" key="GridCell.Tab.0.right/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1478" height="208" key="GridCell.Tab.1.bottom" timestamp="1658315924396">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1323" height="389" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1658310247528" />
-    <state width="1478" height="208" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1658315924396" />
-    <state width="1493" height="239" key="GridCell.Tab.1.bottom/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1478" height="208" key="GridCell.Tab.1.center" timestamp="1658315924396">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1323" height="389" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
-    <state width="1478" height="208" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1658315924396" />
-    <state width="1493" height="239" key="GridCell.Tab.1.center/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1478" height="208" key="GridCell.Tab.1.left" timestamp="1658315924396">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1323" height="389" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
-    <state width="1478" height="208" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1658315924396" />
-    <state width="1493" height="239" key="GridCell.Tab.1.left/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1478" height="208" key="GridCell.Tab.1.right" timestamp="1658315924396">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state width="1323" height="389" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
-    <state width="1478" height="208" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1658315924396" />
-    <state width="1493" height="239" key="GridCell.Tab.1.right/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state x="277" y="101" key="SettingsEditor" timestamp="1657807487785">
-      <screen x="0" y="0" width="1536" height="912" />
-    </state>
-    <state x="277" y="101" key="SettingsEditor/0.0.1536.912@0.0.1536.912" timestamp="1657807487785" />
-    <state x="465" y="237" key="com.intellij.ide.util.TipDialog" timestamp="1658315785346">
-      <screen x="0" y="0" width="1536" height="824" />
-    </state>
-    <state x="465" y="237" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1658315785346" />
-    <state x="-6" y="0" width="781" height="918" key="dock-window-1" timestamp="1657720077574">
-      <screen x="0" y="0" width="1536" height="912" />
-    </state>
-    <state x="-6" y="0" width="781" height="918" key="dock-window-1/0.0.1536.912@0.0.1536.912" timestamp="1657720077574" />
-    <state x="431" y="193" width="672" height="678" key="search.everywhere.popup" timestamp="1658027526092">
-      <screen x="0" y="0" width="1536" height="912" />
-    </state>
-    <state x="431" y="193" width="672" height="678" key="search.everywhere.popup/0.0.1536.912@0.0.1536.912" timestamp="1658027526092" />
   </component>
 </project>

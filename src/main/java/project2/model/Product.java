@@ -57,12 +57,8 @@ public class Product {
     private List<InvoiceDetail> invoiceDetailList;
 
     @ManyToOne(targetEntity = Cart.class)
-    @JoinColumn(name = "id_cart", nullable = false)
+    @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
-
-    @OneToOne
-    @JoinColumn(name = "id_member", nullable = false)
-    private Member member;
 
     @ManyToMany
     @JoinTable(
@@ -98,14 +94,6 @@ public class Product {
         this.members = members;
     }
 
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
     public Long getIdProduct() {
         return idProduct;
     }
@@ -120,6 +108,14 @@ public class Product {
 
     public void setCodeProduct(String codeProduct) {
         this.codeProduct = codeProduct;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getNameProduct() {
@@ -250,11 +246,4 @@ public class Product {
         this.members = members;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
 }
