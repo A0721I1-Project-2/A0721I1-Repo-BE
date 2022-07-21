@@ -11,4 +11,10 @@ import java.util.List;
 @Service
 public class InvoiceService implements IInvoiceService {
 
+    @Autowired
+    private IInvoiceRepository iInvoiceRepository;
+    @Override
+    public void save(Invoice invoice) {
+        iInvoiceRepository.save(invoice);
+    }
 }

@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface IInvoiceDetailService {
     List<InvoiceDetail> findAllStatusInvoice();
+
+    void saveList(List<InvoiceDetail> invoiceDetailList);
 //    List<ImageProduct> findAllImageProduct(int id);
 }
