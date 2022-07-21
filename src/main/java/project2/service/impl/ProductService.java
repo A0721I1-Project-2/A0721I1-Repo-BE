@@ -1,5 +1,6 @@
 package project2.service.impl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -11,20 +12,29 @@ import project2.service.IProductService;
 
 import java.util.List;
 
+
 import java.util.Optional;
 
 import java.util.List;
-
-
-import java.util.List;
-
-import java.util.Optional;
 
 
 @Service
 public class ProductService implements IProductService {
 
     @Autowired
+    private IProductRepository iProductRepository;
+
+    // QuangNV write method get product in cart
+    @Override
+    public List<Product> getProductInCart(int i) {
+        return iProductRepository.getProductInCart(i);
+    }
+
+    @Override
+    public void saveListProduct(List<Product> productList) {
+        iProductRepository.saveAll(productList);
+    }
+
     private IProductRepository productRepository;
 
     @Override
