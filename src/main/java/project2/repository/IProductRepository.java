@@ -76,9 +76,11 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllProductByNameTypeSellerPriceStatus(String name, String typeProduct, String sellerName, String maxPrice, String minPrice, String BiddingStatus, Pageable pageable);
 
     //VinhTQ
+//    @Query(value = "select * from product " +
+//            "join product_member on product_member.id_product = product.id_product " +
+//            "join member on member.id_member = product_member.id_member " +
+//            "where product.id_product =?1", nativeQuery = true)
     @Query(value = "select * from product " +
-            "join product_member on product_member.id_product = product.id_product " +
-            "join member on member.id_member = product_member.id_member " +
             "where product.id_product =?1", nativeQuery = true)
     Product findProductByIdForProductDetail(long id);
 
