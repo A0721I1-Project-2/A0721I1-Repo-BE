@@ -22,20 +22,20 @@ import java.util.List;
 public class ProductService implements IProductService {
 
     @Autowired
-    private IProductRepository iProductRepository;
+    private IProductRepository productRepository;
 
     // QuangNV write method get product in cart
     @Override
     public List<Product> getProductInCart(int i) {
-        return iProductRepository.getProductInCart(i);
+        return productRepository.getProductInCart(i);
     }
 
     @Override
     public void saveListProduct(List<Product> productList) {
-        iProductRepository.saveAll(productList);
+        productRepository.saveAll(productList);
     }
 
-    private IProductRepository productRepository;
+
 
     @Override
     public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus) {
