@@ -289,7 +289,6 @@ public class ProductController {
     @GetMapping("/list/auction")
     public ResponseEntity<List<Product>> showListProductAuction() {
         List<Product> productList = productService.getAllProductAuntion();
-
         if (productList.isEmpty()) {
             return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
         } else {
