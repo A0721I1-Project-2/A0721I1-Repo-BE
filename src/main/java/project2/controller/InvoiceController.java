@@ -24,6 +24,7 @@ import java.util.List;
 public class InvoiceController {
     @Autowired
     private InvoiceDetailService invoiceDetailService;
+
     @GetMapping("/status")
     public ResponseEntity<List<InvoiceDetail>> findAllStatusInvoice() {
         List<InvoiceDetail> invoices = invoiceDetailService.findAllStatusInvoice();
@@ -62,5 +63,4 @@ public class InvoiceController {
 //        } else {
 //            return new ResponseEntity(list, HttpStatus.OK);
 //        }
-//    }
 }
