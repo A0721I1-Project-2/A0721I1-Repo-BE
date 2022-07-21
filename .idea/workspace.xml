@@ -5,43 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fca0922-b43a-45ab-8810-d687ef68ff13" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/MailPW.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/InvoiceDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/PaymentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/model/OrderProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/config/MailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/config/MailConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/InvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/InvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/ICartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/ICartRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceDetailRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentMethodRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentMethodRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/ITransportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/ITransportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ICartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ICartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentMethodService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ITransportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ITransportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentMethodService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/TransportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/TransportService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,16 +24,56 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
     <option name="myId2Visible">
       <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
         <entry key="com.haulmont.jpb.jpaStructure" value="true" />
       </map>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Project2a07Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="project2.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="project2.Project2a07Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="TaskManager">
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
