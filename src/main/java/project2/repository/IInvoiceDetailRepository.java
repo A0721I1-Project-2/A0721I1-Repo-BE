@@ -11,7 +11,7 @@ import java.util.List;
 public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, Long> {
 
     //Nhung
-    @Query(value ="SELECT   invoicedetail.id_invoice,paymentmethod.id_payment_method,transport.id_transport,imageproduct.id_product,invoicedetail.id_product ,invoice.id_payment, paymentmethod.name_payment_method,transport.name_transport,transport.fee_transport,invoicedetail.id_invoice_detail,payment.full_name_receiver,payment.phone_receiver,payment.email_receiver,payment.address_receiver,product.name_product,imageproduct.id_product,imageproduct.image_product,product.final_price " +
+    @Query(value ="SELECT   invoicedetail.id_invoice,invoice.date_created,paymentmethod.id_payment_method,transport.id_transport,imageproduct.id_product,invoicedetail.id_product ,invoice.id_payment, paymentmethod.name_payment_method,transport.name_transport,transport.fee_transport,invoicedetail.id_invoice_detail,payment.full_name_receiver,payment.phone_receiver,payment.email_receiver,payment.address_receiver,product.name_product,imageproduct.id_product,imageproduct.image_product,product.final_price " +
             "FROM invoicedetail inner JOIN invoice " +
             "ON invoicedetail.id_invoice = `invoice`.id_invoice " +
             "inner join payment " +
@@ -23,7 +23,8 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, L
             "inner join product " +
             "on invoicedetail.id_product=product.id_product " +
             "inner join imageproduct " +
-            "on product.id_product=imageproduct.id_product", nativeQuery = true)
+            "on product.id_product=imageproduct.id_product where payment.id_payment=1", nativeQuery = true)
+
     List<InvoiceDetail> findAllStatusInvoice();
 
     //Nhung
