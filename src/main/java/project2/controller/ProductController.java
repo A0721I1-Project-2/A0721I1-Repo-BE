@@ -56,7 +56,7 @@ public class ProductController {
 
     @GetMapping("/getProductById/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        return new ResponseEntity<>(productService.getProductById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getProductById(id    ).get(), HttpStatus.OK);
     }
 
     @GetMapping("/member/{id}")
