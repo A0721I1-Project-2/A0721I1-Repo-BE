@@ -18,12 +18,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitSEFilterConfiguration">
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/5.7.2/b2b6eabf6cfe3878700d4243f9ef046c4325b67a/spring-security-core-5.7.2-sources.jar!/org/springframework/security/authentication/AuthenticationManager.java" root0="SKIP_INSPECTION" />
   </component>
@@ -91,7 +85,6 @@
       <workItem from="1658236083435" duration="5275000" />
       <workItem from="1658281217448" duration="1752000" />
       <workItem from="1658307672405" duration="2540000" />
-      <workItem from="1658458293096" duration="1226000" />
       <workItem from="1658412772745" duration="1948000" />
     </task>
     <servers />
@@ -118,7 +111,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java</url>
-          <line>569</line>
+          <line>290</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
