@@ -61,30 +61,13 @@ public class Member {
     @JsonBackReference(value = "member_cart")
     private Cart cart;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Product> products;
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private Set<Product> products;
 
-    public Member() {
-    }
-
-    public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember, String idCardMember, String paypalMember, Boolean flagDelete, Account account, List<Invoice> invoiceList, Double point, List<Payment> paymentList, Rank rank, Set<Product> products) {
-        this.idMember = idMember;
-        this.nameMember = nameMember;
-        this.dateOfBirthMember = dateOfBirthMember;
-        this.emailMember = emailMember;
-        this.addressMember = addressMember;
-        this.phoneMember = phoneMember;
-        this.idCardMember = idCardMember;
-        this.paypalMember = paypalMember;
-        this.flagDelete = flagDelete;
-        this.account = account;
-        this.invoiceList = invoiceList;
-        this.point = point;
-        this.paymentList = paymentList;
-        this.rank = rank;
-        this.products = products;
-    }
+    @OneToMany(mappedBy = "members")
+    @JsonBackReference(value = "member_product")
+    private List<Product> products;
 
     public Long getIdMember() {
         return idMember;
@@ -198,12 +181,44 @@ public class Member {
         this.rank = rank;
     }
 
-    public Set<Product> getProducts() {
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember,
+                  String idCardMember, String paypalMember, Boolean flagDelete, Account account, List<Invoice> invoiceList, Double point,
+                  List<Payment> paymentList, Rank rank, Cart cart, List<Product> products) {
+        this.idMember = idMember;
+        this.nameMember = nameMember;
+        this.dateOfBirthMember = dateOfBirthMember;
+        this.emailMember = emailMember;
+        this.addressMember = addressMember;
+        this.phoneMember = phoneMember;
+        this.idCardMember = idCardMember;
+        this.paypalMember = paypalMember;
+        this.flagDelete = flagDelete;
+        this.account = account;
+        this.invoiceList = invoiceList;
+        this.point = point;
+        this.paymentList = paymentList;
+        this.rank = rank;
+        this.cart = cart;
+        this.products = products;
+    }
+
+    public Member() {
     }
 }
 

@@ -3,6 +3,7 @@ package project2.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -59,59 +60,22 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = false)
     private Cart cart;
 
-    @OneToOne
-    @JoinColumn(name = "id_member", nullable = false)
-    private Member member;
+//    @OneToOne
+//    @JoinColumn(name = "id_member", nullable = false)
+//    private Member member;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_member",
-            joinColumns = @JoinColumn(name = "id_product"),
-            inverseJoinColumns = @JoinColumn(name = "id_member")
-    )
-    private Set<Member> members;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "id_member", nullable = true)
+    private Member members;
 
-    public Product() {
-    }
-
-    public Product(Long idProduct, String codeProduct, String nameProduct,
-                   Double initialPrice, Double finalPrice,
-                   Double incrementPrice, String productDescription,
-                   String startDate, String endDate, String remainingTime,
-                   String createDay, Boolean flagDelete,
-                   TypeProduct typeProduct, ApprovalStatus approvalStatus,
-                   BiddingStatus biddingStatus,
-                   List<ImageProduct> imageProductList,
-                   List<InvoiceDetail> invoiceDetailList, Member member,
-                   Set<Member> members) {
-        this.idProduct = idProduct;
-        this.codeProduct = codeProduct;
-        this.nameProduct = nameProduct;
-        this.initialPrice = initialPrice;
-        this.finalPrice = finalPrice;
-        this.incrementPrice = incrementPrice;
-        this.productDescription = productDescription;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.remainingTime = remainingTime;
-        this.createDay = createDay;
-        this.flagDelete = flagDelete;
-        this.typeProduct = typeProduct;
-        this.approvalStatus = approvalStatus;
-        this.biddingStatus = biddingStatus;
-        this.imageProductList = imageProductList;
-        this.invoiceDetailList = invoiceDetailList;
-        this.member = member;
-        this.members = members;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
+//    @ManyToMany
+//    @JoinTable(
+//            name = "product_member",
+//            joinColumns = @JoinColumn(name = "id_product"),
+//            inverseJoinColumns = @JoinColumn(name = "id_member")
+//    )
+//    private Set<Member> members;
+//
 
     public Long getIdProduct() {
         return idProduct;
@@ -249,11 +213,47 @@ public class Product {
         this.invoiceDetailList = invoiceDetailList;
     }
 
-    public Set<Member> getMembers() {
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Member getMembers() {
         return members;
     }
 
-    public void setMembers(Set<Member> members) {
+    public void setMembers(Member members) {
         this.members = members;
+    }
+
+    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice,
+                   String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete,
+                   TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList,
+                   List<InvoiceDetail> invoiceDetailList, Cart cart, Member members) {
+        this.idProduct = idProduct;
+        this.codeProduct = codeProduct;
+        this.nameProduct = nameProduct;
+        this.initialPrice = initialPrice;
+        this.finalPrice = finalPrice;
+        this.incrementPrice = incrementPrice;
+        this.productDescription = productDescription;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.remainingTime = remainingTime;
+        this.createDay = createDay;
+        this.flagDelete = flagDelete;
+        this.typeProduct = typeProduct;
+        this.approvalStatus = approvalStatus;
+        this.biddingStatus = biddingStatus;
+        this.imageProductList = imageProductList;
+        this.invoiceDetailList = invoiceDetailList;
+        this.cart = cart;
+        this.members = members;
+    }
+
+    public Product() {
     }
 }
