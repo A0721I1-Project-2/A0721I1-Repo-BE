@@ -4,22 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project2.model.Account;
 import project2.model.Member;
+import project2.model.Account;
 import project2.service.IAccountService;
 import project2.service.IMemberService;
-
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import project2.service.IMemberService;
+import project2.service.impl.MemberService;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/account")
-@CrossOrigin(origins = "*")
+
 public class AccountController {
+
     @Autowired
     IMemberService iMemberService;
 
@@ -29,33 +31,49 @@ public class AccountController {
     @Autowired
     private JavaMailSender mailSender;
 
-
-
-
+    @Autowired
+    private IMemberService memberService;
+    //HauNT
+    @GetMapping("/detail/{idMember}")
+    public ResponseEntity<Member> findMemberByIdAccount(@PathVariable("idMember") Long idMember) {
+        Member member = memberService.findByIdAccount(idMember);
+        if (member == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }
+    }
     // HuyNN
     @GetMapping("/getAccountByMemberId/{id}")
     public ResponseEntity<Account> getAccountByMember(@PathVariable Long id) {
-        Member member = iMemberService.findById(id).get();
-        return new ResponseEntity<Account>(accountService.findByMember(member), HttpStatus.OK);
+        Member member = iMemberService.findById(id);
+        return new ResponseEntity<>(accountService.findByMember(member), HttpStatus.OK);
     }
 
+    // VinhTQ
     @GetMapping("/forgot-password")
-    public ResponseEntity<String> processForgotPasswordForm(@RequestParam String email, @RequestParam String username) {
+    public ResponseEntity<Object> processForgotPasswordForm(@RequestParam String email, @RequestParam String username) {
         String message = "";
         try {
             Account account = accountService.findAccountByEmailAndUsername(email, username);
             accountService.updateToken(account);
             String resetPasswordLink = "http://localhost:4200/home/change-password/" + account.getToken();
             sendEmail(email, resetPasswordLink);
-            message = "Chúng tôi đa gửi link thay đổi mật khẩu. Vui lòng mở email để kiểm tra";
-            return new ResponseEntity<String>(account.getToken(), HttpStatus.OK);
+            message = "We have sent a link to change the password. Please open email to check";
+            return new ResponseEntity<Object>(message, HttpStatus.OK);
         } catch (UnsupportedEncodingException | MessagingException exception) {
-            message = "Lỗi khi gửi email";
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+            message = "Error sending mail";
+            return new ResponseEntity<Object>(message, HttpStatus.OK);
         } catch (Exception exception) {
             exception.printStackTrace();
-            return new ResponseEntity<String>(message, HttpStatus.BAD_REQUEST);
+            message = "Exception Error";
+            return new ResponseEntity<Object>(message, HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/check-account")
+    public ResponseEntity<Account> checkExistAccount(@RequestParam String email, @RequestParam String username) {
+        return new ResponseEntity<Account>(accountService.findAccountByEmailAndUsername(email, username), HttpStatus.OK);
     }
 
     private ResponseEntity<Void> sendEmail(String email, String resetPasswordLink) throws UnsupportedEncodingException, MessagingException {
@@ -483,7 +501,7 @@ public class AccountController {
                 " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
                 " font-family: 'Asap', Helvetica, sans-serif; font-size: 16px; padding-top:24px;\n" +
                 " padding-right:48px; padding-bottom:24px; padding-left:48px;\" valign=\"middle\">\n" +
-                "                                        <a class=\"mcnButton \" href="+resetPasswordLink+" style=\"mso-line-height-rule: exactly;\n" +
+                "                                        <a class=\"mcnButton \" href=" + resetPasswordLink + " style=\"mso-line-height-rule: exactly;\n" +
                 " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; display: block; color: #f57153;\n" +
                 " font-weight: normal; text-decoration: none; font-weight: normal;letter-spacing:\n" +
                 " 1px;line-height: 100%;text-align: center;text-decoration: none;color:\n" +
@@ -652,4 +670,5 @@ public class AccountController {
         System.out.println(message);
         return new ResponseEntity<String>(message, HttpStatus.OK);
     }
+
 }
