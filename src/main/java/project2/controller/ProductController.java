@@ -72,8 +72,10 @@ public class ProductController {
     @RequestMapping(value = "/create-images", method = RequestMethod.POST)
     public ResponseEntity<ImageProduct> createImages(@RequestBody ImageProduct imageProduct) {
         /* Save each picture */
-        ImageProduct imageProduct1= imageProductService.save(imageProduct);
-        return new ResponseEntity<>(imageProduct1 , HttpStatus.OK);
+        /* Save each picture */
+        ImageProduct img = imageProductService.save(imageProduct);
+
+        return new ResponseEntity<>(img , HttpStatus.OK);
     }
 
     //Thao
@@ -93,7 +95,6 @@ public class ProductController {
         product.setApprovalStatus(iApprovalStatusService.getApprovalStatusById((long)2));
         Product productCreated = productService.postProduct(product);
         return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
-
     }
 
     //Thao
