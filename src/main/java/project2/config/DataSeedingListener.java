@@ -94,7 +94,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             accountRepository.save(member);
         }
 
-
 //        if (userRepository.findByUsername("staff2") == null){
 //            User staff = new User();
 //            staff.setUsername("staff2");
