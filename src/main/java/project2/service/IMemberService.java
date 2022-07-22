@@ -1,5 +1,7 @@
 package project2.service;
 
+
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import project2.model.Account;
@@ -24,6 +26,9 @@ public interface IMemberService {
     void deleteById(Long id);
 
     void delele(Member member);
+
+    //HauNT 
+    Member findByIdAccount(Long IdAccount);
 
     //SonLT View-Member
     Member findMemberByIdAccount(Long id);

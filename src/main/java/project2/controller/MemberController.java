@@ -225,3 +225,7 @@ public class MemberController {
         return new ResponseEntity<Member>(iMemberService.findById(id), HttpStatus.OK);
     }
 }
+
+
+
+
