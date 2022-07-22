@@ -38,7 +38,7 @@ public class ProductController {
         if (typeProducts.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(typeProducts, HttpStatus.OK);
+            return new ResponseEntity<>(typeProducts,  HttpStatus.OK);
         }
     }
 
