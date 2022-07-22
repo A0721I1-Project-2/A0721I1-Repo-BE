@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="6fca0922-b43a-45ab-8810-d687ef68ff13" name="Default Changelist" comment="" />
+=======
+    <list default="true" id="cecff2f4-ae07-4777-ad8a-c24f41da7d80" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
+    </list>
+>>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+<<<<<<< HEAD
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="project2" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Bf5Jk1PlP8RFc7M5F6Ullu56H5" />
+=======
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+>>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+<<<<<<< HEAD
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Sprint_2/A0721I1-Repo-BE" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+>>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
+  </component>
+  <component name="RunManager">
+    <configuration name="Project2a07Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="project2.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="project2.Project2a07Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+<<<<<<< HEAD
+    <task active="true" id="Default" summary="Default task">
+      <created>1657284228022</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1657284228022</updated>
+      <workItem from="1657284230972" duration="5543000" />
+      <workItem from="1657547657414" duration="3499000" />
+      <workItem from="1657613264344" duration="964000" />
+      <workItem from="1657631830258" duration="69000" />
+      <workItem from="1657710184978" duration="8703000" />
+      <workItem from="1657807245463" duration="5802000" />
+      <workItem from="1658024587251" duration="4861000" />
+      <workItem from="1658236083435" duration="5275000" />
+      <workItem from="1658281217448" duration="1752000" />
+      <workItem from="1658307672405" duration="2540000" />
+      <workItem from="1658370798244" duration="21630000" />
+      <workItem from="1658456708601" duration="2288000" />
+      <workItem from="1658460724366" duration="906000" />
+      <workItem from="1658486837021" duration="4758000" />
+    </task>
+=======
+>>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+<<<<<<< HEAD
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+=======
+  <component name="WindowStateProjectService">
+    <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser" timestamp="1658473942104">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1658473942104" />
+    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1658472965470">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1658472965470" />
+    <state width="1237" height="234" key="GridCell.Tab.0.bottom" timestamp="1658479510432">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="234" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
+    <state width="1237" height="234" key="GridCell.Tab.0.center" timestamp="1658479510432">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="234" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
+    <state width="1237" height="234" key="GridCell.Tab.0.left" timestamp="1658479510431">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="234" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1658479510431" />
+    <state width="1237" height="234" key="GridCell.Tab.0.right" timestamp="1658479510432">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="234" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
+    <state width="1237" height="234" key="GridCell.Tab.1.bottom" timestamp="1658479510432">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="234" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
+    <state width="1237" height="234" key="GridCell.Tab.1.center" timestamp="1658479510432">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="234" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
+    <state width="1237" height="234" key="GridCell.Tab.1.left" timestamp="1658479510432">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="234" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
+    <state width="1237" height="234" key="GridCell.Tab.1.right" timestamp="1658479510432">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="234" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
+    <state x="142" y="0" key="SettingsEditor" timestamp="1658472921460">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1658472921460" />
+>>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
+  </component>
+</project>

@@ -1,17 +1,38 @@
 package project2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import project2.config.SmtpAuthenticator;
-import project2.dto.AuctionDTO;
-import project2.model.ImageProduct;
-import project2.model.Product;
+import project2.model.*;
+import project2.repository.IMemberRepository;
+import org.springframework.web.bind.annotation.*;
+import project2.config.SmtpAuthenticator;
+import project2.model.*;
+import project2.service.IApprovalStatusService;
 import project2.service.IImageProductService;
 import project2.service.IProductService;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
+import org.springframework.mail.javamail.MimeMessageHelper;
+import project2.dto.AuctionDTO;
+import project2.service.impl.*;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -19,21 +40,70 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.*;
-import java.util.List;
 
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
 @RequestMapping("/manager/product/api")
+
 public class ProductController {
+
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
     @Autowired
     private IImageProductService iImageProductService;
 
     @Autowired
     private SmtpAuthenticator smtpAuthenticator;
+
+    @Autowired
+    private TypeProductService typeProductService;
+    @Autowired
+    private ApprovalStatusService approvalStatusService;
+    @Autowired
+    private BiddingStatusService biddingStatusService;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private ApprovalStatusService iApprovalStatusService;
+
+    @Autowired
+    private TypeProductService iTypeProductService;
+
+    @Autowired
+    private ImageProductService imageProductService;
+
+
+    //  BachLT
+    @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
+    public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable("biddingStatus") int biddingStatus) {
+        System.out.println(statsBegin.get() + "?- ?" + statsEnd.get() + "/? " + biddingStatus);
+        List<Product> productList = productService.getAllProductByEndDate(statsBegin.get(), statsEnd.get(), biddingStatus);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //  BachLT
+    @GetMapping("/statistic/currentMonth&biddingStatus")
+    public ResponseEntity<List<Product>> statsProductCurrentMonth(@RequestParam("currentMonth") int curMonth, @RequestParam("biddingStatus") int biddingStatus) {
+        System.out.println(curMonth + "?- ?" + biddingStatus);
+        List<Product> productList = productService.getAllProductAtCurrentMonth(curMonth, biddingStatus);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HieuDV
+    @GetMapping("/list")
+    public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Product> productList = productService.getAllNotDeletedYet(pageable);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
 
     //HuyNN
     Map<Long, List<AuctionDTO>> auctionList = new HashMap<>();
@@ -239,8 +309,14 @@ public class ProductController {
 
     //VinhTQ
     @GetMapping("/find-by-id/{id}")
-    public ResponseEntity<Product> findProductById(@PathVariable() long id) {
-        return new ResponseEntity<Product>(productService.findProductById(id), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Product> findProductByIdForProductDetail(@PathVariable() long id) {
+        return new ResponseEntity<Product>(productService.findProductByIdForProductDetail(id), HttpStatus.OK);
+    }
+
+    //VinhTQ
+    @GetMapping("/highest-bidder/{id}")
+    public ResponseEntity<Product> finForProductDetail(@PathVariable() long id) {
+        return new ResponseEntity<Product>(productService.findProductByIdForProductDetail(id), HttpStatus.OK);
     }
 
     //HauLST
@@ -286,7 +362,17 @@ public class ProductController {
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
-    //HauLST 
+    //HieuDV
+    @GetMapping("/list-not-pagination")
+    public ResponseEntity<List<Product>> getAllNotDeletedYetNotPagination() {
+        List<Product> productList = productService.getAllNotDeletedYet();
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HauLST
     @GetMapping("list/search/name={nameProduct}/type-product={typeProduct}/{min}")
     public ResponseEntity<List<Product>> searchPricesOver250(@PathVariable String nameProduct, @PathVariable String typeProduct, @PathVariable Double min) {
         List<Product> productList = productService.searchProductPricesOver250(nameProduct, typeProduct, min);
@@ -295,5 +381,108 @@ public class ProductController {
         }
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
-}
 
+    //HieuDV
+    @GetMapping("/search")
+    public ResponseEntity<Iterable<Product>> getAllProductByNameTypeSellerPriceStatus(@RequestParam(defaultValue = "") String name,
+                                                                                      @RequestParam(defaultValue = "") String typeProduct,
+                                                                                      @RequestParam(defaultValue = "") String sellerName,
+                                                                                      @RequestParam(defaultValue = "") String maxPrice,
+                                                                                      @RequestParam(defaultValue = "") String minPrice,
+                                                                                      @RequestParam(defaultValue = "") String biddingStatus,
+                                                                                      @RequestParam int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Product> productList = this.productService.getAllProductByNameTypeSellerPriceStatus(name, typeProduct, sellerName, maxPrice, minPrice, biddingStatus, pageable);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HieuDV
+    @GetMapping("/search-not-pagination")
+    public ResponseEntity<List<Product>> getAllProductByNameTypeSellerPriceStatusNotPagination(@RequestParam(defaultValue = "") String name,
+                                                                                               @RequestParam(defaultValue = "") String typeProduct,
+                                                                                               @RequestParam(defaultValue = "") String sellerName,
+                                                                                               @RequestParam(defaultValue = "") String maxPrice,
+                                                                                               @RequestParam(defaultValue = "") String minPrice,
+                                                                                               @RequestParam(defaultValue = "") String BiddingStatus) {
+        List<Product> productList = this.productService.getAllProductByNameTypeSellerPriceStatusNotPagination(name, typeProduct, sellerName, maxPrice, minPrice, BiddingStatus);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    //HieuDV
+    @GetMapping("/product-detail")
+    public ResponseEntity<Product> getProductByIdProduct(@RequestParam Long id) {
+        Optional<Product> product = this.productService.getProductByIdProduct(id);
+        if (!product.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(product.get(), HttpStatus.OK);
+    }
+
+    //HieuDV
+    @PostMapping("/update-bidding-status")
+    public ResponseEntity<Product> updateProductBiddingStatus(@RequestBody Product product) {
+        this.productService.saveProduct(product);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    //thao
+    @GetMapping( "listProduct")
+    public ResponseEntity<List<Product>> findByAll() {
+        List<Product> productList = productService.findAll();
+
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(productList, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("postProduct")
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
+        LocalDateTime localDateTime=LocalDateTime.now();
+        DateTimeFormatter fm=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String myfm=fm.format(localDateTime);
+        product.setStartDate(myfm);
+        product.setEndDate(myfm);
+        product.setBiddingStatus(biddingStatusService.findById((long) 1));
+//        product.setCart(cartService.findById((long) 1));
+        List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
+        for (ApprovalStatus a : approvalStatusList) {
+            if (a.getIdApprovalStatus() == 1) {
+                /* Get approval status by id */
+                ApprovalStatus approvalStatus = approvalStatusService.getApprovalStatusById(a.getIdApprovalStatus());
+                product.setApprovalStatus(approvalStatus);
+            }
+        }
+        Product productCreated = productService.postProduct(product);
+        return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
+
+    }
+
+    @GetMapping(value = "/typeProduct")
+    public ResponseEntity<List<TypeProduct>> findByAllTypeproduct() {
+        List<TypeProduct> typeProducts = typeProductService.findByAll();
+        if (typeProducts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(typeProducts, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping( "/create-images")
+    public ResponseEntity<ImageProduct> createImages(@RequestBody ImageProduct imageProduct) {
+        /* Save each picture */
+        ImageProduct imageProduct1 = iImageProductService.save(imageProduct);
+        return new ResponseEntity<>(imageProduct1, HttpStatus.OK);
+    }
+
+    @GetMapping("/typeProduct/{id}")
+    public ResponseEntity<TypeProduct> getTypeProductById(@PathVariable long id) {
+        return new ResponseEntity<TypeProduct>(typeProductService.findById(id), HttpStatus.OK);
+    }
+}
