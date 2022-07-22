@@ -18,8 +18,8 @@ import java.util.Optional;
 public class PaymentMethodService implements IPaymentMethodService {
 
     //SELLER INFOR
-    private static final String CLIENT_ID = "ARDVlALPHdMzIMrlMUAYuqBWDR6RizGTvzWpaVtU8oe34mTrYVecThSFVIheQyYY3H_k6MCn3S_0p4QA";
-    private static final String CLIENT_SECRET = "EEAQm74YoZxBbqFX_oitOeuwmTNdzuYf9IygTgh3dZPAMNX4EGXFdK5wHqBEWWn7xI28LghuKYSHnnci";
+    private static final String CLIENT_ID = "AWjQfUJ2fMAbZDPbeyzARVCZW6q-09J5plD6JUOKVAUiksF51lpdpeT1KSpyeWrq5UU0txtxmXokRYfq";
+    private static final String CLIENT_SECRET = "EEVxrdhjPN0fRkGLpZF8iKk84RzqEbNhuYV5-NTJHf3SBWBZczTYwtULBL6NwHbUHjlx3ceLh9Cl6NlS";
     private static final String MODE = "sandbox";
 
     //RESPONSE URL CANCEL & SUCCESS AFTER BUYER PAYMENT
@@ -77,6 +77,11 @@ public class PaymentMethodService implements IPaymentMethodService {
             subTotal += product.getFinalPrice();
             tax = tax + 1;
         }
+        for(Product product : products){
+            System.out.println("product name: " + product.getNameProduct());
+        }
+        System.out.println("sub " + subTotal);
+        System.out.println("tax " + tax);
         Details details = new Details();
         details.setShipping(String.format("%.2f", Float.parseFloat("0")));
 //        details.setFee(String.format("%.2f", Float.parseFloat("2")));
@@ -86,6 +91,7 @@ public class PaymentMethodService implements IPaymentMethodService {
         Amount amount = new Amount();
         amount.setCurrency("USD");
         amount.setTotal(String.format("%.2f",paymentDTO.getTotal()));
+        System.out.println(paymentDTO.getTotal());
         amount.setDetails(details);
 
 
@@ -97,8 +103,9 @@ public class PaymentMethodService implements IPaymentMethodService {
         List<Item> items = new ArrayList<Item>();
 
 
-        Item item = new Item();
+
         for(int i = 0; i < products.size(); i++){
+            Item item = new Item();
             item.setCurrency("USD")
                     .setName(products.get(i).getNameProduct())
                     .setPrice(String.format("%.2f", products.get(i).getFinalPrice()))
