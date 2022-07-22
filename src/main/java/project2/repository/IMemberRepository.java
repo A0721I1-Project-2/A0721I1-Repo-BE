@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project2.model.Member;
 
+
 import java.util.List;
 
 @Repository
@@ -40,4 +41,6 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
     //SonLT View-Member
     Member findMemberByAccount_IdAccount(Long id);
 
+    @Query(value = "select nameMember from Member")
+    void getTransactionByMember();
 }

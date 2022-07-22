@@ -174,10 +174,11 @@ public class MemberController {
             member.setIdCardMember(accountMemberDTO.getIdCardMember());
             member.setPaypalMember(accountMemberDTO.getPaypalMember());
             member.setPhoneMember(accountMemberDTO.getPhoneMember());
-
+            member.setCheckedClause(false);
             /*Set rank default*/
-            Rank rank = iRankService.findByName("RANK_SILVER").get();
+            Rank rank = iRankService.findByName("RANK_BẠC").get();
             member.setRank(rank);
+
             iMemberService.save(member);
 
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -185,8 +186,8 @@ public class MemberController {
     }
 
     //bin code check username
-    @GetMapping("/checkUsername")
-    public ResponseEntity<List<Account>> checkId(@RequestParam String username) {
+    @GetMapping("/member/checkUsername")
+    public ResponseEntity<List<Account>> checkUsername(@RequestParam String username) {
         List<Account> list = iAccountService.findAll();
         List<Account> accounts = new ArrayList<>();
         for (Integer i = 0; i < list.size(); i++) {
@@ -209,10 +210,18 @@ public class MemberController {
         }
     }
 
+
     //SonLT Edit-Member
     @PutMapping("/profile/edit")
-    public ResponseEntity<Member> updateMember(@RequestBody Member member){
+    public ResponseEntity<Void> updateMember(@RequestBody Member member){
+        System.out.println(member);
         iMemberService.editMember(member);
-        return new ResponseEntity<Member>(member, HttpStatus.OK);
+        return new ResponseEntity<Void>( HttpStatus.OK);
+    }
+
+    // HuyNN get member by id method
+    @GetMapping("/getMemberById/{id}")
+    public ResponseEntity<Member> getMemberById(@PathVariable Long id) {
+        return new ResponseEntity<Member>(iMemberService.findById(id), HttpStatus.OK);
     }
 }

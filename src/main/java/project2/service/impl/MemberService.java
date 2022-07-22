@@ -9,7 +9,6 @@ import project2.repository.IMemberRepository;
 import project2.service.IMemberService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MemberService implements IMemberService {
@@ -17,10 +16,14 @@ public class MemberService implements IMemberService {
     @Autowired
     private IMemberRepository iMemberRepository;
 
+    @Autowired
+    private IMemberRepository memberRepository;
+
 
     @Override
     public Member save(Member member) {
         return iMemberRepository.save(member);
+
     }
 
     @Override
@@ -57,11 +60,10 @@ public class MemberService implements IMemberService {
     public void delele(Member member) {
 
     }
-
     //SonLT View-Member
     @Override
     public Member findMemberByIdAccount(Long id) {
-            return iMemberRepository.findMemberByAccount_IdAccount(id);
+        return iMemberRepository.findMemberByAccount_IdAccount(id);
     }
 
     //SonLT Edit-Member
@@ -70,5 +72,8 @@ public class MemberService implements IMemberService {
         iMemberRepository.save(member);
     }
 
-
+    @Override
+    public void getTransactionMember() {
+        memberRepository.getTransactionByMember();
+    }
 }

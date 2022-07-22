@@ -30,4 +30,6 @@ public interface IMemberService {
 
     //SonLT Edit-Member
     void editMember(Member member);
+
+    void getTransactionMember();
 }
