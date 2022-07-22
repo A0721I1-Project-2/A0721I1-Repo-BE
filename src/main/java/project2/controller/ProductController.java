@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import project2.config.SmtpAuthenticator;
 import project2.model.*;
 import project2.repository.IMemberRepository;
+import org.springframework.web.bind.annotation.*;
+import project2.config.SmtpAuthenticator;
+import project2.model.*;
+import project2.service.IApprovalStatusService;
 import project2.service.IImageProductService;
 import project2.service.IProductService;
 
@@ -45,13 +49,14 @@ import java.util.*;
 public class ProductController {
 
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
     @Autowired
     private IImageProductService iImageProductService;
 
     @Autowired
     private SmtpAuthenticator smtpAuthenticator;
+
     @Autowired
     private TypeProductService typeProductService;
     @Autowired
@@ -62,6 +67,17 @@ public class ProductController {
     private MemberService memberService;
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private ApprovalStatusService iApprovalStatusService;
+
+    @Autowired
+    private TypeProductService iTypeProductService;
+
+    @Autowired
+    private ImageProductService imageProductService;
+
+
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
     public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable("biddingStatus") int biddingStatus) {
@@ -426,8 +442,6 @@ public class ProductController {
         }
     }
 
-    @Autowired
-    IMemberRepository iMemberRepository;
     @PostMapping("postProduct")
     public ResponseEntity<Product> postProduct(@RequestBody Product product) {
         LocalDateTime localDateTime=LocalDateTime.now();
@@ -472,4 +486,3 @@ public class ProductController {
         return new ResponseEntity<TypeProduct>(typeProductService.findById(id), HttpStatus.OK);
     }
 }
-

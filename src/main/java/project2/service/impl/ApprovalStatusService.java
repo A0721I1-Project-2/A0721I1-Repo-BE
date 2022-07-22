@@ -19,6 +19,5 @@ public class ApprovalStatusService implements IApprovalStatusService {
 
     public ApprovalStatus getApprovalStatusById(Long id) {
         return iApprovalStatusRepository.findById(id).orElse(null);
-
     }
 }

@@ -16,7 +16,13 @@ public interface IProductService {
 
 
     Product postProduct(Product product);
+
     List<Product> findAll();
+
+    //QuangNV write method get product in cart
+    List<Product> getProductInCart(int i);
+
+    void saveListProduct(List<Product> productList);
 
     //HieuDV
     Page<Product> getAllNotDeletedYet(Pageable pageable);
@@ -67,4 +73,5 @@ public interface IProductService {
     //HauLST
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
 
+    // Thao
 }

@@ -94,8 +94,6 @@ public class Product {
         this.members = members;
     }
 
-
-
     public Long getIdProduct() {
         return idProduct;
     }
@@ -110,6 +108,14 @@ public class Product {
 
     public void setCodeProduct(String codeProduct) {
         this.codeProduct = codeProduct;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getNameProduct() {
@@ -240,11 +246,4 @@ public class Product {
         this.members = members;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
 }
