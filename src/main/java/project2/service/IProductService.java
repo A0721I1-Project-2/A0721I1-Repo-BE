@@ -17,6 +17,7 @@ import project2.model.Product;
 
 import java.util.Optional;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import project2.model.Product;
 import project2.repository.IProductRepository;
@@ -56,6 +57,16 @@ public interface IProductService {
     //BachLT
     List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus);
 
+=======
+import project2.model.Product;
+
+import java.util.List;
+
+public interface IProductService {
+
+    Product postProduct(Product product);
+    List<Product> findAll();
+>>>>>>> ba45e67be83e3e23bc85fa933ae87c535cbf7fa4
 
     //HuyNN
     Optional<Product> getProductById(Long id);
@@ -80,5 +91,9 @@ public interface IProductService {
 
     //HauLST
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
+<<<<<<< HEAD
 >>>>>>> origin/dev
+=======
+
+>>>>>>> ba45e67be83e3e23bc85fa933ae87c535cbf7fa4
 }

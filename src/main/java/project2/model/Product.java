@@ -5,9 +5,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.time.LocalDate;
 =======
 >>>>>>> origin/dev
+=======
+import java.time.LocalDate;
+>>>>>>> ba45e67be83e3e23bc85fa933ae87c535cbf7fa4
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -83,6 +87,7 @@ public class Product {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, LocalDateTime startDate, LocalDateTime endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Set<Member> members) {
 =======
 
@@ -108,6 +113,8 @@ public class Product {
         this.cart = cart;
         this.members = members;
     }
+=======
+>>>>>>> ba45e67be83e3e23bc85fa933ae87c535cbf7fa4
 
     public Member getMember() {
         return member;
@@ -261,6 +268,14 @@ public class Product {
         this.invoiceDetailList = invoiceDetailList;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     public Set<Member> getMembers() {
         return members;
     }
@@ -272,12 +287,9 @@ public class Product {
 }
 =======
 
-    public Cart getCart() {
-        return cart;
-    }
+    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, LocalDateTime startDate, LocalDateTime endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Set<Member> members) {
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+
     }
 }
 >>>>>>> origin/dev
