@@ -14,7 +14,7 @@ public class BiddingStatus {
     @Column(name = "name_bidding_status")
     private String nameBiddingStatus;
 
-    @OneToMany(mappedBy = "biddingStatus")
+    @OneToMany(mappedBy = "biddingStatus", cascade = CascadeType.ALL)
     @JsonBackReference(value = "biddingStatus_product")
     private List<Product> products;
 

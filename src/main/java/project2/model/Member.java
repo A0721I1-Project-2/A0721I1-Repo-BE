@@ -1,11 +1,9 @@
 package project2.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Member {
@@ -54,21 +52,22 @@ public class Member {
     private List<Payment> paymentList;
 
     @ManyToOne(targetEntity = Rank.class)
-    @JoinColumn(name = "id_rank",nullable = false)
+    @JoinColumn(name = "id_rank", nullable = false)
     private Rank rank;
 
     @OneToOne(mappedBy = "member")
     @JsonBackReference(value = "member_cart")
     private Cart cart;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Product> products;
+
+    @OneToMany(mappedBy = "members")
+    @JsonBackReference(value = "member_product")
+    private List<Product> products;
 
     public Member() {
     }
 
-    public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember, String idCardMember, String paypalMember, Boolean flagDelete, Account account, List<Invoice> invoiceList, Double point, List<Payment> paymentList, Rank rank, Set<Product> products) {
+    public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember, String idCardMember, String paypalMember, Boolean flagDelete, Account account, List<Invoice> invoiceList, Double point, List<Payment> paymentList, Rank rank, Cart cart, List<Product> products) {
         this.idMember = idMember;
         this.nameMember = nameMember;
         this.dateOfBirthMember = dateOfBirthMember;
@@ -83,6 +82,7 @@ public class Member {
         this.point = point;
         this.paymentList = paymentList;
         this.rank = rank;
+        this.cart = cart;
         this.products = products;
     }
 
@@ -198,12 +198,19 @@ public class Member {
         this.rank = rank;
     }
 
-    public Set<Product> getProducts() {
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }
-

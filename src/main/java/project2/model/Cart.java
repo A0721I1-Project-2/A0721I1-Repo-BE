@@ -22,7 +22,7 @@ public class Cart {
     @JsonBackReference(value = "cart_payment")
     private List<Payment> paymentList;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     @JsonBackReference(value = "cart_product")
     private List<Product> productList;
 

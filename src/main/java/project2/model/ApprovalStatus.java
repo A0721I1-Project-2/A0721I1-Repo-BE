@@ -14,7 +14,7 @@ public class ApprovalStatus {
     @Column(name = "name_approval_status")
     private String nameApprovalStatus;
 
-    @OneToMany(mappedBy = "approvalStatus")
+    @OneToMany(mappedBy = "approvalStatus", cascade = CascadeType.ALL)
     @JsonBackReference(value = "approvalStatus_product")
     private List<Product> products;
 

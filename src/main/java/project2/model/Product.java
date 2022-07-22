@@ -1,6 +1,7 @@
 package project2.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,52 +26,54 @@ public class Product {
     @Column(name = "product_description")
     private String productDescription;
     @Column(name = "start_date")
+
+//    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private String startDate;
+
+    //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @Column(name = "end_date")
     private String endDate;
     @Column(name = "remaining_time")
     private String remainingTime;
-    @Column(name="create_day")
+
+    //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @Column(name = "create_day")
     private String createDay;
     @Column(name = "flag_delete")
     private Boolean flagDelete;
 
     @ManyToOne(targetEntity = TypeProduct.class)
-    @JoinColumn(name = "id_product_type", nullable = false)
+    @JoinColumn(name = "id_product_type", nullable = true)
     private TypeProduct typeProduct;
 
-    @ManyToOne(targetEntity = ApprovalStatus.class)
-    @JoinColumn(name = "id_approval_status", nullable = false)
+    @ManyToOne(targetEntity = ApprovalStatus.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_approval_status", nullable = true)
     private ApprovalStatus approvalStatus;
 
-    @ManyToOne(targetEntity = BiddingStatus.class)
-    @JoinColumn(name = "id_bidding_status", nullable = false)
+    @ManyToOne(targetEntity = BiddingStatus.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_bidding_status", nullable = true)
     private BiddingStatus biddingStatus;
 
     @OneToMany(mappedBy = "product")
-    @JsonBackReference(value = "product_imageProduct")
+//    @JsonBackReference(value = "product_imageProduct")
     private List<ImageProduct> imageProductList;
 
     @OneToMany(mappedBy = "product")
     @JsonBackReference(value = "product_invoiceDetail")
     private List<InvoiceDetail> invoiceDetailList;
 
-    @ManyToOne(targetEntity = Cart.class)
-    @JoinColumn(name = "id_cart", nullable = false)
+    @ManyToOne(targetEntity = Cart.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_member",
-            joinColumns = @JoinColumn(name = "id_product"),
-            inverseJoinColumns = @JoinColumn(name = "id_member")
-    )
-    private Set<Member> members;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "id_member", nullable = true)
+    private Member members;
 
     public Product() {
     }
 
-    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Set<Member> members) {
+    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Member members) {
         this.idProduct = idProduct;
         this.codeProduct = codeProduct;
         this.nameProduct = nameProduct;
@@ -88,6 +91,7 @@ public class Product {
         this.biddingStatus = biddingStatus;
         this.imageProductList = imageProductList;
         this.invoiceDetailList = invoiceDetailList;
+        this.cart = cart;
         this.members = members;
     }
 
@@ -227,11 +231,19 @@ public class Product {
         this.invoiceDetailList = invoiceDetailList;
     }
 
-    public Set<Member> getMembers() {
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Member getMembers() {
         return members;
     }
 
-    public void setMembers(Set<Member> members) {
+    public void setMembers(Member members) {
         this.members = members;
     }
 }
