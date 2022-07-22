@@ -33,7 +33,7 @@ public class ProductController {
     @Autowired
     private IMemberService iMemberService;
     @GetMapping("/type")
-    public ResponseEntity<List<TypeProduct>> findByAllTypeProduct() {
+    public ResponseEntity<List<TypeProduct>>  findByAllTypeProduct() {
         List<TypeProduct> typeProducts = typeProductService.findByAll();
         if (typeProducts.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
