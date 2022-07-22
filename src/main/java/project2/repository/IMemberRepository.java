@@ -6,7 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project2.model.Member;
+<<<<<<< HEAD
 import java.util.Optional;
+=======
+
+
+>>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
 import java.util.List;
 @Repository
 public interface IMemberRepository extends JpaRepository<Member, Long> {
@@ -20,21 +25,32 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "SELECT * " +
             "FROM `member` " +
             "inner join `rank` on `rank`.id_rank = `member`.id_rank " +
+            "inner join `account` on `account`.id_account = `member`.id_account " +
             "where (`member`.name_member like concat('%' ,?1,'%') or ?1 is null ) " +
             "and (`member`.email_member like concat('%' ,?2,'%') or ?2 is null ) " +
             "and (`member`.address_member like concat('%' ,?3,'%') or ?3 is null ) " +
             "and (`member`.phone_member like concat('%' ,?4,'%') or ?4 is null ) " +
-            "and (`rank`.name_rank like concat('%' ,?5,'%') or ?5 is null )" ,
+            "and (`rank`.name_rank like concat('%' ,?5,'%') or ?5 is null )" +
+            "and `account`.flag_delete = 0",
             countQuery = "SELECT `rank`.id_rank " +
                     "FROM `member` " +
                     "inner join `rank` on `rank`.id_rank = `member`.id_rank " +
+                    "inner join `account` on `account`.id_account = `member`.id_account " +
                     "where (`member`.name_member like concat('%' ,?1,'%') or ?1 is null ) " +
                     "and (`member`.email_member like concat('%' ,?2,'%') or ?2 is null ) " +
                     "and (`member`.address_member like concat('%' ,?3,'%') or ?3 is null ) " +
                     "and (`member`.phone_member like concat('%' ,?4,'%') or ?4 is null ) " +
-                    "and (`rank`.name_rank like concat('%' ,?5,'%') or ?5 is null )" , nativeQuery = true)
+                    "and (`rank`.name_rank like concat('%' ,?5,'%') or ?5 is null )" +
+                    "and `account`.flag_delete = 0", nativeQuery = true)
     Page<Member> searchAllMember(String name, String email, String address, String phoneNumber, String nameRank, Pageable pageable);
 
     //SonLT View-Member
     Member findMemberByAccount_IdAccount(Long id);
+<<<<<<< HEAD
+=======
+
+    @Query(value = "select nameMember from Member")
+    void getTransactionByMember();
+
+>>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
 }

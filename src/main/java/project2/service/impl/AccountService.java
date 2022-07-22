@@ -1,13 +1,17 @@
 package project2.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
+import net.bytebuddy.utility.RandomString;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project2.model.Account;
+import project2.model.Member;
 import project2.model.Role;
 import project2.repository.IAccountRepository;
 import project2.service.IAccountService;
@@ -20,9 +24,8 @@ import java.util.Set;
 @Service
 public class AccountService implements IAccountService,UserDetailsService {
     @Autowired
-
-
     private IAccountRepository iAccountRepository;
+
 
 
     @Override
@@ -49,17 +52,53 @@ public class AccountService implements IAccountService,UserDetailsService {
     public void deleteById(Long id) {
 
     }
+
     @Override
     public void delele(Account account) {
 
     }
 
+<<<<<<< HEAD
     /* Get accounts by role name -TuanNHA */
     @Override
     public List<Account> getAccountsByRoleName() {
         return this.iAccountRepository.getAccountsByRoleMember();
     }
 
+=======
+    // HuyNN
+    @Override
+    public Account findByMember(Member member) {
+        return iAccountRepository.findByMember(member);
+    }
+
+    public void saveForgotPassword(Account account, String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(password);
+        account.setPassword(encodedPassword);
+        account.setToken(null);
+        iAccountRepository.save(account);
+    }
+
+    @Override
+    public void updateToken(Account account) {
+        String token = RandomString.make(45);
+        account.setToken(token);
+        iAccountRepository.save(account);
+    }
+
+    @Override
+    public Account findAccountByToken(String token) {
+        return iAccountRepository.findAccountByToken(token);
+    }
+
+    @Override
+    public Account findAccountByEmailAndUsername(String email, String username) {
+        return iAccountRepository.findAccountByUsernameAndEnmail(username, email);
+    }
+
+
+>>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = iAccountRepository.findAccountByUsername(username);
