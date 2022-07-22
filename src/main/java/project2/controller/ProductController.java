@@ -48,7 +48,7 @@ public class ProductController {
         if (imageProducts.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(imageProducts, HttpStatus.OK);
+            return new ResponseEntity<>(imageProducts,HttpStatus.OK);
         }
     }
 
