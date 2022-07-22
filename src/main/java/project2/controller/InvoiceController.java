@@ -539,12 +539,12 @@ public class InvoiceController {
                 " font-size: 20px; font-style: normal; font-weight: normal; line-height: 125%;\n" +
                 " letter-spacing: normal; text-align: center; display: block; margin: 0; padding:\n" +
                 " 0; text-align: left; width: 100%; font-size: 16px; font-weight: bold; '>What\n" +
-                " is Lingo?</h3>\n" +
+                " is Aution?</h3>\n" +
                 "\n" +
                 "                              <p style='margin: 10px 0; padding: 0; mso-line-height-rule: exactly;\n" +
                 " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #2a2a2a;\n" +
                 " font-family: \"Asap\", Helvetica, sans-serif; font-size: 12px; line-height: 150%;\n" +
-                " text-align: left; text-align: left; font-size: 14px; '>Lingo is a visual asset manager made for collaboration. Build a central library for your team's visual assets. Empower creation and ensure consistency from your desktop.\n" +
+                " text-align: left; text-align: left; font-size: 14px; '>Aution is a visual asset manager made for collaboration. Build a central library for your team's visual assets. Empower creation and ensure consistency from your desktop.\n" +
                 "                              </p>\n" +
                 "                              <div style=\"padding-bottom: 18px;\">\n" +
                 "                                <a href=\"https://www.lingoapp.com\" style=\"mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
