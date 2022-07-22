@@ -22,6 +22,11 @@ public class InvoiceDetailService implements IInvoiceDetailService {
         return iInvoiceDetailRepository.findAllStatusInvoice();
     }
 
+    @Override
+    public void saveList(List<InvoiceDetail> invoiceDetailList) {
+        iInvoiceDetailRepository.saveAll(invoiceDetailList);
+    }
+
 //    @Override
 //    public List<ImageProduct> findAllImageProduct(int id) {
 //        return iInvoiceDetailRepository.findAllImg(id);

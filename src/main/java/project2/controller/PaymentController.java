@@ -19,6 +19,9 @@ import project2.service.impl.PaymentService;
 import project2.service.impl.TransportService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,6 +30,12 @@ import java.util.List;
 public class PaymentController {
 
     private static final Gson gson = new Gson();
+
+    @Autowired
+    private IInvoiceDetailService invoiceDetailService;
+
+    @Autowired
+    private IInvoiceService invoiceService;
 
     @Autowired
     private IProductService iProductService;
@@ -123,6 +132,7 @@ public class PaymentController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         else {
+
             project2.model.Payment payment = new project2.model.Payment();
             payment.setIdPayment(paymentDTO.getIdPayment());
             payment.setFullNameReceiver(paymentDTO.getFirstNameReceiver() + " " + paymentDTO.getLastNameReceiver());
@@ -135,7 +145,6 @@ public class PaymentController {
             payment.setMember(paymentDTO.getMember());
             payment.setTransport(paymentDTO.getTransport());
             payment.setCart(paymentDTO.getCart());
-
             // Check total and set flag Delete Product
             List<Product> productList = paymentDTO.getProduct();
             Double total = 0.0;
@@ -145,11 +154,32 @@ public class PaymentController {
                 total = total + productList.get(i).getFinalPrice();
             }
             total += new Double(productList.size()*1);
-
             // Check total fe success and save
             if (total.intValue() == paymentDTO.getTotal().intValue()){
                 iProductService.saveListProduct(productList);
                 project2.model.Payment payment1 = paymentService.save(payment);
+
+
+                // set invoice and invoice detail
+                Invoice invoice = new Invoice();
+                invoice.setFlagDelete(false);
+                invoice.setMember(paymentDTO.getMember());
+                invoice.setPayment(paymentService.getPaymentEnd());
+                LocalDate date = LocalDate.now();
+                invoice.setDateCreated(date);
+                invoice.setIdStatusInvoice(false);
+                invoice.setTotalPrice(paymentDTO.getTotal());
+                invoiceService.save(invoice);
+                //Set invoice detail
+                List<InvoiceDetail> invoiceDetailList = new ArrayList<>();
+                for (int i = 0 ; i<paymentDTO.getProduct().size();i++){
+                    InvoiceDetail invoiceDetail = new InvoiceDetail();
+                    invoiceDetail.setInvoice(invoice);
+                    invoiceDetail.setProduct(paymentDTO.getProduct().get(i));
+                    invoiceDetailList.add(invoiceDetail);
+                }
+                invoiceDetailService.saveList(invoiceDetailList);
+
                 return new ResponseEntity<>(payment1, HttpStatus.OK);
             }
             else {

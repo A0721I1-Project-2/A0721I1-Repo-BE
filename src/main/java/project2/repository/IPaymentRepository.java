@@ -15,4 +15,6 @@ public interface IPaymentRepository extends JpaRepository<Payment, Long> {
     @Query(value = "select * from payment", nativeQuery = true)
     List<Payment> getAllPayment();
 
+    @Query(value = "SELECT * FROM payment ORDER BY id_payment DESC LIMIT 1", nativeQuery = true)
+    Payment getPaymentEnd();
 }
