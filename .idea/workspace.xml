@@ -20,63 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e3fed02-10c8-4631-9f62-ab5088093a49" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/ServletInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/DataSeedingListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/EmailAccountConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/JwtAuthenticationEntryPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/MailConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/MyConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/SmtpAuthenticator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/WebSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/controller/SecurityController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/controller/TransactionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/AuctionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/TransactionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/jwt/JwtFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/jwt/JwtUtility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/payload/JwtResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/payload/LoginRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IAccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IAccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IImageProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IImageProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceDetailRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IMemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IMemberRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IRoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IRoleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IImageProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IImageProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IQuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IQuestionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ITopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ITopicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ImageProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ImageProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/QuestionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/TopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/TopicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +58,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Demo_GUI" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
@@ -142,6 +91,11 @@
       <workItem from="1658236083435" duration="5275000" />
       <workItem from="1658281217448" duration="1752000" />
       <workItem from="1658307672405" duration="2540000" />
+      <workItem from="1658316256518" duration="3738000" />
+      <workItem from="1658366830117" duration="875000" />
+      <workItem from="1658395093568" duration="595000" />
+      <workItem from="1658410246451" duration="1874000" />
+      <workItem from="1658450222876" duration="2440000" />
     </task>
     <servers />
   </component>
@@ -174,50 +128,51 @@
     </state>
     <state x="490" y="259" width="433" height="268" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1366.728@0.0.1366.728" timestamp="1658220222181" />
     <state x="551" y="325" width="433" height="267" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.912@0.0.1536.912" timestamp="1657719118314" />
-    <state x="549" y="211" key="FileChooserDialogImpl" timestamp="1657710985903">
-      <screen x="0" y="0" width="1536" height="912" />
+    <state x="488" y="168" key="FileChooserDialogImpl" timestamp="1658456237074">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="488" y="168" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1658456237074" />
     <state x="549" y="211" key="FileChooserDialogImpl/0.0.1536.912/1920.0.1920.1032@0.0.1536.912" timestamp="1657631898439" />
     <state x="549" y="211" key="FileChooserDialogImpl/0.0.1536.912@0.0.1536.912" timestamp="1657710985903" />
-    <state width="1323" height="389" key="GridCell.Tab.0.bottom" timestamp="1658310247527">
+    <state width="1323" height="419" key="GridCell.Tab.0.bottom" timestamp="1658424752916">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="389" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
+    <state width="1323" height="419" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1658424752916" />
     <state width="1493" height="239" key="GridCell.Tab.0.bottom/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1323" height="389" key="GridCell.Tab.0.center" timestamp="1658310247527">
+    <state width="1323" height="419" key="GridCell.Tab.0.center" timestamp="1658424752915">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="389" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
+    <state width="1323" height="419" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1658424752915" />
     <state width="1493" height="239" key="GridCell.Tab.0.center/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1323" height="389" key="GridCell.Tab.0.left" timestamp="1658310247527">
+    <state width="1323" height="419" key="GridCell.Tab.0.left" timestamp="1658424752915">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="389" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
+    <state width="1323" height="419" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1658424752915" />
     <state width="1493" height="239" key="GridCell.Tab.0.left/0.0.1536.912@0.0.1536.912" timestamp="1658029565544" />
-    <state width="1323" height="389" key="GridCell.Tab.0.right" timestamp="1658310247527">
+    <state width="1323" height="419" key="GridCell.Tab.0.right" timestamp="1658424752915">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="389" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
+    <state width="1323" height="419" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1658424752915" />
     <state width="1493" height="239" key="GridCell.Tab.0.right/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1323" height="389" key="GridCell.Tab.1.bottom" timestamp="1658310247528">
+    <state width="1323" height="419" key="GridCell.Tab.1.bottom" timestamp="1658424752917">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="389" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1658310247528" />
+    <state width="1323" height="419" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1658424752917" />
     <state width="1493" height="239" key="GridCell.Tab.1.bottom/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1323" height="389" key="GridCell.Tab.1.center" timestamp="1658310247527">
+    <state width="1323" height="419" key="GridCell.Tab.1.center" timestamp="1658424752916">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="389" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
+    <state width="1323" height="419" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1658424752916" />
     <state width="1493" height="239" key="GridCell.Tab.1.center/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1323" height="389" key="GridCell.Tab.1.left" timestamp="1658310247527">
+    <state width="1323" height="419" key="GridCell.Tab.1.left" timestamp="1658424752916">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="389" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
+    <state width="1323" height="419" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1658424752916" />
     <state width="1493" height="239" key="GridCell.Tab.1.left/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
-    <state width="1323" height="389" key="GridCell.Tab.1.right" timestamp="1658310247527">
+    <state width="1323" height="419" key="GridCell.Tab.1.right" timestamp="1658424752916">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="389" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1658310247527" />
+    <state width="1323" height="419" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1658424752916" />
     <state width="1493" height="239" key="GridCell.Tab.1.right/0.0.1536.912@0.0.1536.912" timestamp="1658029565545" />
     <state x="277" y="101" key="SettingsEditor" timestamp="1657807487785">
       <screen x="0" y="0" width="1536" height="912" />
