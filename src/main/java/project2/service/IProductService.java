@@ -64,6 +64,9 @@ public interface IProductService {
     //HuyNN
     void updateCurrentPrice(Product product);
 
+    //HuyNN
+    void updateIdCard(Product product);
+
     //VinhTQ
     Product findProductByIdForProductDetail(long id);
 

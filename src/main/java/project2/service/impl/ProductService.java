@@ -97,6 +97,12 @@ public class ProductService implements IProductService {
         productRepository.save(product);
     }
 
+    //HuyNN
+    @Override
+    public void updateIdCard(Product product) {
+        productRepository.save(product);
+    }
+
     //VinhTQ
     @Override
     public Product findProductByIdForProductDetail(long id) {
