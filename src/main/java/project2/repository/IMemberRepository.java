@@ -6,12 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project2.model.Member;
-<<<<<<< HEAD
 import java.util.Optional;
-=======
-
-
->>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
 import java.util.List;
 @Repository
 public interface IMemberRepository extends JpaRepository<Member, Long> {
@@ -45,12 +40,9 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
     Page<Member> searchAllMember(String name, String email, String address, String phoneNumber, String nameRank, Pageable pageable);
 
     //SonLT View-Member
-    Member findMemberByAccount_IdAccount(Long id);
-<<<<<<< HEAD
-=======
-
     @Query(value = "select nameMember from Member")
     void getTransactionByMember();
 
->>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
+    //SonLT View-Member
+    Member findMemberByAccount_IdAccount(Long id);
 }

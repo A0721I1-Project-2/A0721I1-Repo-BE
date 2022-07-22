@@ -21,14 +21,6 @@ public class MemberService implements IMemberService {
     @Autowired
     private IMemberRepository iMemberRepository;
 
-<<<<<<< HEAD
-=======
-    @Autowired
-    private IMemberRepository memberRepository;
-
-
-
->>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
     @Override
     public Member save(Member member) {
         return iMemberRepository.save(member);
@@ -69,7 +61,6 @@ public class MemberService implements IMemberService {
 
     }
 
-<<<<<<< HEAD
     /* Get member by account id */
     @Override
     public Optional<Member> getMemberByAccountId(Long accountId) {
@@ -80,12 +71,11 @@ public class MemberService implements IMemberService {
         return null;
     }
 
-=======
     @Override
     public Member findByIdAccount(Long IdAccount) {
         return memberRepository.findMemberByAccount_IdAccount(IdAccount);
     }
->>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
+
     //SonLT View-Member
     @Override
     public Member findMemberByIdAccount(Long id) {
@@ -98,12 +88,9 @@ public class MemberService implements IMemberService {
         iMemberRepository.save(member);
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public void getTransactionMember() {
         memberRepository.getTransactionByMember();
 
     }
->>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
 }

@@ -11,7 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface IAccountRepository extends JpaRepository<Account, Long> {
-<<<<<<< HEAD
     /* Get account by username */
     @Query(value = "select * from `account` where `account`.`username` = ?1" , nativeQuery = true)
     Account getAccByUsername(String username);
@@ -24,7 +23,7 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
             "group by `account`.id_account\n" +
             "having count(account_role.id_role) = 1" , nativeQuery=true)
     List<Account> getAccountsByRoleMember();
-=======
+
     Account findByMember(Member member);
 
     //    @Query(value = "select * from account where toke = ?1",nativeQuery = true)
@@ -34,7 +33,6 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
             "join member on member.id_account = account.id_account\n" +
             "where account.username = ?1 and member.email_member = ?2",nativeQuery = true)
     Account findAccountByUsernameAndEnmail(String username, String email);
->>>>>>> 5790b7296bb0ec9547291a7bd978446ecc1896b3
 
     Account findAccountByUsername(String username);
 
