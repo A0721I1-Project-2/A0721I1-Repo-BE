@@ -10,7 +10,6 @@ import project2.model.Product;
 import project2.model.TypeProduct;
 import project2.service.IMemberService;
 import project2.service.impl.ImageProductService;
-import project2.service.impl.MemberService;
 import project2.service.impl.ProductService;
 import project2.service.impl.TypeProductService;
 
@@ -30,8 +29,11 @@ public class ProductController {
 
     @Autowired
     private ImageProductService imageProductService;
+
     @Autowired
     private IMemberService iMemberService;
+
+
     @GetMapping("/type")
     public ResponseEntity<List<TypeProduct>>  findByAllTypeProduct() {
         List<TypeProduct> typeProducts = typeProductService.findByAll();
@@ -52,16 +54,14 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id){
-        Product product = productService.getProductById(id);
-        return new ResponseEntity<>(product , HttpStatus.OK);
-
+    @GetMapping("/getProductById/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.getProductById(id).get(), HttpStatus.OK);
     }
 
     @GetMapping("/member/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable Long id){
-        Optional<Member> member = iMemberService.findById(id);
+        Optional<Member> member = iMemberService.findByIdMember(id);
         return new ResponseEntity<Member>(member.get() , HttpStatus.OK);
     }
 

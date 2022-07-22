@@ -11,7 +11,7 @@ public interface IMemberService {
 
     Iterable<Member> saveAll(Iterable<Member> members);
 
-    Optional<Member> findById(Long id);
+    Optional<Member> findByIdMember(Long id);
 
     List<Member> findAll();
 

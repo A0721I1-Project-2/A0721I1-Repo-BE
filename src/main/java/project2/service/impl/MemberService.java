@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class MemberService implements IMemberService {
     @Autowired
-    public IMemberRepository iMemberRepository;
+    public IMemberRepository memberRepository;
     @Override
     public Member save(Member member) {
         return null;
@@ -23,10 +23,10 @@ public class MemberService implements IMemberService {
         return null;
     }
 
-    @Override
-    public Optional<Member> findById(Long id) {
-        return iMemberRepository.findById(id);
-    }
+        @Override
+        public Optional<Member> findByIdMember(Long id) {
+            return memberRepository.findById(id);
+        }
 
     @Override
     public List<Member> findAll() {

@@ -5,7 +5,8 @@ import project2.model.Product;
 import java.util.Optional;
 
 public interface IProductService {
-    Product getProductById(Long id);
+    //HuyNN
+    Optional<Product> getProductById(Long id);
     Product updateProduct(Product product);
 
 }

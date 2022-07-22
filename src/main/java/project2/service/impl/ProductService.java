@@ -12,16 +12,17 @@ import java.util.Optional;
 public class ProductService implements IProductService {
 
     @Autowired
-    private IProductRepository iProductRepository;
+    private IProductRepository productRepository;
 
 
+    //HuyNN
     @Override
-    public Product getProductById(Long id_product) {
-        return iProductRepository.findById(id_product).orElse(null);
+    public Optional<Product> getProductById(Long id) {
+        return productRepository.findById(id);
     }
 
     @Override
     public Product updateProduct(Product product) {
-          return iProductRepository.save(product);
+          return productRepository.save(product);
     }
 }
