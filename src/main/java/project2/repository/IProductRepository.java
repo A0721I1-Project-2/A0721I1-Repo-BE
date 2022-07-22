@@ -27,7 +27,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
 
     // BachLT
-    @Query(value = "SELECT p FROM Product p WHERE p.endDate between ?1 and ?2 and p.biddingStatus.idBiddingStatus= ?3 and p.flagDelete = false ")
+    @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = false", nativeQuery = true)
     List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd, long biddingStatus);
 
     // BachLT
@@ -86,10 +86,12 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
 
 
     //VinhTQ
+//    @Query(value = "select * from product " +
+//            "join product_member on product_member.id_product = product.id_product " +
+//            "join member on member.id_member = product_member.id_member " +
+//            "where product.id_product =?1", nativeQuery = true)
     @Query(value = "select * from product " +
-            "join product_member on product_member.id_product = product.id_product " +
-            "join member on member.id_member = product_member.id_member " +
-            "where product.id_product =?1", nativeQuery = true)
+            "where product.id_product = ?1 ", nativeQuery = true)
     Product findProductByIdForProductDetail(long id);
 
     //HauLST - List sp đang đấu giá, và sắp xếp theo thời gian còn lại từ ít nhất -> nhiều nhất
