@@ -8,4 +8,6 @@ import java.util.List;
 public interface IImageProductService {
 
     List<ImageProduct> findByAll();
+    public List<ImageProduct> findByProduct(Product product);
+
 }

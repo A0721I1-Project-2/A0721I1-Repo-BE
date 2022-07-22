@@ -23,7 +23,7 @@ public class Product {
     private Double finalPrice;
     @Column(name = "increment_price")
     private Double incrementPrice;
-    @Column(name = "product_description")
+    @Column(name = "product_description", length = 1000)
     private String productDescription;
     @Column(name = "start_date")
     private String startDate;
@@ -31,7 +31,7 @@ public class Product {
     private String endDate;
     @Column(name = "remaining_time")
     private String remainingTime;
-    @Column(name="create_day")
+    @Column(name = "create_day")
     private String createDay;
     @Column(name = "flag_delete")
     private Boolean flagDelete;
@@ -49,7 +49,7 @@ public class Product {
     private BiddingStatus biddingStatus;
 
     @OneToMany(mappedBy = "product")
-    @JsonBackReference(value = "product_imageProduct")
+// bỏ không dùng:->    @JsonBackReference(value = "product_imageProduct")
     private List<ImageProduct> imageProductList;
 
     @OneToMany(mappedBy = "product")
@@ -57,7 +57,7 @@ public class Product {
     private List<InvoiceDetail> invoiceDetailList;
 
     @ManyToOne(targetEntity = Cart.class)
-    @JoinColumn(name = "id_cart", nullable = false)
+    @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
 //    @OneToOne
@@ -91,6 +91,14 @@ public class Product {
 
     public void setCodeProduct(String codeProduct) {
         this.codeProduct = codeProduct;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getNameProduct() {
@@ -211,14 +219,6 @@ public class Product {
 
     public void setInvoiceDetailList(List<InvoiceDetail> invoiceDetailList) {
         this.invoiceDetailList = invoiceDetailList;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public Member getMembers() {

@@ -1,6 +1,8 @@
 package project2.service.impl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,10 @@ import project2.service.IProductService;
 
 import java.util.List;
 
+
 import java.util.Optional;
+
+import java.util.List;
 
 
 @Service
@@ -19,7 +24,18 @@ public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
-    //BachLT
+    // QuangNV write method get product in cart
+    @Override
+    public List<Product> getProductInCart(int i) {
+        return productRepository.getProductInCart(i);
+    }
+
+    @Override
+    public void saveListProduct(List<Product> productList) {
+        productRepository.saveAll(productList);
+    }
+
+
     @Override
     public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus) {
         System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));
@@ -76,5 +92,49 @@ public class ProductService implements IProductService {
     @Override
     public void saveProduct(Product product) {
         productRepository.save(product);
+    }
+
+
+    //HuyNN
+    @Override
+    public void updateCurrentPrice(Product product) {
+        productRepository.save(product);
+    }
+
+    //VinhTQ
+    @Override
+    public Product findProductByIdForProductDetail(long id) {
+        return productRepository.findProductByIdForProductDetail(id);
+    }
+
+    //HauLST
+    @Override
+    public List<Product> getAllProductAuntion() {
+        return productRepository.findAllProductAuction();
+    }
+
+    //HauLST
+    @Override
+    public List<Product> getAllProductFinishedAuntion() {
+        return productRepository.findAllProductFinishedAuction();
+    }
+
+    //HauLST
+    @Override
+    public List<Product> gettAllProductAuntionAndTypeProduct(String nameTypeProduct) {
+        return productRepository.gettAllProductAuntionAndTypeProduct(nameTypeProduct);
+    }
+
+    //HauLST
+    @Override
+    public List<Product> searchProductByNameByTypeProductByPrice(String nameProduct, String nameTypeProduct, Double
+            min, Double max) {
+        return productRepository.searchProductByNameByTypeProductByPrice(nameProduct, nameTypeProduct, min, max);
+    }
+
+    //HauLST
+    @Override
+    public List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min) {
+        return productRepository.searchProductPricesOver250(nameProduct, nameTypeProduct, min);
     }
 }
