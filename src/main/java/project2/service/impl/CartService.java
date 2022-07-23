@@ -16,4 +16,10 @@ public class CartService implements ICartService {
     public Cart findByIdMember(Long id_member) {
         return iCartRepository.getByIdMember(id_member);
     }
+
+    @Override
+    public Cart findById(Long id) {
+        return iCartRepository.findById(id).orElse(null);
+    }
 }
+
