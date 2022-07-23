@@ -60,19 +60,21 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_member",
-            joinColumns = @JoinColumn(name = "id_product"),
-            inverseJoinColumns = @JoinColumn(name = "id_member")
-    )
-    private Set<Member> members;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "product_member",
+//            joinColumns = @JoinColumn(name = "id_product"),
+//            inverseJoinColumns = @JoinColumn(name = "id_member")
+//    )
+//    private Set<Member> members;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "id_member", nullable = true)
+    private Member members;
 
     public Product() {
     }
 
-
-    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Set<Member> members) {
+    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Member members) {
         this.idProduct = idProduct;
         this.codeProduct = codeProduct;
         this.nameProduct = nameProduct;
@@ -108,14 +110,6 @@ public class Product {
 
     public void setCodeProduct(String codeProduct) {
         this.codeProduct = codeProduct;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public String getNameProduct() {
@@ -238,12 +232,19 @@ public class Product {
         this.invoiceDetailList = invoiceDetailList;
     }
 
-    public Set<Member> getMembers() {
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Member getMembers() {
         return members;
     }
 
-    public void setMembers(Set<Member> members) {
+    public void setMembers(Member members) {
         this.members = members;
     }
-
 }

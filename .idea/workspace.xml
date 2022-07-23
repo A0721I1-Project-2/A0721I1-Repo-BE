@@ -53,6 +53,7 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
@@ -86,6 +87,8 @@
       <workItem from="1658281217448" duration="1752000" />
       <workItem from="1658307672405" duration="2540000" />
       <workItem from="1658412772745" duration="1948000" />
+      <workItem from="1658473199446" duration="8537000" />
+      <workItem from="1658487165398" duration="5030000" />
     </task>
     <servers />
   </component>
@@ -105,16 +108,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java</url>
-          <line>290</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

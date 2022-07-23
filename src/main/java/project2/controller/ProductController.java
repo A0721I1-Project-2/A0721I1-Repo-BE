@@ -151,7 +151,7 @@ public class ProductController {
             Cart newCart = new Cart();
             newCart.setWarning("0");
             newCart.setMember(member);
-            iCartService.createCart(newCart);
+            this.iCartService.createCart(newCart);
             cart = iCartService.findByIdMember(idMember);
             Product product = this.productService.getProductById(idProduct).get();
             product.setCart(cart);
@@ -161,7 +161,7 @@ public class ProductController {
             product.setCart(cart);
             productService.updateIdCard(product);
         }
-        return new ResponseEntity(null, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //HuyNN
@@ -244,7 +244,7 @@ public class ProductController {
                     " best way to organize, share and use all your visual assets in one place -\n" +
                     " all on your desktop.'>\n" +
                     "                                  <img align='none' alt='Lingo is the best way to\n" +
-                    " organize, share and use all your visual assets in one place - all on your desktop.' height='32' src='./my-logo.png' style='-ms-interpolation-mode: bicubic; border: 0; outline: none;\n" +
+                    " organize, share and use all your visual assets in one place - all on your desktop.' height='32' src='https://firebasestorage.googleapis.com/v0/b/sprint2-1452b.appspot.com/o/image.png?alt=media&token=683228a2-2155-425e-beab-987b8a401089' style='-ms-interpolation-mode: bicubic; border: 0; outline: none;\n" +
                     " text-decoration: none; height: auto; width: 107px; height: 32px; margin: 0px;' width='107' />\n" +
                     "                                </a>\n" +
                     "                              </td>\n" +
@@ -457,7 +457,7 @@ public class ProductController {
                     " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #2a2a2a;\n" +
                     " font-family: Asap, Helvetica, sans-serif; font-size: 12px; line-height: 150%;\n" +
                     " text-align: left; text-align: left; font-size: 14px; '>\n" +
-                    "Product payment time after successful auction is 24 hours. Please make sure you have successfully paid for the product. In case you have not paid for the product within 24 hours, we will proceed to lock your account.\n" +
+                    "Time to pay for successful auction products is 24 hours after receiving the first notice. Please make sure you have successfully paid for the product. In case you have not paid for the product within 24 hours, we will proceed to lock your account.\n" +
                     "                              </p>\n" +
                     "                            </td>\n" +
                     "                          </tr>\n" +
