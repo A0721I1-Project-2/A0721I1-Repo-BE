@@ -202,7 +202,7 @@ public class PaymentController {
     //QuangNV write method get all member
     @GetMapping("/getMember/{id_member}")
     public ResponseEntity<Member> getMemberById(@PathVariable String id_member){
-        Member member = memberService.findById(Long.parseLong(id_member));
+        Member member = memberService.findByIdMember(Long.parseLong(id_member)).get();
         if (member ==  null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
