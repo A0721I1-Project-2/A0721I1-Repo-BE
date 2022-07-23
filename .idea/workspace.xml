@@ -5,158 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fca0922-b43a-45ab-8810-d687ef68ff13" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.8.1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/configuration-cache/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/DataSeedingListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/EmailAccountConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/MailConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/MailPW.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/MyConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/SmtpAuthenticator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/WebConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/controller/TransactionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/AccountMemberDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/AuctionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/InvoiceDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/PaymentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/TransactionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/ValidateAccountDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/jwt/EncrypPasswordJWT.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/model/OrderProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/Project2a07Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/Project2a07Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/controller/AccountController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/controller/InvoiceController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/controller/InvoiceController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/controller/MemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/controller/PaymentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/controller/PaymentController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/controller/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/controller/QuestionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/controller/QuestionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/model/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/model/Account.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/model/ImageProduct.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/model/ImageProduct.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/model/Member.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/model/Member.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/model/Payment.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/model/Payment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/model/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/model/Product.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/model/Question.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/model/Question.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/model/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/model/Role.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IAccountRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IAccountRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/ICartRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/ICartRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IImageProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IImageProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IInvoiceDetailRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IInvoiceDetailRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IMemberRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IMemberRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IPaymentRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IPaymentRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IProductRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IRankRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IRankRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IRoleRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/IRoleRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/repository/ITransportRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/repository/ITransportRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IAccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IAccountService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/ICartService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/ICartService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IImageProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IImageProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IInvoiceDetailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IInvoiceDetailService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IInvoiceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IInvoiceService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IMemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IMemberService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IPaymentMethodService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IPaymentMethodService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IPaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IPaymentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IQuestionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IQuestionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IRankService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IRankService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/IRoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/IRoleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/ITopicService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/ITopicService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/ITransportService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/ITransportService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/ITypeProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/ITypeProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/AccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/AccountService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/CartService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/CartService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/ImageProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/ImageProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/InvoiceDetailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/InvoiceDetailService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/InvoiceService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/InvoiceService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/MemberService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/MemberService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/PaymentMethodService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/PaymentMethodService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/PaymentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/PaymentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/ProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/QuestionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/QuestionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/RankService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/RankService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/RoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/RoleService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/TopicService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/TopicService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/TransportService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/TransportService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/TypeProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/project2/service/impl/TypeProductService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/InvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/InvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/TypeProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/TypeProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/jwt/JwtUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/jwt/JwtUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/ImageProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/ImageProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Member.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Question.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Question.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IAccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IAccountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/ICartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/ICartRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IImageProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IImageProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceDetailRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IMemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IMemberRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentMethodRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentMethodRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IRankRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IRankRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IRoleRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IRoleRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/ITransportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/ITransportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ICartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ICartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IImageProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IImageProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentMethodService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IQuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IQuestionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IRankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IRankService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IRoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IRoleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ITopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ITopicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ITransportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ITransportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ITypeProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ITypeProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ImageProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ImageProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentMethodService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/QuestionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/RankService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/RankService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/RoleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/RoleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/TopicService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/TopicService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/TransportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/TransportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/TypeProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/TypeProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,6 +77,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
   </component>
   <component name="RunManager">
@@ -267,7 +117,8 @@
       <workItem from="1658509166827" duration="25000" />
       <workItem from="1658562707039" duration="1712000" />
       <workItem from="1658564549562" duration="1678000" />
-      <workItem from="1658566345700" duration="656000" />
+      <workItem from="1658566345700" duration="978000" />
+      <workItem from="1658569964615" duration="47000" />
     </task>
     <servers />
   </component>
