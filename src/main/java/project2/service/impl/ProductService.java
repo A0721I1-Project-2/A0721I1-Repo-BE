@@ -11,12 +11,8 @@ import project2.repository.IProductRepository;
 import project2.service.IProductService;
 
 import java.util.List;
-
-
 import java.util.Optional;
-
 import java.util.List;
-
 
 @Service
 public class ProductService implements IProductService {
@@ -35,7 +31,6 @@ public class ProductService implements IProductService {
         productRepository.saveAll(productList);
     }
 
-
     @Override
     public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus) {
         System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));
@@ -46,6 +41,16 @@ public class ProductService implements IProductService {
     public List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus) {
         System.out.println(productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus));
         return productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus);
+    }
+    //Thao
+    @Override
+    public  Product postProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     @Override
@@ -98,6 +103,12 @@ public class ProductService implements IProductService {
     //HuyNN
     @Override
     public void updateCurrentPrice(Product product) {
+        productRepository.save(product);
+    }
+
+    //HuyNN
+    @Override
+    public void updateIdCard(Product product) {
         productRepository.save(product);
     }
 
