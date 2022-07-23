@@ -60,39 +60,22 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_member",
-            joinColumns = @JoinColumn(name = "id_product"),
-            inverseJoinColumns = @JoinColumn(name = "id_member")
-    )
-    private Set<Member> members;
+//    @OneToOne
+//    @JoinColumn(name = "id_member", nullable = false)
+//    private Member member;
 
-    public Product() {
-    }
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "id_member", nullable = true)
+    private Member members;
 
-
-    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Set<Member> members) {
-        this.idProduct = idProduct;
-        this.codeProduct = codeProduct;
-        this.nameProduct = nameProduct;
-        this.initialPrice = initialPrice;
-        this.finalPrice = finalPrice;
-        this.incrementPrice = incrementPrice;
-        this.productDescription = productDescription;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.remainingTime = remainingTime;
-        this.createDay = createDay;
-        this.flagDelete = flagDelete;
-        this.typeProduct = typeProduct;
-        this.approvalStatus = approvalStatus;
-        this.biddingStatus = biddingStatus;
-        this.imageProductList = imageProductList;
-        this.invoiceDetailList = invoiceDetailList;
-        this.cart = cart;
-        this.members = members;
-    }
+//    @ManyToMany
+//    @JoinTable(
+//            name = "product_member",
+//            joinColumns = @JoinColumn(name = "id_product"),
+//            inverseJoinColumns = @JoinColumn(name = "id_member")
+//    )
+//    private Set<Member> members;
+//
 
     public Long getIdProduct() {
         return idProduct;
@@ -238,12 +221,39 @@ public class Product {
         this.invoiceDetailList = invoiceDetailList;
     }
 
-    public Set<Member> getMembers() {
+    public Member getMembers() {
         return members;
     }
 
-    public void setMembers(Set<Member> members) {
+    public void setMembers(Member members) {
         this.members = members;
     }
 
+    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice,
+                   String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete,
+                   TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList,
+                   List<InvoiceDetail> invoiceDetailList, Cart cart, Member members) {
+        this.idProduct = idProduct;
+        this.codeProduct = codeProduct;
+        this.nameProduct = nameProduct;
+        this.initialPrice = initialPrice;
+        this.finalPrice = finalPrice;
+        this.incrementPrice = incrementPrice;
+        this.productDescription = productDescription;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.remainingTime = remainingTime;
+        this.createDay = createDay;
+        this.flagDelete = flagDelete;
+        this.typeProduct = typeProduct;
+        this.approvalStatus = approvalStatus;
+        this.biddingStatus = biddingStatus;
+        this.imageProductList = imageProductList;
+        this.invoiceDetailList = invoiceDetailList;
+        this.cart = cart;
+        this.members = members;
+    }
+
+    public Product() {
+    }
 }
