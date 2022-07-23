@@ -10,11 +10,15 @@ import java.util.List;
 
 @Service
 public class ApprovalStatusService implements IApprovalStatusService {
-
     @Autowired
-    public IApprovalStatusRepository iApprovalStatusRepository;
+    private IApprovalStatusRepository iApprovalStatusRepository;
+
     @Override
-    public List<ApprovalStatus> findByAll() {
+    public List<ApprovalStatus> findAllBy() {
         return iApprovalStatusRepository.findAll();
+    }
+
+    public ApprovalStatus getApprovalStatusById(Long id) {
+        return iApprovalStatusRepository.findById(id).orElse(null);
     }
 }
