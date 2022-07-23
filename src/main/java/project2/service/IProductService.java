@@ -12,8 +12,11 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface IProductService {
+import project2.model.Product;
 
+import java.util.List;
+
+public interface IProductService {
 
     Product postProduct(Product product);
 
@@ -55,6 +58,9 @@ public interface IProductService {
     //HuyNN
     void updateCurrentPrice(Product product);
 
+    //HuyNN
+    void updateIdCard(Product product);
+
     //VinhTQ
     Product findProductByIdForProductDetail(long id);
 
@@ -72,6 +78,4 @@ public interface IProductService {
 
     //HauLST
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
-
-    // Thao
 }

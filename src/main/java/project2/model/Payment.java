@@ -3,6 +3,9 @@ package project2.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -13,14 +16,22 @@ public class Payment {
     private Long idPayment;
 
     @Column(name = "full_name_receiver")
+    @NotNull
+    @Size(min = 3, max = 50)
+    @Pattern(regexp = "^[a-z,A-Z ,ỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]{1,}$")
     private String fullNameReceiver;
 
+    @NotNull
+    @Size(min = 3, max = 200)
     @Column(name = "address_receiver")
     private String addressReceiver;
 
+    @NotNull
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@gmail.com$")
     @Column(name = "email_receiver")
     private String emailReceiver;
 
+    @Pattern(regexp = "^[0-9 -]{1,}$")
     @Column(name = "phone_receiver")
     private String phoneReceiver;
 
@@ -51,6 +62,14 @@ public class Payment {
     private List<Invoice> invoiceList;
 
     public Payment() {
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Payment(Long idPayment, String fullNameReceiver, String addressReceiver, String emailReceiver, String phoneReceiver, Double feeService, String descriptionReceiver, Member member, PaymentMethod paymentMethod, Transport transport, List<Invoice> invoiceList) {

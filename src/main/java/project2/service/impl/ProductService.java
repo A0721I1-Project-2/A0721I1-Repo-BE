@@ -11,9 +11,8 @@ import project2.repository.IProductRepository;
 import project2.service.IProductService;
 
 import java.util.List;
-
 import java.util.Optional;
-
+import java.util.List;
 
 @Service
 public class ProductService implements IProductService {
@@ -26,6 +25,7 @@ public class ProductService implements IProductService {
     public List<Product> getProductInCart(int i) {
         return productRepository.getProductInCart(i);
     }
+
     @Override
     public void saveListProduct(List<Product> productList) {
         productRepository.saveAll(productList);
@@ -98,6 +98,12 @@ public class ProductService implements IProductService {
     //HuyNN
     @Override
     public void updateCurrentPrice(Product product) {
+        productRepository.save(product);
+    }
+
+    //HuyNN
+    @Override
+    public void updateIdCard(Product product) {
         productRepository.save(product);
     }
 
