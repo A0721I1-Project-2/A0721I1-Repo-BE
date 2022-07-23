@@ -101,7 +101,7 @@ public class PaymentController {
         try {
             com.paypal.api.payments.Payment payment = paymentMethodService.executePayment(paymentId, payerId);
             if(payment.getState().equals("approved")){
-                httpServletResponse.setHeader("Location", "http://localhost:4200/home/show-home");
+                httpServletResponse.setHeader("Location", "http://localhost:4200/payment/invoice-status");
             }
             else {
                 httpServletResponse.setHeader("Location", "http://localhost:4200/payment/payment-cart");
@@ -179,7 +179,6 @@ public class PaymentController {
                     invoiceDetailList.add(invoiceDetail);
                 }
                 invoiceDetailService.saveList(invoiceDetailList);
-
                 return new ResponseEntity<>(payment1, HttpStatus.OK);
             }
             else {
@@ -203,7 +202,7 @@ public class PaymentController {
     //QuangNV write method get all member
     @GetMapping("/getMember/{id_member}")
     public ResponseEntity<Member> getMemberById(@PathVariable String id_member){
-        Member member = memberService.findById(Long.parseLong(id_member));
+        Member member = memberService.findByIdMember(Long.parseLong(id_member)).get();
         if (member ==  null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

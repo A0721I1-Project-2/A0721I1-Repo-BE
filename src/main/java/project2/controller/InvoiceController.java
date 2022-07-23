@@ -14,6 +14,8 @@ import javax.mail.internet.MimeMessage;
 import project2.dto.InvoiceDTO;
 import project2.model.ImageProduct;
 import project2.model.InvoiceDetail;
+import project2.model.Payment;
+import project2.service.IPaymentService;
 import project2.service.impl.InvoiceDetailService;
 
 import java.util.List;
@@ -25,9 +27,13 @@ public class InvoiceController {
     @Autowired
     private InvoiceDetailService invoiceDetailService;
 
+    @Autowired
+    private IPaymentService paymentService;
+
     @GetMapping("/status")
     public ResponseEntity<List<InvoiceDetail>> findAllStatusInvoice() {
-        List<InvoiceDetail> invoices = invoiceDetailService.findAllStatusInvoice();
+        Payment payment = paymentService.getPaymentEnd();
+        List<InvoiceDetail> invoices = invoiceDetailService.findAllStatusInvoice(payment.getIdPayment());
         if (invoices.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {

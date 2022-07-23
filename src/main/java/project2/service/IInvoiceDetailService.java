@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IInvoiceDetailService {
-    List<InvoiceDetail> findAllStatusInvoice();
+    List<InvoiceDetail> findAllStatusInvoice(Long idPayment);
 
     void saveList(List<InvoiceDetail> invoiceDetailList);
 //    List<ImageProduct> findAllImageProduct(int id);

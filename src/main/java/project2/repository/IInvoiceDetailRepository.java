@@ -29,9 +29,9 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, L
             "inner join product " +
             "on invoicedetail.id_product=product.id_product " +
             "inner join imageproduct " +
-            "on product.id_product=imageproduct.id_product where payment.id_payment=1", nativeQuery = true)
+            "on product.id_product=imageproduct.id_product where payment.id_payment = ?1", nativeQuery = true)
 
-    List<InvoiceDetail> findAllStatusInvoice();
+    List<InvoiceDetail> findAllStatusInvoice(Long idPayment);
 
     //Nhung
 //    @Query(value="SELECT * from ImageProduct where id")
