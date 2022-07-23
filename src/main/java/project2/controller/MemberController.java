@@ -21,6 +21,7 @@ import project2.service.IRankService;
 import project2.service.IRoleService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.HashSet;
 import java.util.List;
@@ -161,7 +162,8 @@ public class MemberController {
             Role role = iRoleService.findByName("ROLE_MEMBER");
             roles.add(role);
             account.setRoles(roles);
-
+            account.setFlagDelete(false);
+            account.getLast_login(LocalDate.now());
             Account accountCreated = iAccountService.save(account);
             /* Set data for member */
             member.setAccount(iAccountService.findById(accountCreated.getIdAccount()).get());
