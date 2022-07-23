@@ -75,7 +75,7 @@ public class Member {
     @JsonBackReference(value = "member_cart")
     private Cart cart;
 
-//    @JsonIgnore
+    //    @JsonIgnore
 //    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private Set<Product> products;
     @OneToMany(mappedBy = "members")
@@ -245,4 +245,3 @@ public class Member {
         this.products = products;
     }
 }
-

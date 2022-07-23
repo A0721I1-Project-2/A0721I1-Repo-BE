@@ -68,7 +68,7 @@ public class MemberService implements IMemberService {
     //SonLT View-Member
     @Override
     public Member findMemberByIdAccount(Long id) {
-            return memberRepository.findMemberByAccount_IdAccount(id);
+        return memberRepository.findMemberByAccount_IdAccount(id);
     }
 
     //SonLT Edit-Member
