@@ -22,7 +22,6 @@ import project2.service.IRoleService;
 
 import javax.validation.Valid;
 import java.util.*;
-import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,7 +101,7 @@ public class MemberController {
     @PostMapping("/member/block")
     public ResponseEntity<?> blockMember(@RequestBody Long[] blockArray) {
         for (Long id : blockArray) {
-            Member member = memberService.findById(id);
+            Member member = memberService.findByIdMember(id).get();
             member.getAccount().setBlock(true);
             iMemberService.save(member);
         }
@@ -112,7 +111,7 @@ public class MemberController {
     @PostMapping("/member/unBlock")
     public ResponseEntity<?> unBlockMember(@RequestBody Long[] unBlockArray) {
         for (Long id : unBlockArray) {
-            Member member = memberService.findById(id);
+            Member member = memberService.findByIdMember(id).get();
             member.getAccount().setBlock(false);
             iMemberService.save(member);
         }
@@ -122,7 +121,7 @@ public class MemberController {
     @PostMapping("/member/delete")
     public ResponseEntity<?> deleteMember(@RequestBody Long[] blockArray) {
         for (Long id : blockArray) {
-            Member member = memberService.findById(id);
+            Member member = memberService.findByIdMember(id).get();
             member.getAccount().setFlagDelete(true);
             iMemberService.save(member);
         }
@@ -222,7 +221,7 @@ public class MemberController {
     // HuyNN get member by id method
     @GetMapping("/getMemberById/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable Long id) {
-        return new ResponseEntity<Member>(iMemberService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<Member>(iMemberService.findByIdMember(id).get(), HttpStatus.OK);
     }
 }
 
