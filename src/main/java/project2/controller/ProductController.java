@@ -381,7 +381,7 @@ public class ProductController {
     }
 
     //HieuDV
-    @GetMapping("list-bidding-status")
+    @GetMapping("/list-bidding-status")
     public ResponseEntity<Iterable<BiddingStatus>> getAllBiddingStatus() {
         List<BiddingStatus> biddingStatusList = biddingStatusService.findByAll();
         if (biddingStatusList.isEmpty()) {
@@ -402,7 +402,7 @@ public class ProductController {
     }
 
     //HieuDV
-    @GetMapping("list-approval-status")
+    @GetMapping("/list-approval-status")
     public ResponseEntity<Iterable<ApprovalStatus>> getAllApprovalStatus() {
         List<ApprovalStatus> approvalStatusList = approvalStatusService.findByAll();
         if (approvalStatusList.isEmpty()) {
