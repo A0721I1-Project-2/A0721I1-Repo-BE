@@ -17,6 +17,18 @@ public class CartService implements ICartService {
         return iCartRepository.getByIdMember(id_member);
     }
 
+    //HuyNN
+    @Override
+    public void createCart(Cart cart) {
+         this.iCartRepository.save(cart);
+    }
+
+    //HuyNN
+    @Override
+    public void updateCart(Cart cart) {
+        this.iCartRepository.save(cart);
+    }
+
     @Override
     public Cart findById(Long id) {
         return iCartRepository.findById(id).orElse(null);

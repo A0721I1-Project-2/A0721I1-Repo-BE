@@ -12,6 +12,7 @@ import java.util.List;
 public class ApprovalStatusService implements IApprovalStatusService {
     @Autowired
     private IApprovalStatusRepository iApprovalStatusRepository;
+
     @Override
     public List<ApprovalStatus> findAllBy() {
         return iApprovalStatusRepository.findAll();

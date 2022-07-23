@@ -20,16 +20,11 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import project2.service.IMemberService;
-import project2.service.impl.MemberService;
 
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/account")
 public class AccountController {
-    @Autowired
-    IMemberService iMemberService;
-
     @Autowired
     private IAccountService accountService;
 
@@ -59,7 +54,7 @@ public class AccountController {
     // HuyNN
     @GetMapping("/getAccountByMemberId/{id}")
     public ResponseEntity<Account> getAccountByMember(@PathVariable Long id) {
-        Member member = iMemberService.findById(id);
+        Member member = memberService.findByIdMember(id).get();
         return new ResponseEntity<>(accountService.findByMember(member), HttpStatus.OK);
     }
 
