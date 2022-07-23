@@ -3,6 +3,7 @@ package project2.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import project2.dto.TransactionDTO;
 import project2.model.Product;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -83,6 +85,13 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
                     "and biddingstatus.name_bidding_status like %?6% and product.flag_delete = 0",
             nativeQuery = true)
     Page<Product> findAllProductByNameTypeSellerPriceStatus(String name, String typeProduct, String sellerName, String maxPrice, String minPrice, String BiddingStatus, Pageable pageable);
+
+
+    //HieuDV
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE `project2`.`product` SET `product`.flag_delete = true WHERE (`product`.id_product = ?1);", nativeQuery = true)
+    void setFlagDeleteProduct(Long id);
 
     //VinhTQ
 //    @Query(value = "select * from product " +

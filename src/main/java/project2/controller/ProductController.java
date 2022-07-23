@@ -464,5 +464,12 @@ public class ProductController {
         this.productService.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    //HieuDV
+    @PatchMapping("/delete/{id}")
+    public ResponseEntity<InvoiceDetail> delete(@PathVariable Long id) {
+        productService.setFlagDeleteProduct(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
 
