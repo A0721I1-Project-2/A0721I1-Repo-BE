@@ -6,4 +6,5 @@ import project2.model.PaymentMethod;
 
 @Repository
 public interface IPaymentMethodRepository extends JpaRepository<PaymentMethod, Long> {
+
 }

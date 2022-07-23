@@ -22,7 +22,17 @@ import project2.model.Product;
 import java.util.List;
 import java.util.Optional;
 
+import project2.model.Product;
+
+import java.util.List;
+
 public interface IProductService {
+
+    //QuangNV write method get product in cart
+    List<Product> getProductInCart(int i);
+
+    void saveListProduct(List<Product> productList);
+
     //HieuDV
     Page<Product> getAllNotDeletedYet(Pageable pageable);
 
@@ -47,9 +57,10 @@ public interface IProductService {
     //BachLT
     List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus);
 
-
-    //HuyNN
-    Optional<Product> getProductById(Long id);
+    //ToanPT
+    Product getProductById(Long id);
+    //ToanPT
+    Product updateProduct(Product product);
 
     //HuyNN
     void updateCurrentPrice(Product product);
@@ -71,4 +82,5 @@ public interface IProductService {
 
     //HauLST
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
+
 }

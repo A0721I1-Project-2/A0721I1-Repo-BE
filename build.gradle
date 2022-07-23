@@ -33,8 +33,13 @@ dependencies {
 
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
     implementation group: 'org.springframework.security', name: 'spring-security-web', version: '5.7.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail'
+//    testImplementation 'org.springframework.security:spring-security-test'
+    // https://mvnrepository.com/artifact/com.paypal.sdk/rest-api-sdk
+    implementation group: 'com.paypal.sdk', name: 'rest-api-sdk', version: '1.14.0'
 
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()

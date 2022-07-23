@@ -1,5 +1,6 @@
 package project2.service.impl;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -11,14 +12,10 @@ import project2.service.IProductService;
 
 import java.util.List;
 
+
 import java.util.Optional;
 
 import java.util.List;
-
-
-import java.util.List;
-
-import java.util.Optional;
 
 
 @Service
@@ -27,19 +24,41 @@ public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepository;
 
+    // QuangNV write method get product in cart
+    @Override
+    public List<Product> getProductInCart(int i) {
+        return productRepository.getProductInCart(i);
+    }
+
+    @Override
+    public void saveListProduct(List<Product> productList) {
+        productRepository.saveAll(productList);
+    }
+
+
     @Override
     public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus) {
         System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));
         return productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus);
     }
-
+    //BachLT
     @Override
     public List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus) {
         System.out.println(productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus));
         return productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus);
     }
 
-    //HieuDV
+    @Override
+    public Product getProductById(Long id_product) {
+        return productRepository.findById(id_product).orElse(null);
+    }
+
+    @Override
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+        //HieuDV
     @Override
     public Page<Product> getAllNotDeletedYet(Pageable pageable) {
         return productRepository.findAllNotDeletedYet(pageable);
@@ -75,11 +94,6 @@ public class ProductService implements IProductService {
         productRepository.save(product);
     }
 
-    //HuyNN
-    @Override
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
-    }
 
     //HuyNN
     @Override

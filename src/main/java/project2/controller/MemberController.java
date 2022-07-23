@@ -21,8 +21,8 @@ import project2.service.IRankService;
 import project2.service.IRoleService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
-import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,7 +102,7 @@ public class MemberController {
     @PostMapping("/member/block")
     public ResponseEntity<?> blockMember(@RequestBody Long[] blockArray) {
         for (Long id : blockArray) {
-            Member member = memberService.findById(id);
+            Member member = memberService.findByIdMember(id).get();
             member.getAccount().setBlock(true);
             iMemberService.save(member);
         }
@@ -112,7 +112,7 @@ public class MemberController {
     @PostMapping("/member/unBlock")
     public ResponseEntity<?> unBlockMember(@RequestBody Long[] unBlockArray) {
         for (Long id : unBlockArray) {
-            Member member = memberService.findById(id);
+            Member member = memberService.findByIdMember(id).get();
             member.getAccount().setBlock(false);
             iMemberService.save(member);
         }
@@ -122,7 +122,7 @@ public class MemberController {
     @PostMapping("/member/delete")
     public ResponseEntity<?> deleteMember(@RequestBody Long[] blockArray) {
         for (Long id : blockArray) {
-            Member member = memberService.findById(id);
+            Member member = memberService.findByIdMember(id).get();
             member.getAccount().setFlagDelete(true);
             iMemberService.save(member);
         }
@@ -162,7 +162,8 @@ public class MemberController {
             Role role = iRoleService.findByName("ROLE_MEMBER");
             roles.add(role);
             account.setRoles(roles);
-
+            account.setFlagDelete(false);
+            account.getLast_login(LocalDate.now());
             Account accountCreated = iAccountService.save(account);
             /* Set data for member */
             member.setAccount(iAccountService.findById(accountCreated.getIdAccount()).get());
@@ -210,18 +211,22 @@ public class MemberController {
         }
     }
 
+
     //SonLT Edit-Member
-    @PutMapping("/profile/edit")
-    public ResponseEntity<Member> updateMember(@RequestBody Member member){
+    @PatchMapping("/profile/edit")
+    public ResponseEntity<Void> updateMember(@RequestBody Member member){
+        System.out.println(member);
         iMemberService.editMember(member);
-        return new ResponseEntity<Member>(member, HttpStatus.OK);
+        return new ResponseEntity<Void>( HttpStatus.OK);
     }
 
     // HuyNN get member by id method
     @GetMapping("/getMemberById/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable Long id) {
-        return new ResponseEntity<Member>(iMemberService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<Member>(iMemberService.findByIdMember(id).get(), HttpStatus.OK);
     }
 }
+
+
 
 
