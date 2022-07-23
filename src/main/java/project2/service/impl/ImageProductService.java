@@ -15,11 +15,19 @@ public class ImageProductService implements IImageProductService {
     private IImageProductRepository iImageProductRepository;
 
     @Override
+<<<<<<< HEAD
     public ImageProduct save(ImageProduct imageProduct) {
         return iImageProductRepository.save(imageProduct);
     }
 
     @Override
+=======
+
+    public List<ImageProduct> findByAll() {
+        return iImageProductRepository.findAll();
+    }
+
+>>>>>>> dev
     public List<ImageProduct> findByProduct(Product product) {
         return iImageProductRepository.findByProduct(product);
     }

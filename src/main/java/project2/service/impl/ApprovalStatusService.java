@@ -12,6 +12,7 @@ import java.util.List;
 public class ApprovalStatusService implements IApprovalStatusService {
     @Autowired
     private IApprovalStatusRepository iApprovalStatusRepository;
+
     @Override
     public List<ApprovalStatus> findAllBy() {
         return iApprovalStatusRepository.findAll();
@@ -19,5 +20,10 @@ public class ApprovalStatusService implements IApprovalStatusService {
 
     public ApprovalStatus getApprovalStatusById(Long id) {
         return iApprovalStatusRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<ApprovalStatus> findByAll() {
+        return iApprovalStatusRepository.findAll();
     }
 }
