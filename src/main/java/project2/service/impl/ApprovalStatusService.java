@@ -21,9 +21,4 @@ public class ApprovalStatusService implements IApprovalStatusService {
     public ApprovalStatus getApprovalStatusById(Long id) {
         return iApprovalStatusRepository.findById(id).orElse(null);
     }
-
-    @Override
-    public List<ApprovalStatus> findByAll() {
-        return iApprovalStatusRepository.findAll();
-    }
 }

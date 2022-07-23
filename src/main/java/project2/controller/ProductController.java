@@ -680,7 +680,7 @@ public class ProductController {
     //HieuDV
     @GetMapping("list-approval-status")
     public ResponseEntity<Iterable<ApprovalStatus>> getAllApprovalStatus() {
-        List<ApprovalStatus> approvalStatusList = approvalStatusService.findByAll();
+        List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
         if (approvalStatusList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
