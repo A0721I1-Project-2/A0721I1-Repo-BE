@@ -650,19 +650,16 @@ public class AccountController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<String> processResetPassword(@RequestParam(value = "token") String token,
+    public ResponseEntity<Object> processResetPassword(@RequestParam(value = "token") String token,
                                                        @RequestParam(value = "password") String password) {
         String message = "";
         Account account = accountService.findAccountByToken(token);
         if (account == null) {
-            message = "token invaid";
+            message = "Token invaid";
         } else {
             accountService.saveForgotPassword(account, password);
-            message = "Đã thay đổi password thành công";
+            message = "Change password successfully";
         }
-        System.out.println(password);
-        System.out.println(token);
-        System.out.println(message);
-        return new ResponseEntity<String>(message, HttpStatus.OK);
+        return new ResponseEntity<Object>(message, HttpStatus.OK);
     }
 }
