@@ -6,15 +6,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project2.model.Member;
-
+import java.util.Optional;
 
 import java.util.List;
-
 @Repository
 public interface IMemberRepository extends JpaRepository<Member, Long> {
 
     Page<Member> findAll(Pageable pageable);
 
+    /* Get member by account id */
+    @Query(value = "select * from member where member.id_account = ?1" , nativeQuery = true)
+    Optional<Member> getMemberByAccountId(Long id);
 
     @Query(value = "SELECT * " +
             "FROM `member` " +
@@ -41,10 +43,9 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
     //SonLT View-Member
     Member findMemberByAccount_IdAccount(Long id);
 
+
     @Query(value = "select nameMember from Member")
     void getTransactionByMember();
 
-
     Member findByEmailMember(String email);
-
 }

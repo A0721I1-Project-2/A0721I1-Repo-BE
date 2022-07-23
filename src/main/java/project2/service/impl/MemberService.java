@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project2.model.Member;
 import project2.repository.IMemberRepository;
@@ -16,10 +15,12 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class MemberService implements IMemberService {
-    
     @Autowired
     private IMemberRepository memberRepository;
-    
+
+    @Autowired
+    private IMemberRepository iMemberRepository;
+
     @Override
     public Member save(Member member) {
         return memberRepository.save(member);
@@ -57,20 +58,58 @@ public class MemberService implements IMemberService {
 
     @Override
     public void delele(Member member) {
-
+  memberRepository.delete(member);
     }
+
 
     @Override
     public Member findByIdAccount(Long IdAccount) {
         return memberRepository.findMemberByAccount_IdAccount(IdAccount);
     }
+
+    @Override
+    public Optional<Member> getMemberByAccountId(Long accountId) {
+        Optional<Member> member = this.memberRepository.getMemberByAccountId(accountId);
+        if (member.isPresent()) {
+            return this.memberRepository.getMemberByAccountId(accountId);
+        }
+        return null;
+    }
+
     //SonLT View-Member
     @Override
     public Member findMemberByIdAccount(Long id) {
-            return memberRepository.findMemberByAccount_IdAccount(id);
+        return memberRepository.findMemberByAccount_IdAccount(id);
+
+        /* Get member by account id */
+//    @Override
+//    public Optional<Member> getMemberByAccountId(Long accountId) {
+//        Optional<Member> member = this.memberRepository.getMemberByAccountId(accountId);
+//        if (member.isPresent()) {
+//            return this.memberRepository.getMemberByAccountId(accountId);
+//        }
+//        return null;
+//    }
+
+        //SonLT View-Member
+//    @Override
+//    public Member findMemberByIdAccount(Long id) {
+//        return iMemberRepository.findMemberByAccount_IdAccount(id);
+//    }
+
+        //SonLT Edit-Member
+//    @Override
+//    public void editMember(Member member) {
+//        memberRepository.save(member);
+//    }
+
+//    @Override
+//    public void getTransactionMember() {
+//        memberRepository.getTransactionByMember();
+//
+//    }
     }
 
-    //SonLT Edit-Member
     @Override
     public void editMember(Member member) {
         memberRepository.save(member);
@@ -79,6 +118,5 @@ public class MemberService implements IMemberService {
     @Override
     public void getTransactionMember() {
         memberRepository.getTransactionByMember();
-
     }
 }

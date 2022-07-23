@@ -1,6 +1,17 @@
 package project2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import project2.model.Account;
+import project2.model.Member;
+import project2.service.impl.AccountService;
+import project2.service.impl.MemberService;
+
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -56,21 +67,30 @@ public class MemberController {
     @Autowired
     private IRankService rankService;
 
+    /* Get member by account id */
+    @RequestMapping(value = "/account={accountId}", method = RequestMethod.GET)
+    public ResponseEntity<Member> getMemberByAccountId(@PathVariable("accountId") Long accountId) {
+        Optional<Member> member = this.memberService.getMemberByAccountId(accountId);
+        if (member.isPresent()) {
+            return new ResponseEntity<>(member.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
     @GetMapping("/allMember")
-    public ResponseEntity<Page<Member>> showListMember(@PageableDefault(size = 10) Pageable pageable){
+    public ResponseEntity<Page<Member>> showListMember(@PageableDefault(size = 10) Pageable pageable) {
         Page<Member> memberPage = memberService.findAll(pageable);
         return new ResponseEntity<>(memberPage, HttpStatus.OK);
     }
 
     @GetMapping("/getAccount")
-    public ResponseEntity<List<Account>> showListAccount(){
+    public ResponseEntity<List<Account>> showListAccount() {
         List<Account> accountList = accountService.findAll();
         return new ResponseEntity<>(accountList, HttpStatus.OK);
     }
 
     @GetMapping("/allRankMember")
-    public ResponseEntity<List<Rank>> showListRankMember(){
+    public ResponseEntity<List<Rank>> showListRankMember() {
         List<Rank> rankMembers = rankService.findAllRank();
         return new ResponseEntity<>(rankMembers, HttpStatus.OK);
     }
@@ -200,7 +220,7 @@ public class MemberController {
 
     //SonLT View-Member
     @GetMapping("/profile/{idAccount}")
-    public ResponseEntity<Member> findMember(@PathVariable Long idAccount){
+    public ResponseEntity<Member> findMember(@PathVariable Long idAccount) {
         Member member = iMemberService.findMemberByIdAccount(idAccount);
         if (member == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -211,16 +231,17 @@ public class MemberController {
 
     //SonLT Edit-Member
     @PutMapping("/profile/edit")
-    public ResponseEntity<Member> updateMember(@RequestBody Member member){
+    public ResponseEntity<Member> updateMember(@RequestBody Member member) {
         iMemberService.editMember(member);
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
-
     // HuyNN get member by id method
     @GetMapping("/getMemberById/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable Long id) {
         return new ResponseEntity<Member>(iMemberService.findByIdMember(id).get(), HttpStatus.OK);
     }
 }
+
+
 
 
