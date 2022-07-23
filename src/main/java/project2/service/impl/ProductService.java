@@ -36,20 +36,29 @@ public class ProductService implements IProductService {
     }
 
 
-
     @Override
     public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus) {
         System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));
         return productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus);
     }
-
+    //BachLT
     @Override
     public List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus) {
         System.out.println(productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus));
         return productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus);
     }
 
-    //HieuDV
+    @Override
+    public Product getProductById(Long id_product) {
+        return productRepository.findById(id_product).orElse(null);
+    }
+
+    @Override
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+        //HieuDV
     @Override
     public Page<Product> getAllNotDeletedYet(Pageable pageable) {
         return productRepository.findAllNotDeletedYet(pageable);
@@ -85,11 +94,6 @@ public class ProductService implements IProductService {
         productRepository.save(product);
     }
 
-    //HuyNN
-    @Override
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
-    }
 
     //HuyNN
     @Override
