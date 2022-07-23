@@ -10,11 +10,15 @@ import java.util.List;
 
 @Service
 public class BiddingStatusService implements IBiddingStatusService {
-
     @Autowired
-    public IBiddingStatusRepository iBiddingStatusRepository;
+    private IBiddingStatusRepository iBiddingStatusRepository;
+
     @Override
-    public List<BiddingStatus> findByAll() {
-        return iBiddingStatusRepository.findAll();
+    public BiddingStatus findById(Long id) {
+        return this.iBiddingStatusRepository.findById(id).orElse(null);
+    }
+    @Override
+    public List<BiddingStatus> findByAll(){
+        return this.iBiddingStatusRepository.findAll();
     }
 }

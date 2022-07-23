@@ -2,11 +2,8 @@ package project2.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project2.model.Member;
 import project2.repository.IMemberRepository;
@@ -16,6 +13,10 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class MemberService implements IMemberService {
+
+
+    @Autowired
+    private IMemberRepository iMemberRepository;
 
     @Autowired
     private IMemberRepository memberRepository;
@@ -62,7 +63,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public Member findByIdAccount(Long IdAccount) {
-        return memberRepository.findMemberByAccount_IdAccount(IdAccount);
+        return iMemberRepository.findMemberByAccount_IdAccount(IdAccount);
     }
     //SonLT View-Member
     @Override
@@ -78,7 +79,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public void getTransactionMember() {
-        memberRepository.getTransactionByMember();
+        iMemberRepository.getTransactionByMember();
 
     }
 }

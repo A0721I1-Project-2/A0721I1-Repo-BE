@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IBiddingStatusService {
     List<BiddingStatus> findByAll();
+    BiddingStatus findById(Long id);
 }
