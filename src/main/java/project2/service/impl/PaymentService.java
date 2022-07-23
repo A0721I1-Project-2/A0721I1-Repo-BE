@@ -20,4 +20,9 @@ public class PaymentService implements IPaymentService {
     public List<Payment> getAllPayment() {
         return iPaymentRepository.getAllPayment();
     }
+
+    @Override
+    public Payment getPaymentEnd() {
+        return iPaymentRepository.getPaymentEnd();
+    }
 }
