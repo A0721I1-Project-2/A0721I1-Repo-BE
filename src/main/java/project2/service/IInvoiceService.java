@@ -9,4 +9,5 @@ import java.util.List;
 public interface IInvoiceService {
 
 
+    void save(Invoice invoice);
 }
