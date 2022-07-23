@@ -27,9 +27,9 @@ out/
 !**/src/test/**/out/
 
 .idea/gradle.xml
-        .idea/jarRepositories.xml
-        .idea/misc.xml
-        .idea/vcs.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/vcs.xml
 
 
 ### NetBeans ###
