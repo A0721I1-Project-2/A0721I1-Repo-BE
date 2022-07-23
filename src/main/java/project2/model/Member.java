@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.Set;
 
@@ -15,21 +17,30 @@ public class Member {
     private Long idMember;
 
     @Column(name = "name_member")
+    @NotEmpty(message = "Name not empty")
+    @Pattern(regexp = "^[A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ' ]+$", message = "Name not contain character special")
     private String nameMember;
 
     @Column(name = "date_of_birth_member")
+    @NotEmpty(message = "Date of birth not empty")
     private String dateOfBirthMember;
 
     @Column(name = "email_member")
+    @NotEmpty(message = "Email not empty")
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email not empty")
     private String emailMember;
 
     @Column(name = "address_member")
+    @NotEmpty(message = "Address not empty")
     private String addressMember;
 
     @Column(name = "phone_member")
+    @NotEmpty(message = "Phone not empty")
+    @Pattern(regexp = "^(84|0[3|5|7|8|9])+([0-9]{9})$", message = "Phone number must correct format")
     private String phoneMember;
 
     @Column(name = "id_card_member")
+    @NotEmpty(message = "Id card not empty")
     private String idCardMember;
 
     @Column(name = "paypal_member")
@@ -37,6 +48,9 @@ public class Member {
 
     @Column(name = "flag_delete")
     private Boolean flagDelete;
+
+    @Column(name = "checked_clause")
+    private Boolean checkedClause;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_account", referencedColumnName = "id_account")
@@ -54,7 +68,7 @@ public class Member {
     private List<Payment> paymentList;
 
     @ManyToOne(targetEntity = Rank.class)
-    @JoinColumn(name = "id_rank",nullable = false)
+    @JoinColumn(name = "id_rank", nullable = false)
     private Rank rank;
 
     @OneToOne(mappedBy = "member")
@@ -62,10 +76,26 @@ public class Member {
     private Cart cart;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Product> products;
 
     public Member() {
+    }
+
+    public Boolean getCheckedClause() {
+        return checkedClause;
+    }
+
+    public void setCheckedClause(Boolean checkedClause) {
+        this.checkedClause = checkedClause;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember, String idCardMember, String paypalMember, Boolean flagDelete, Account account, List<Invoice> invoiceList, Double point, List<Payment> paymentList, Rank rank, Set<Product> products) {

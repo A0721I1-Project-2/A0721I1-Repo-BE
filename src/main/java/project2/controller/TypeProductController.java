@@ -18,6 +18,7 @@ public class TypeProductController {
 
     @GetMapping
     public ResponseEntity getTypeProduct() {
-        return ResponseEntity.ok(this.typeProductService.getAll());
+      return ResponseEntity.ok(this.typeProductService.getAll());
+
     }
 }
