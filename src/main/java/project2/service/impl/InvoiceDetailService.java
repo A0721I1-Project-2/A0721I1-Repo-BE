@@ -18,8 +18,13 @@ public class InvoiceDetailService implements IInvoiceDetailService {
     private IInvoiceDetailRepository iInvoiceDetailRepository;
 
     @Override
-    public List<InvoiceDetail> findAllStatusInvoice()  {
-        return iInvoiceDetailRepository.findAllStatusInvoice();
+    public List<InvoiceDetail> findAllStatusInvoice(Long idPayment)  {
+        return iInvoiceDetailRepository.findAllStatusInvoice(idPayment);
+    }
+
+    @Override
+    public void saveList(List<InvoiceDetail> invoiceDetailList) {
+        iInvoiceDetailRepository.saveAll(invoiceDetailList);
     }
 
 //    @Override
