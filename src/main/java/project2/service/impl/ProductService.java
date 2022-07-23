@@ -12,8 +12,16 @@ import project2.service.IProductService;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import java.util.Optional;
 
+=======
+
+import java.util.Optional;
+
+import java.util.List;
+
+>>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
 
 @Service
 public class ProductService implements IProductService {
@@ -26,11 +34,20 @@ public class ProductService implements IProductService {
     public List<Product> getProductInCart(int i) {
         return productRepository.getProductInCart(i);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
     @Override
     public void saveListProduct(List<Product> productList) {
         productRepository.saveAll(productList);
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
     @Override
     public List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus) {
         System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));

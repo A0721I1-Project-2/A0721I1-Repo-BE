@@ -1,8 +1,11 @@
 package project2.model;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import javax.persistence.*;
-import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -250,6 +253,7 @@ public class Product {
         this.cart = cart;
         this.members = members;
     }
+
     public Product() {
     }
 }

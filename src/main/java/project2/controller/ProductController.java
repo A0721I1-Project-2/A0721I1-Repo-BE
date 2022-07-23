@@ -60,7 +60,7 @@ public class ProductController {
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
-    public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable("biddingStatus") int biddingStatus) {
+    public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable int biddingStatus) {
         System.out.println(statsBegin.get() + "?- ?" + statsEnd.get() + "/? " + biddingStatus);
         List<Product> productList = productService.getAllProductByEndDate(statsBegin.get(), statsEnd.get(), biddingStatus);
         return new ResponseEntity<>(productList, HttpStatus.OK);
@@ -430,7 +430,6 @@ public class ProductController {
         product.setStartDate(myfm);
         product.setEndDate(myfm);
         product.setBiddingStatus(biddingStatusService.findById((long) 1));
-//        product.setCart(cartService.findById((long) 1));
         List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
         for (ApprovalStatus a : approvalStatusList) {
             if (a.getIdApprovalStatus() == 1) {

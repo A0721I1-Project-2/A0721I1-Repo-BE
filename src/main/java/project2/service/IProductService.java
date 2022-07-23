@@ -12,9 +12,11 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import project2.model.Product;
+
+import java.util.List;
+
 public interface IProductService {
-
-
     Product postProduct(Product product);
 
     List<Product> findAll();
@@ -72,6 +74,4 @@ public interface IProductService {
 
     //HauLST
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
-
-    // Thao
 }
