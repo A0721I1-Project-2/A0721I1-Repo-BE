@@ -19,8 +19,8 @@ public class CartService implements ICartService {
 
     //HuyNN
     @Override
-    public void createCart(Cart cart) {
-         this.iCartRepository.save(cart);
+    public void createCart(String warning, Long idMember) {
+         this.iCartRepository.createCart(warning, idMember);
     }
 
     //HuyNN

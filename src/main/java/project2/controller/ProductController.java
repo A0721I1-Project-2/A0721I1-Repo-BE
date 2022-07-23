@@ -19,7 +19,6 @@ import project2.service.IMemberService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import project2.service.IProductService;
 import java.util.List;
 import java.util.Optional;
 
@@ -159,14 +158,10 @@ public class ProductController {
     public ResponseEntity addProductToCart(@PathVariable Long idMember, @PathVariable Long idProduct) {
         Cart cart = iCartService.findByIdMember(idMember);
         if (cart == null) {
-            Member member = this.memberService.findByIdMember(idMember).get();
-            Cart newCart = new Cart();
-            newCart.setWarning("0");
-            newCart.setMember(member);
-            this.iCartService.createCart(newCart);
-            cart = iCartService.findByIdMember(idMember);
+            this.iCartService.createCart("0", idMember);
+            Cart newCart = iCartService.findByIdMember(idMember);
             Product product = this.productService.getProductById(idProduct);
-            product.setCart(cart);
+            product.setCart(newCart);
             productService.updateIdCard(product);
         } else {
             Product product = this.productService.getProductById(idProduct);
@@ -180,7 +175,7 @@ public class ProductController {
     @PutMapping("/updateCart")
     public ResponseEntity updateCart(@RequestBody Cart cart) {
         this.iCartService.updateCart(cart);
-        return new ResponseEntity(null, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //HuyNN
