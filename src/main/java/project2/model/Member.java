@@ -82,8 +82,7 @@ public class Member {
     @JsonBackReference(value = "member_product")
     private List<Product> products;
 
-    public Member() {
-    }
+
 
     public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember, String idCardMember, String paypalMember, Boolean flagDelete, Boolean checkedClause, Account account, List<Invoice> invoiceList, Double point, List<Payment> paymentList, Rank rank, Cart cart, List<Product> products) {
         this.idMember = idMember;
@@ -105,9 +104,17 @@ public class Member {
         this.products = products;
     }
 
+    public Member() {
+    }
+
     public Long getIdMember() {
         return idMember;
     }
+
+    public Boolean getCheckedClause() {
+        return checkedClause;
+    }
+
 
     public void setIdMember(Long idMember) {
         this.idMember = idMember;
@@ -177,9 +184,6 @@ public class Member {
         this.flagDelete = flagDelete;
     }
 
-    public Boolean getCheckedClause() {
-        return checkedClause;
-    }
 
     public void setCheckedClause(Boolean checkedClause) {
         this.checkedClause = checkedClause;
