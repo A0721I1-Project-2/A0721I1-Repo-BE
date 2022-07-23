@@ -13,14 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import project2.config.SmtpAuthenticator;
 import project2.model.*;
-import project2.repository.IMemberRepository;
-import org.springframework.web.bind.annotation.*;
-import project2.config.SmtpAuthenticator;
-import project2.model.*;
-import project2.service.IApprovalStatusService;
 import project2.service.IImageProductService;
-import project2.service.IProductService;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -63,19 +56,6 @@ public class ProductController {
     private ApprovalStatusService approvalStatusService;
     @Autowired
     private BiddingStatusService biddingStatusService;
-    @Autowired
-    private MemberService memberService;
-    @Autowired
-    private CartService cartService;
-
-    @Autowired
-    private ApprovalStatusService iApprovalStatusService;
-
-    @Autowired
-    private TypeProductService iTypeProductService;
-
-    @Autowired
-    private ImageProductService imageProductService;
 
 
     //  BachLT
