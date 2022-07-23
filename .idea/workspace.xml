@@ -2,51 +2,12 @@
 <project version="4">
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
-<<<<<<< HEAD
-  </component>
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
-  <component name="ChangeListManager">
-<<<<<<< HEAD
-    <list default="true" id="6fca0922-b43a-45ab-8810-d687ef68ff13" name="Default Changelist" comment="" />
-=======
-    <list default="true" id="cecff2f4-ae07-4777-ad8a-c24f41da7d80" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
-=======
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fca0922-b43a-45ab-8810-d687ef68ff13" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
->>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
     </list>
->>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,7 +18,6 @@
       <ProjectState />
     </projectState>
   </component>
-<<<<<<< HEAD
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -78,12 +38,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-<<<<<<< HEAD
-=======
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/5.7.2/b2b6eabf6cfe3878700d4243f9ef046c4325b67a/spring-security-core-5.7.2-sources.jar!/org/springframework/security/authentication/AuthenticationManager.java" root0="SKIP_INSPECTION" />
   </component>
->>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
       <map>
@@ -96,11 +53,7 @@
       <map>
         <entry key="com.haulmont.jpb.jpaInspector" value="false" />
         <entry key="com.haulmont.jpb.jpaPalette" value="false" />
-<<<<<<< HEAD
         <entry key="com.haulmont.jpb.jpaStructure" value="false" />
-=======
-        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
->>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
       </map>
     </option>
   </component>
@@ -108,40 +61,20 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Bf5Jk1PlP8RFc7M5F6Ullu56H5" />
-=======
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
->>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
-    <property name="show.unlinked.gradle.project.popup" value="true" />
-=======
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Sprint_2/A0721I1-Repo-BE" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
->>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
-=======
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
->>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
   </component>
   <component name="RunManager">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
@@ -168,7 +101,6 @@
     <configuration />
   </component>
   <component name="TaskManager">
-<<<<<<< HEAD
     <task active="true" id="Default" summary="Default task">
       <created>1657284228022</created>
       <option name="number" value="Default" />
@@ -184,17 +116,8 @@
       <workItem from="1658236083435" duration="5275000" />
       <workItem from="1658281217448" duration="1752000" />
       <workItem from="1658307672405" duration="2540000" />
-<<<<<<< HEAD
-      <workItem from="1658370798244" duration="21630000" />
-      <workItem from="1658456708601" duration="2288000" />
-      <workItem from="1658460724366" duration="906000" />
-      <workItem from="1658486837021" duration="4758000" />
-=======
       <workItem from="1658412772745" duration="1948000" />
->>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
     </task>
-=======
->>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,60 +133,9 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
-<<<<<<< HEAD
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-<<<<<<< HEAD
-=======
-  <component name="WindowStateProjectService">
-    <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser" timestamp="1658473942104">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="446" y="47" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1658473942104" />
-    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1658472965470">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1658472965470" />
-    <state width="1237" height="234" key="GridCell.Tab.0.bottom" timestamp="1658479510432">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1237" height="234" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
-    <state width="1237" height="234" key="GridCell.Tab.0.center" timestamp="1658479510432">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1237" height="234" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
-    <state width="1237" height="234" key="GridCell.Tab.0.left" timestamp="1658479510431">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1237" height="234" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1658479510431" />
-    <state width="1237" height="234" key="GridCell.Tab.0.right" timestamp="1658479510432">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1237" height="234" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
-    <state width="1237" height="234" key="GridCell.Tab.1.bottom" timestamp="1658479510432">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1237" height="234" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
-    <state width="1237" height="234" key="GridCell.Tab.1.center" timestamp="1658479510432">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1237" height="234" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
-    <state width="1237" height="234" key="GridCell.Tab.1.left" timestamp="1658479510432">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1237" height="234" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
-    <state width="1237" height="234" key="GridCell.Tab.1.right" timestamp="1658479510432">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state width="1237" height="234" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1658479510432" />
-    <state x="142" y="0" key="SettingsEditor" timestamp="1658472921460">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1658472921460" />
->>>>>>> cdbb7afb7cd2b67320c6b305bd991ecdb0f5ed52
-=======
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -275,6 +147,5 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
->>>>>>> 87ec7cdcb8ec769e396cb8ea545a8baf6bc1c698
   </component>
 </project>
