@@ -10,10 +10,12 @@ import project2.model.Cart;
 import project2.model.Member;
 import project2.model.Product;
 import project2.service.ICartService;
+import project2.model.*;
 import project2.service.IImageProductService;
 import project2.service.IMemberService;
-import project2.service.IProductService;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +25,8 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
 import project2.dto.AuctionDTO;
-import project2.model.ImageProduct;
+import project2.service.ITypeProductService;
+import project2.service.impl.*;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -40,7 +43,7 @@ import java.util.*;
 public class ProductController {
 
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
     @Autowired
     private IImageProductService iImageProductService;
@@ -53,6 +56,15 @@ public class ProductController {
 
     @Autowired
     private IMemberService iMemberService;
+
+    @Autowired
+    private ApprovalStatusService approvalStatusService;
+
+    @Autowired
+    private BiddingStatusService biddingStatusService;
+
+    @Autowired
+    private ITypeProductService typeProductService;
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -674,5 +686,59 @@ public class ProductController {
         this.productService.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-}
+    //thao
+    @GetMapping( "listProduct")
+    public ResponseEntity<List<Product>> findByAll() {
+        List<Product> productList = productService.findAll();
 
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(productList, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("postProduct")
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
+        LocalDateTime localDateTime=LocalDateTime.now();
+        DateTimeFormatter fm=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String myfm=fm.format(localDateTime);
+        product.setStartDate(myfm);
+        product.setEndDate(myfm);
+        product.setBiddingStatus(biddingStatusService.findById((long) 1));
+//        product.setCart(cartService.findById((long) 1));
+        List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
+        for (ApprovalStatus a : approvalStatusList) {
+            if (a.getIdApprovalStatus() == 1) {
+                /* Get approval status by id */
+                ApprovalStatus approvalStatus = approvalStatusService.getApprovalStatusById(a.getIdApprovalStatus());
+                product.setApprovalStatus(approvalStatus);
+            }
+        }
+        Product productCreated = productService.postProduct(product);
+        return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
+
+    }
+
+    @GetMapping(value = "/typeProduct")
+    public ResponseEntity<List<TypeProduct>> findByAllTypeproduct() {
+        List<TypeProduct> typeProducts = typeProductService.findByAll();
+        if (typeProducts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(typeProducts, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping( "/create-images")
+    public ResponseEntity<ImageProduct> createImages(@RequestBody ImageProduct imageProduct) {
+        /* Save each picture */
+        ImageProduct imageProduct1 = iImageProductService.save(imageProduct);
+        return new ResponseEntity<>(imageProduct1, HttpStatus.OK);
+    }
+
+    @GetMapping("/typeProduct/{id}")
+    public ResponseEntity<TypeProduct> getTypeProductById(@PathVariable long id) {
+        return new ResponseEntity<TypeProduct>(typeProductService.findById(id), HttpStatus.OK);
+    }
+}

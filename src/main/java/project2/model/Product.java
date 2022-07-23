@@ -60,12 +60,6 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "product_member",
-//            joinColumns = @JoinColumn(name = "id_product"),
-//            inverseJoinColumns = @JoinColumn(name = "id_member")
-//    )
 //    private Set<Member> members;
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "id_member", nullable = true)
@@ -110,6 +104,14 @@ public class Product {
 
     public void setCodeProduct(String codeProduct) {
         this.codeProduct = codeProduct;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public String getNameProduct() {
@@ -230,14 +232,6 @@ public class Product {
 
     public void setInvoiceDetailList(List<InvoiceDetail> invoiceDetailList) {
         this.invoiceDetailList = invoiceDetailList;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public Member getMembers() {

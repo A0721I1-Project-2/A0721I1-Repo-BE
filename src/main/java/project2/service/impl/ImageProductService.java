@@ -15,6 +15,11 @@ public class ImageProductService implements IImageProductService {
     private IImageProductRepository iImageProductRepository;
 
     @Override
+    public ImageProduct save(ImageProduct imageProduct) {
+        return iImageProductRepository.save(imageProduct);
+    }
+
+    @Override
     public List<ImageProduct> findByProduct(Product product) {
         return iImageProductRepository.findByProduct(product);
     }

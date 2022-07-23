@@ -25,7 +25,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "where product.flag_delete = 0 and cart.id_member = ?1", nativeQuery = true)
     List<Product> getProductInCart(int i);
 
-
     // BachLT
     @Query(value = "SELECT p FROM Product p WHERE p.endDate between ?1 and ?2 and p.biddingStatus.idBiddingStatus= ?3 and p.flagDelete = false ")
     List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd, long biddingStatus);
@@ -148,6 +147,4 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "and (Product.final_price >?3)\n" +
             "order by Product.end_date asc", nativeQuery = true)
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
-
-
 }

@@ -29,4 +29,8 @@ public class CartService implements ICartService {
         this.iCartRepository.save(cart);
     }
 
+    @Override
+    public Cart findById(Long id) {
+        return iCartRepository.findById(id).orElse(null);
+    }
 }
