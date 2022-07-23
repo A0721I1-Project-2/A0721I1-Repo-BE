@@ -4,67 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bed0a6c4-df6c-4f99-b518-0445994c84b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/6.8.1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/configuration-cache/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/config/MailPW.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/controller/TransactionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/InvoiceDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/PaymentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/dto/TransactionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/project2/model/OrderProduct.java" afterDir="false" />
+    <list default="true" id="8d53fb3e-760e-48a2-9905-255e8e555d17" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.8.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/config/MailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/config/MailConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/InvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/InvoiceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/dto/AccountMemberDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/dto/AccountMemberDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/ICartRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/ICartRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceDetailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceDetailRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IInvoiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IMemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IMemberRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentMethodRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentMethodRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IPaymentRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/ITransportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/ITransportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ICartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ICartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IInvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentMethodService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IPaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ITransportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ITransportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceDetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/InvoiceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentMethodService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/PaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/TransportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/TransportService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,9 +30,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.security/spring-security-core/5.7.2/b2b6eabf6cfe3878700d4243f9ef046c4325b67a/spring-security-core-5.7.2-sources.jar!/org/springframework/security/authentication/AuthenticationManager.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
@@ -102,17 +50,26 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2Bf5Jk1PlP8RFc7M5F6Ullu56H5" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2CIQHGw3hJh9V4vur4e58Lw1z0V" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "node.js.selected.package.tslint": "(autodetect)"
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "spring.configuration.checksum": "b9e7224fff79f3dd0f61fbd770926408"
   }
 }]]></component>
   <component name="RunManager">
@@ -125,55 +82,18 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <created>1657284228022</created>
+      <changelist id="8d53fb3e-760e-48a2-9905-255e8e555d17" name="Changes" comment="" />
+      <created>1658487535035</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1657284228022</updated>
-      <workItem from="1657284230972" duration="5543000" />
-      <workItem from="1657547657414" duration="3499000" />
-      <workItem from="1657613264344" duration="964000" />
-      <workItem from="1657631830258" duration="69000" />
-      <workItem from="1657710184978" duration="8703000" />
-      <workItem from="1657807245463" duration="5802000" />
-      <workItem from="1658024587251" duration="4861000" />
-      <workItem from="1658236083435" duration="5275000" />
-      <workItem from="1658281217448" duration="1752000" />
-      <workItem from="1658307672405" duration="2540000" />
-      <workItem from="1658412772745" duration="1948000" />
+      <updated>1658487535035</updated>
+      <workItem from="1658487538821" duration="4999000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java</url>
-          <line>290</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

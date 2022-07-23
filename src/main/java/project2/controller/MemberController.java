@@ -212,7 +212,7 @@ public class MemberController {
 
 
     //SonLT Edit-Member
-    @PutMapping("/profile/edit")
+    @PatchMapping("/profile/edit")
     public ResponseEntity<Void> updateMember(@RequestBody Member member){
         System.out.println(member);
         iMemberService.editMember(member);
