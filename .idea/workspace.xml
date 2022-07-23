@@ -4,9 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fca0922-b43a-45ab-8810-d687ef68ff13" name="Default Changelist" comment="">
+    <list default="true" id="321d848a-64cf-4ee4-a773-f032e3535890" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IApprovalStatusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IApprovalStatusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IBiddingStatusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IBiddingStatusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IImageProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IImageProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/ITypeProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/ITypeProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ApprovalStatusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ApprovalStatusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/BiddingStatusService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/BiddingStatusService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ImageProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ImageProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/TypeProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/TypeProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +57,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -73,6 +103,13 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../A0721I1-Repo-BE" />
+    <property name="settings.editor.selected.configurable" value="project.propGUI" />
+    <property name="show.unlinked.gradle.project.popup" value="true" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
@@ -113,6 +150,13 @@
       <workItem from="1657710184978" duration="8703000" />
       <workItem from="1657807245463" duration="5802000" />
       <workItem from="1658024587251" duration="4861000" />
+      <workItem from="1658144353776" duration="4038000" />
+      <workItem from="1658237509289" duration="296000" />
+      <workItem from="1658241070901" duration="1566000" />
+      <workItem from="1658314924356" duration="9831000" />
+      <workItem from="1658413323192" duration="3096000" />
+      <workItem from="1658470720014" duration="3885000" />
+      <workItem from="1658486729951" duration="3061000" />
       <workItem from="1658236083435" duration="5275000" />
       <workItem from="1658281217448" duration="1752000" />
       <workItem from="1658307672405" duration="2540000" />

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class ApprovalStatusService implements IApprovalStatusService {
+
     @Autowired
     private IApprovalStatusRepository iApprovalStatusRepository;
     @Override
@@ -20,4 +21,6 @@ public class ApprovalStatusService implements IApprovalStatusService {
     public ApprovalStatus getApprovalStatusById(Long id) {
         return iApprovalStatusRepository.findById(id).orElse(null);
     }
+
+
 }

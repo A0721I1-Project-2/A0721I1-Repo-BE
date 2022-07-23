@@ -15,7 +15,7 @@ public interface IMemberService {
 
     Iterable<Member> saveAll(Iterable<Member> members);
 
-    Member findById(Long id);
+    Optional<Member> findByIdMember(Long id);
 
     Page<Member> findAll(Pageable pageable);
 

@@ -50,9 +50,10 @@ public interface IProductService {
     //BachLT
     List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus);
 
-
-    //HuyNN
-    Optional<Product> getProductById(Long id);
+    //ToanPT
+    Product getProductById(Long id);
+    //ToanPT
+    Product updateProduct(Product product);
 
     //HuyNN
     void updateCurrentPrice(Product product);
