@@ -40,5 +40,4 @@ public interface IMemberService {
     void editMember(Member member);
 
     void getTransactionMember();
-
 }

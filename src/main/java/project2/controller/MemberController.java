@@ -32,6 +32,7 @@ import project2.service.IRankService;
 import project2.service.IRoleService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.HashSet;
 import java.util.List;
@@ -182,7 +183,8 @@ public class MemberController {
             Role role = iRoleService.findByName("ROLE_MEMBER");
             roles.add(role);
             account.setRoles(roles);
-
+            account.setFlagDelete(false);
+            account.getLast_login(LocalDate.now());
             Account accountCreated = iAccountService.save(account);
             /* Set data for member */
             member.setAccount(iAccountService.findById(accountCreated.getIdAccount()).get());
@@ -196,7 +198,7 @@ public class MemberController {
             member.setPhoneMember(accountMemberDTO.getPhoneMember());
             member.setCheckedClause(false);
             /*Set rank default*/
-            Rank rank = iRankService.findByName("RANK_BẠC").get();
+            Rank rank = iRankService.findByName("BRONZE").get();
             member.setRank(rank);
 
             iMemberService.save(member);
@@ -230,11 +232,13 @@ public class MemberController {
         }
     }
 
+
     //SonLT Edit-Member
-    @PutMapping("/profile/edit")
-    public ResponseEntity<Member> updateMember(@RequestBody Member member) {
+    @PatchMapping("/profile/edit")
+    public ResponseEntity<Void> updateMember(@RequestBody Member member){
+        System.out.println(member);
         iMemberService.editMember(member);
-        return new ResponseEntity<Member>(member, HttpStatus.OK);
+        return new ResponseEntity<Void>( HttpStatus.OK);
     }
 
     // HuyNN get member by id method
@@ -243,3 +247,6 @@ public class MemberController {
         return new ResponseEntity<Member>(iMemberService.findByIdMember(id).get(), HttpStatus.OK);
     }
 }
+
+
+

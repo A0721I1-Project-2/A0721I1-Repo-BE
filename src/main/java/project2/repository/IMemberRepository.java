@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project2.model.Member;
 import java.util.Optional;
-import java.util.List;
 @Repository
 public interface IMemberRepository extends JpaRepository<Member, Long> {
 
@@ -47,4 +46,6 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
     Member findMemberByAccount_IdAccount(Long id);
 
     Member findByEmailMember(String email);
+
 }
+
