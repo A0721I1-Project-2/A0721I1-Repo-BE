@@ -17,9 +17,6 @@ public class MemberService implements IMemberService {
     @Autowired
     private IMemberRepository memberRepository;
 
-    @Autowired
-    private IMemberRepository iMemberRepository;
-
     @Override
     public Member save(Member member) {
         return memberRepository.save(member);
@@ -72,7 +69,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public Member findByIdAccount(Long IdAccount) {
-        return iMemberRepository.findMemberByAccount_IdAccount(IdAccount);
+        return memberRepository.findMemberByAccount_IdAccount(IdAccount);
     }
 
     //SonLT View-Member
@@ -89,7 +86,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public void getTransactionMember() {
-        iMemberRepository.getTransactionByMember();
+        memberRepository.getTransactionByMember();
 
     }
 }

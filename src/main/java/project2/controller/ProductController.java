@@ -20,9 +20,7 @@ import project2.model.Member;
 import project2.model.Product;
 import project2.service.ICartService;
 import project2.service.IMemberService;
-
 import project2.service.IProductService;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -51,16 +49,19 @@ import java.util.*;
 public class ProductController {
     @Autowired
     private TypeProductService typeProductService;
+
     @Autowired
     private ImageProductService imageProductService;
-    @Autowired
 
+    @Autowired
     private IProductService productService;
 
     @Autowired
     private IBiddingStatusService biddingStatusService;
+
     @Autowired
     private IMemberService memberService;
+
     @Autowired
     private IApprovalStatusService approvalStatusService;
 
@@ -69,6 +70,10 @@ public class ProductController {
 
     @Autowired
     private ICartService iCartService;
+
+    @Autowired
+    private IAccountService iAccountService;
+
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
     public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable int biddingStatus) {
@@ -162,14 +167,10 @@ public class ProductController {
     public ResponseEntity addProductToCart(@PathVariable Long idMember, @PathVariable Long idProduct) {
         Cart cart = iCartService.findByIdMember(idMember);
         if (cart == null) {
-            Member member = this.memberService.findByIdMember(idMember).get();
-            Cart newCart = new Cart();
-            newCart.setWarning("0");
-            newCart.setMember(member);
-            this.iCartService.createCart(newCart);
-            cart = iCartService.findByIdMember(idMember);
+            this.iCartService.createCart("0", idMember);
+            Cart newCart = iCartService.findByIdMember(idMember);
             Product product = this.productService.getProductById(idProduct);
-            product.setCart(cart);
+            product.setCart(newCart);
             productService.updateIdCard(product);
         } else {
             Product product = this.productService.getProductById(idProduct);
@@ -183,13 +184,26 @@ public class ProductController {
     @PutMapping("/updateCart")
     public ResponseEntity updateCart(@RequestBody Cart cart) {
         this.iCartService.updateCart(cart);
-        return new ResponseEntity(null, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    //HuyNN
+    @GetMapping("/getAccountByUsername/{username}")
+    public ResponseEntity<Account> getAccountByUsername(@PathVariable String username) {
+        Account account = this.iAccountService.getAccountByUsername(username);
+        return new ResponseEntity(account, HttpStatus.OK);
+    }
+
+    @GetMapping("/getMemberByIdAccount/{idAccount}")
+    public ResponseEntity<Member> getMemberByIdAccount(@PathVariable Long idAccount) {
+        Member member = this.memberService.findByIdAccount(idAccount);
+        return new ResponseEntity(member, HttpStatus.OK);
     }
 
     //HuyNN
     @GetMapping("/sendPaymentEmail/{email}/{productName}")
     public ResponseEntity sendEmailAuctionProduct(@PathVariable String email, @PathVariable String productName) {
-        String paymentLink = "http://localhost:4200";
+        String paymentLink = "http://localhost:4200/payment/payment-cart";
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.stmp.user", "a0721i1.2022@gmail.com");
