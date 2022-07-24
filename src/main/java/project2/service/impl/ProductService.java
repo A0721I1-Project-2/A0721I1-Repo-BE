@@ -14,10 +14,8 @@ import project2.repository.*;
 import project2.service.IProductService;
 
 import java.util.List;
-
 import java.util.Objects;
 import java.util.Optional;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,9 +41,9 @@ public class ProductService implements IProductService {
 
     private ICartRepository cartRepository;
 
+
     public ResponseEntity save(Product product, Long idMember, List<MultipartFile> multipartFile) {
         try {
-
             List<ApprovalStatus> all = this.approvalStatusRepository.findAll();
             List<BiddingStatus> all1 = this.biddingStatusRepository.findAll();
             Cart byMember = this.cartRepository.getByIdMember(idMember);
