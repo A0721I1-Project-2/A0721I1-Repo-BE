@@ -47,6 +47,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.ParseException;
 import java.util.*;
 
 
@@ -788,14 +789,12 @@ public class ProductController {
 
     //Thao
     @PostMapping("postProduct")
-    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
-        LocalDateTime localDateTime=LocalDateTime.now();
-        DateTimeFormatter fm=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // anh HauLST thay đổi format để sử dụng đc hàm Date của JS nha,
-        String myfm=fm.format(localDateTime);
-        product.setStartDate(myfm);
-        product.setEndDate(myfm);
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) throws ParseException {
+        String timeFormatEndDate = product.getEndDate().replace ( "T" , " " );
+        String timeFormatStartDate =product.getStartDate().replace ( "T" , " " );
+        product.setStartDate(timeFormatStartDate);
+        product.setEndDate(timeFormatEndDate);
         product.setBiddingStatus(this.biddingStatusService.findById((long) 1));
-//        product.setCart(cartService.findById((long) 1));
         List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
         for (ApprovalStatus a : approvalStatusList) {
             if (a.getIdApprovalStatus() == 1) {
