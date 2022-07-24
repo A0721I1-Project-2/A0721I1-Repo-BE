@@ -42,6 +42,7 @@ public class ProductService implements IProductService {
     @Autowired
 
     private ICartRepository cartRepository;
+
     public ResponseEntity save(Product product, Long idMember, List<MultipartFile> multipartFile) {
         try {
 
@@ -53,7 +54,8 @@ public class ProductService implements IProductService {
             if (productOPT.isPresent()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mã sản phẩm đã tồn tại");
             }
-
+            product.setCreateDay(product.getCreateDay());
+            product.setFlagDelete(false);
             product.setBiddingStatus(all1.get(0));
             product.setApprovalStatus(all.get(0));
             product.setCart(byMember);
@@ -69,7 +71,7 @@ public class ProductService implements IProductService {
             imageProducts.forEach(image -> image.setProduct(save));
             this.imageProductRepository.saveAll(imageProducts);
             return ResponseEntity.ok(save);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -90,15 +92,17 @@ public class ProductService implements IProductService {
         System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));
         return productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus);
     }
+
     //BachLT
     @Override
     public List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus) {
         System.out.println(productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus));
         return productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus);
     }
+
     //Thao
     @Override
-    public  Product postProduct(Product product) {
+    public Product postProduct(Product product) {
         return productRepository.save(product);
     }
 
@@ -117,7 +121,7 @@ public class ProductService implements IProductService {
         return productRepository.save(product);
     }
 
-        //HieuDV
+    //HieuDV
     @Override
     public Page<Product> getAllNotDeletedYet(Pageable pageable) {
         return productRepository.findAllNotDeletedYet(pageable);

@@ -15,7 +15,7 @@ public class Product {
     private String codeProduct;
     @Column(name = "name_product")
     private String nameProduct;
-//    @Column(name = "poster_information")
+    //    @Column(name = "poster_information")
 //    private String posterInformation;
     @Column(name = "initial_price")
     private Double initialPrice;
@@ -31,7 +31,7 @@ public class Product {
     private String endDate;
     @Column(name = "remaining_time")
     private String remainingTime;
-    @Column(name="create_day")
+    @Column(name = "create_day")
     private String createDay;
     @Column(name = "flag_delete")
     private Boolean flagDelete;
