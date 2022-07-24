@@ -201,6 +201,15 @@ public class ProductController {
         return new ResponseEntity(member, HttpStatus.OK);
     }
 
+    @GetMapping("/updateIdBindingStatus/{idProduct}/{idBindingStatus}")
+    public ResponseEntity updateIdBindingStatus(@PathVariable Long idProduct, @PathVariable Long idBindingStatus) {
+        Product product = this.productService.getProductById(idProduct);
+        BiddingStatus biddingStatus = this.biddingStatusService.findById(idBindingStatus);
+        product.setBiddingStatus(biddingStatus);
+        this.productService.saveProduct(product);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     //HuyNN
     @GetMapping("/sendPaymentEmail/{email}/{productName}")
     public ResponseEntity sendEmailAuctionProduct(@PathVariable String email, @PathVariable String productName) {
