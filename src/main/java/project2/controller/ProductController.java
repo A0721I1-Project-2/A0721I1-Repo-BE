@@ -760,7 +760,7 @@ public class ProductController {
     @PostMapping("postProduct")
     public ResponseEntity<Product> postProduct(@RequestBody Product product) {
         LocalDateTime localDateTime=LocalDateTime.now();
-        DateTimeFormatter fm=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        DateTimeFormatter fm=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"); // anh HauLST thay đổi format để sử dụng đc hàm Date của JS nha,
         String myfm=fm.format(localDateTime);
         product.setStartDate(myfm);
         product.setEndDate(myfm);
