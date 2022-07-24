@@ -25,9 +25,8 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "where product.flag_delete = 0 and cart.id_member = ?1", nativeQuery = true)
     List<Product> getProductInCart(int i);
 
-
     // BachLT
-    @Query(value = "SELECT p FROM Product p WHERE p.endDate between ?1 and ?2 and p.biddingStatus.idBiddingStatus= ?3 and p.flagDelete = false ")
+    @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = false", nativeQuery = true)
     List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd, long biddingStatus);
 
     // BachLT
@@ -74,16 +73,15 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select * from product " +
             "left join biddingstatus on product.id_bidding_status = biddingstatus.id_bidding_status left join typeproduct on product.id_product_type = typeproduct.id_product_type " +
             "left join approvalstatus on product.id_approval_status = approvalstatus.id_approval_status left join member on product.id_member = member.id_member " +
-            "where product.name_product like %?1% and product.id_product_type = ?2 and member.name_member like %?3% and product.initial_price < ?4 and product.initial_price > ?5 " +
-            "and product.id_bidding_status = ?6 and product.flag_delete = 0",
+            "where product.name_product like %?1% and typeproduct.name_product_type like %?2% and member.name_member like %?3% and product.initial_price < ?4 and product.initial_price > ?5 " +
+            "and biddingstatus.name_bidding_status like %?6% and product.flag_delete = 0",
             countQuery = "select count(id_product)from product " +
                     "left join biddingstatus on product.id_bidding_status = biddingstatus.id_bidding_status left join typeproduct on product.id_product_type = typeproduct.id_product_type " +
                     "left join approvalstatus on product.id_approval_status = approvalstatus.id_approval_status left join member on product.id_member = member.id_member " +
-                    "where product.name_product like %?1% and product.id_product_type = ?2 and member.name_member like %?3% and product.initial_price < ?4 and product.initial_price > ?5 " +
-                    "and product.id_bidding_status = ?6 and product.flag_delete = 0",
+                    "where product.name_product like %?1% and typeproduct.name_product_type like %?2% and member.name_member like %?3% and product.initial_price < ?4 and product.initial_price > ?5 " +
+                    "and biddingstatus.name_bidding_status like %?6% and product.flag_delete = 0",
             nativeQuery = true)
     Page<Product> findAllProductByNameTypeSellerPriceStatus(String name, String typeProduct, String sellerName, String maxPrice, String minPrice, String BiddingStatus, Pageable pageable);
-
 
     //VinhTQ
 //    @Query(value = "select * from product " +
@@ -148,6 +146,4 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "and (Product.final_price >?3)\n" +
             "order by Product.end_date asc", nativeQuery = true)
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
-
-
 }

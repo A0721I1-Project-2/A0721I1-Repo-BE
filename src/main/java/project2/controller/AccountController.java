@@ -1,23 +1,15 @@
 package project2.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import project2.model.Member;
-import project2.service.impl.MemberService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project2.model.Account;
 import project2.model.Member;
+import project2.model.Account;
 import project2.service.IAccountService;
 import project2.service.IMemberService;
-
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
@@ -29,19 +21,27 @@ import java.io.UnsupportedEncodingException;
 public class AccountController {
 
     @Autowired
-    IMemberService iMemberService;
-
-    @Autowired
     private IAccountService accountService;
 
     @Autowired
     private JavaMailSender mailSender;
 
-
+    @Autowired
+    private IMemberService memberService;
+    //HauNT
+    @GetMapping("/detail/{idMember}")
+    public ResponseEntity<Member> findMemberByIdAccount(@PathVariable("idMember") Long idMember) {
+        Member member = memberService.findByIdAccount(idMember);
+        if (member == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }
+    }
     // HuyNN
     @GetMapping("/getAccountByMemberId/{id}")
     public ResponseEntity<Account> getAccountByMember(@PathVariable Long id) {
-        Member member = iMemberService.findById(id);
+        Member member = memberService.findByIdMember(id).get();
         return new ResponseEntity<>(accountService.findByMember(member), HttpStatus.OK);
     }
 
@@ -662,4 +662,5 @@ public class AccountController {
         }
         return new ResponseEntity<Object>(message, HttpStatus.OK);
     }
+
 }

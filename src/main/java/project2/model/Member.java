@@ -75,30 +75,16 @@ public class Member {
     @JsonBackReference(value = "member_cart")
     private Cart cart;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Product> products;
+    //    @JsonIgnore
+//    @ManyToMany(mappedBy = "members", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private Set<Product> products;
+    @OneToMany(mappedBy = "members")
+    @JsonBackReference(value = "member_product")
+    private List<Product> products;
 
-    public Member() {
-    }
 
-    public Boolean getCheckedClause() {
-        return checkedClause;
-    }
 
-    public void setCheckedClause(Boolean checkedClause) {
-        this.checkedClause = checkedClause;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
-    public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember, String idCardMember, String paypalMember, Boolean flagDelete, Account account, List<Invoice> invoiceList, Double point, List<Payment> paymentList, Rank rank, Set<Product> products) {
+    public Member(Long idMember, String nameMember, String dateOfBirthMember, String emailMember, String addressMember, String phoneMember, String idCardMember, String paypalMember, Boolean flagDelete, Boolean checkedClause, Account account, List<Invoice> invoiceList, Double point, List<Payment> paymentList, Rank rank, Cart cart, List<Product> products) {
         this.idMember = idMember;
         this.nameMember = nameMember;
         this.dateOfBirthMember = dateOfBirthMember;
@@ -108,17 +94,27 @@ public class Member {
         this.idCardMember = idCardMember;
         this.paypalMember = paypalMember;
         this.flagDelete = flagDelete;
+        this.checkedClause = checkedClause;
         this.account = account;
         this.invoiceList = invoiceList;
         this.point = point;
         this.paymentList = paymentList;
         this.rank = rank;
+        this.cart = cart;
         this.products = products;
+    }
+
+    public Member() {
     }
 
     public Long getIdMember() {
         return idMember;
     }
+
+    public Boolean getCheckedClause() {
+        return checkedClause;
+    }
+
 
     public void setIdMember(Long idMember) {
         this.idMember = idMember;
@@ -188,6 +184,11 @@ public class Member {
         this.flagDelete = flagDelete;
     }
 
+
+    public void setCheckedClause(Boolean checkedClause) {
+        this.checkedClause = checkedClause;
+    }
+
     public Account getAccount() {
         return account;
     }
@@ -228,12 +229,19 @@ public class Member {
         this.rank = rank;
     }
 
-    public Set<Product> getProducts() {
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }
-
