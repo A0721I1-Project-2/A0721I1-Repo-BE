@@ -5,6 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import project2.config.SmtpAuthenticator;
+import project2.model.Product;
+import project2.service.IFirebaseService;
+import project2.service.IImageProductService;
+import project2.service.IProductService;
+
+import java.io.IOException;
 
 import project2.model.*;
 import project2.service.*;
@@ -72,8 +80,16 @@ public class ProductController {
     @Autowired
     private ICartService iCartService;
 
+
+    // SamTV
+    @PostMapping
+    public ResponseEntity saveProduct(Product product, Long idPoster, List<MultipartFile> multipartFiles) throws IOException {
+        return this.productService.save(product,idPoster, multipartFiles);
+    }
+
     @Autowired
     private IAccountService iAccountService;
+
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -93,7 +109,7 @@ public class ProductController {
 
     //HieuDV
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
+        public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Product> productList = productService.getAllNotDeletedYet(pageable);
         if (productList.isEmpty()) {
