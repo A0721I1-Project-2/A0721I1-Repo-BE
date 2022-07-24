@@ -2,6 +2,8 @@ package project2.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 import project2.model.Product;
 
 
@@ -17,6 +19,8 @@ import project2.model.Product;
 import java.util.List;
 
 public interface IProductService {
+    ResponseEntity save(Product product, Long idMember, List<MultipartFile> multipartFile);
+
     Product postProduct(Product product);
 
     List<Product> findAll();

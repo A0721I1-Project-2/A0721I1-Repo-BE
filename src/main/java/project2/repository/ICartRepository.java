@@ -13,6 +13,10 @@ public interface ICartRepository extends JpaRepository<Cart, Long> {
     @Query(value = "select * from cart where id_member = ?1", nativeQuery = true)
     Cart getByIdMember(Long id_member);
 
+//    @Query(nativeQuery = true, value = "SELECT * FROM Cart WHERE id_member = ?1")
+//    Cart findByMember(Long idMember);
+
+
     @Modifying
     @Query(value = "insert into cart (warning, id_member) values (?1, ?2)", nativeQuery = true)
     @Transactional
