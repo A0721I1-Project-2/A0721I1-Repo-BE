@@ -22,6 +22,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     runtimeOnly 'mysql:mysql-connector-java'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'com.google.firebase', name: 'firebase-admin', version: '8.1.0'
+
 //    testImplementation 'org.springframework.security:spring-security-test'
 
     //VinhTQ
