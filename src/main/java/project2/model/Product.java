@@ -16,8 +16,8 @@ public class Product {
     private String codeProduct;
     @Column(name = "name_product")
     private String nameProduct;
-    @Column(name = "poster_information")
-    private String posterInformation;
+//    @Column(name = "poster_information")
+//    private String posterInformation;
     @Column(name = "initial_price")
     private Double initialPrice;
     @Column(name = "final_price")
@@ -243,11 +243,11 @@ public class Product {
         this.cart = cart;
     }
 
-    public String getPosterInformation() {
-        return posterInformation;
-    }
-
-    public void setPosterInformation(String posterInformation) {
-        this.posterInformation = posterInformation;
-    }
+//    public String getPosterInformation() {
+//        return posterInformation;
+//    }
+//
+//    public void setPosterInformation(String posterInformation) {
+//        this.posterInformation = posterInformation;
+//    }
 }

@@ -31,9 +31,10 @@ public class FirebaseService implements IFirebaseService {
 //    @Value("${firebase.bucketName}")
 //    private String bucketName;
 
-    private String projectId = "project2-945cb";
-    private String bucketName = "project2-945cb.appspot.com";
-    private String patternUrl = "https://firebasestorage.googleapis.com/v0/b/project2-945cb.appspot.com/o/{0}?alt=media";
+    private String projectId = "update-c1ca8";
+    private String bucketName = "update-c1ca8.appspot.com";
+//    private String patternUrl = "https://firebasestorage.googleapis.com/v0/b/project2-945cb.appspot.com/o/{0}?alt=media";
+    private String patternUrl = "https://firebasestorage.googleapis.com/v0/b/update-c1ca8.appspot.com/o/{0}?alt=media";
 
     @PostConstruct
     public void init() throws IOException {
@@ -61,6 +62,7 @@ public class FirebaseService implements IFirebaseService {
             Blob blob = bucket.create(name, file.getBytes(), file.getContentType());
             return this.patternUrl.replace("{0}", blob.getName());
         } catch(Exception ex) {
+            ex.printStackTrace();
             return null;
         }
     }
