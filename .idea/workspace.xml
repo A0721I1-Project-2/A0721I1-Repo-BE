@@ -49,7 +49,22 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/IMemberService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/MemberService.java" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/service/impl/TypeProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/service/impl/TypeProductService.java" afterDir="false" />
+    <list default="true" id="6fca0922-b43a-45ab-8810-d687ef68ff13" name="Default Changelist" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/AccountController.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project2/repository/IProductRepository.java" afterDir="false" />
+=======
+>>>>>>> 0e2a8cd9f18e514f85be5870114a8282f3ef5b74
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+>>>>>>> 50ad20347f3037eb162abf749ea8be78936cdd8e
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +136,31 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< HEAD
+  <component name="ProjectId" id="2CGMALpyiEscErmRMxHcIx6g1kD" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "spring.configuration.checksum": "b9e7224fff79f3dd0f61fbd770926408"
+  }
+}]]></component>
+=======
   <component name="ProjectId" id="2Bf5Jk1PlP8RFc7M5F6Ullu56H5" />
 <<<<<<< HEAD
 =======
@@ -182,6 +222,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
 >>>>>>> 68738cfc94e0384cd010c51346b1142f171e5e30
   </component>
+>>>>>>> 50ad20347f3037eb162abf749ea8be78936cdd8e
   <component name="RunManager">
     <configuration name="Project2a07Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="project2.main" />
@@ -192,6 +233,17 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+<<<<<<< HEAD
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <created>1658424338622</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658424338622</updated>
+      <workItem from="1658424338625" duration="866000" />
+      <workItem from="1658456740675" duration="1192000" />
+      <workItem from="1658486490741" duration="2912000" />
+=======
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -230,7 +282,11 @@
       <workItem from="1658460724366" duration="906000" />
       <workItem from="1658486837021" duration="4758000" />
 
+<<<<<<< HEAD
+>>>>>>> 50ad20347f3037eb162abf749ea8be78936cdd8e
+=======
 >>>>>>> 68738cfc94e0384cd010c51346b1142f171e5e30
+>>>>>>> 0e2a8cd9f18e514f85be5870114a8282f3ef5b74
     </task>
     <servers />
   </component>
