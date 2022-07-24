@@ -5,5 +5,6 @@ import project2.model.TypeProduct;
 import java.util.List;
 
 public interface ITypeProductService {
-    List<TypeProduct> getAll();
+    List<TypeProduct>findByAll();
+    TypeProduct findById(Long id);
 }

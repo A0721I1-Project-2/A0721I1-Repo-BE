@@ -6,23 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import project2.model.Product;
 
-import project2.model.Product;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import project2.model.Product;
-import project2.repository.IProductRepository;
-
-import java.util.List;
 
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import project2.model.Product;
-
-import java.util.List;
-import java.util.Optional;
 
 import project2.model.Product;
 
@@ -30,6 +20,10 @@ import java.util.List;
 
 public interface IProductService {
     ResponseEntity save(Product product, Long idMember, List<MultipartFile> multipartFile);
+
+    Product postProduct(Product product);
+
+    List<Product> findAll();
 
     //QuangNV write method get product in cart
     List<Product> getProductInCart(int i);
@@ -60,12 +54,16 @@ public interface IProductService {
     //BachLT
     List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus);
 
-
-    //HuyNN
-    Optional<Product> getProductById(Long id);
+    //ToanPT
+    Product getProductById(Long id);
+    //ToanPT
+    Product updateProduct(Product product);
 
     //HuyNN
     void updateCurrentPrice(Product product);
+
+    //HuyNN
+    void updateIdCard(Product product);
 
     //VinhTQ
     Product findProductByIdForProductDetail(long id);
@@ -84,5 +82,4 @@ public interface IProductService {
 
     //HauLST
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
-
 }

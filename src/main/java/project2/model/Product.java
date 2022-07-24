@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Product {
@@ -62,9 +61,8 @@ public class Product {
     private Cart cart;
 
     @ManyToOne(targetEntity = Member.class)
-    @JoinColumn(name = "id_member", nullable = false)
-    private Member member;
-
+    @JoinColumn(name = "id_member", nullable = true)
+    private Member members;
 
     public Product() {
     }
@@ -88,7 +86,7 @@ public class Product {
         this.imageProductList = imageProductList;
         this.invoiceDetailList = invoiceDetailList;
         this.cart = cart;
-        this.member = member;
+        this.members = member;
     }
 
     public Long getIdProduct() {
@@ -228,11 +226,11 @@ public class Product {
     }
 
     public Member getMember() {
-        return member;
+        return members;
     }
 
     public void setMember(Member member) {
-        this.member = member;
+        this.members = member;
     }
 
     public Cart getCart() {

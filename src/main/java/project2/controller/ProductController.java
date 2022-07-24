@@ -13,6 +13,21 @@ import project2.service.IImageProductService;
 import project2.service.IProductService;
 
 import java.io.IOException;
+
+import project2.model.*;
+import project2.service.*;
+import project2.service.impl.ImageProductService;
+
+import project2.config.SmtpAuthenticator;
+import project2.model.Cart;
+import project2.model.Member;
+import project2.model.Product;
+import project2.service.ICartService;
+import project2.service.IMemberService;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import project2.service.IProductService;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +35,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import project2.service.impl.TypeProductService;
+
+
 import org.springframework.mail.javamail.MimeMessageHelper;
 import project2.dto.AuctionDTO;
-import project2.model.ImageProduct;
+import project2.service.impl.*;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -38,21 +56,29 @@ import java.util.*;
 
 public class ProductController {
     @Autowired
-    private IFirebaseService firebaseService;
+    private TypeProductService typeProductService;
+    @Autowired
+    private ImageProductService imageProductService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private IBiddingStatusService biddingStatusService;
+    @Autowired
+    private IMemberService memberService;
+    @Autowired
+    private IApprovalStatusService approvalStatusService;
 
     @Autowired
-    private IProductService productService;
+    private SmtpAuthenticator smtpAuthenticator;
+
+    @Autowired
+    private ICartService iCartService;
+
+    // SamTV
     @PostMapping
     public ResponseEntity saveProduct(Product product, Long idPoster, List<MultipartFile> multipartFiles) throws IOException {
         return this.productService.save(product,idPoster, multipartFiles);
     }
-
-
-    @Autowired
-    private IImageProductService iImageProductService;
-
-    @Autowired
-    private SmtpAuthenticator smtpAuthenticator;
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -87,7 +113,7 @@ public class ProductController {
     //HuyNN
     @GetMapping("/getProductById/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        return new ResponseEntity<>(productService.getProductById(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
     //HuyNN
@@ -110,9 +136,16 @@ public class ProductController {
 
     //HuyNN
     public void updateCurrentPrice(Long productId, Double price) {
-        Product product = productService.getProductById(productId).get();
+        Product product = productService.getProductById(productId);
         product.setFinalPrice(price);
         productService.updateCurrentPrice(product);
+    }
+
+    //HuyNN
+    @GetMapping("/getCartByMemberId/{id}")
+    public ResponseEntity<Cart> getCartByMemberId(@PathVariable Long id) {
+        Cart cart = this.iCartService.findByIdMember(id);
+        return new ResponseEntity<Cart>(cart, HttpStatus.OK);
     }
 
     //HuyNN
@@ -129,21 +162,45 @@ public class ProductController {
     }
 
     //HuyNN
-    @GetMapping("/checkPaymentAuctionProduct")
-    public ResponseEntity checkPaymentAuctionProduct() {
-        sendEmailAuctionProduct("test", "test", "test");
+    @GetMapping("/getImageByProductId/{id}")
+    public ResponseEntity<List<ImageProduct>> getImageByProductId(@PathVariable Long id) {
+        Product product = productService.getProductById(id);
+        return new ResponseEntity<List<ImageProduct>>(imageProductService.findByProduct(product), HttpStatus.OK);
+    }
+
+    //HuyNN
+    @GetMapping("/addProductToCart/{idMember}/{idProduct}")
+    public ResponseEntity addProductToCart(@PathVariable Long idMember, @PathVariable Long idProduct) {
+        Cart cart = iCartService.findByIdMember(idMember);
+        if (cart == null) {
+            Member member = this.memberService.findByIdMember(idMember).get();
+            Cart newCart = new Cart();
+            newCart.setWarning("0");
+            newCart.setMember(member);
+            this.iCartService.createCart(newCart);
+            cart = iCartService.findByIdMember(idMember);
+            Product product = this.productService.getProductById(idProduct);
+            product.setCart(cart);
+            productService.updateIdCard(product);
+        } else {
+            Product product = this.productService.getProductById(idProduct);
+            product.setCart(cart);
+            productService.updateIdCard(product);
+        }
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    //HuyNN
+    @PutMapping("/updateCart")
+    public ResponseEntity updateCart(@RequestBody Cart cart) {
+        this.iCartService.updateCart(cart);
         return new ResponseEntity(null, HttpStatus.OK);
     }
 
     //HuyNN
-    @GetMapping("/getImageByProductId/{id}")
-    public ResponseEntity<List<ImageProduct>> getImageByProductId(@PathVariable Long id) {
-        Product product = productService.getProductById(id).get();
-        return new ResponseEntity<List<ImageProduct>>(iImageProductService.findByProduct(product), HttpStatus.OK);
-    }
-
-    //HuyNN
-    public void sendEmailAuctionProduct(String email, String productName, String productImage) {
+    @GetMapping("/sendPaymentEmail/{email}/{productName}")
+    public ResponseEntity sendEmailAuctionProduct(@PathVariable String email, @PathVariable String productName) {
+        String paymentLink = "http://localhost:4200";
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.stmp.user", "a0721i1.2022@gmail.com");
@@ -159,9 +216,9 @@ public class ProductController {
         props.put("mail.smtp.port", "465");
 
         Session session = Session.getDefaultInstance(props, smtpAuthenticator);
-        String to = "nguyennhathuy.cd@gmail.com";
+        String to = email;
         String from = "contact@a0721i1.com";
-        String subject = "Successfully auctioned the product Samsung S22";
+        String subject = "Payment For Auction Product " + productName;
         MimeMessage msg = new MimeMessage(session);
         MimeMessageHelper helper = new MimeMessageHelper(msg, "UTF-8");
 
@@ -169,110 +226,347 @@ public class ProductController {
             helper.setFrom(new InternetAddress(from));
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             helper.setSubject(subject);
-            String content = "<table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#f4f4f4' class='gwfw'>\n" +
-                    "    <tr>\n" +
-                    "        <td align='center' valign='top'>\n" +
-                    "            <!-- Header -->\n" +
-                    "            <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
+            String content = "<table align='center' border='0' cellpadding='0' cellspacing='0' height='100%' id='bodyTable' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust:\n" +
+                    " 100%; background-color: #fed149; height: 100%; margin: 0; padding: 0; width:\n" +
+                    " 100%' width='100%'>\n" +
+                    "      <tr>\n" +
+                    "        <td align='center' id='bodyCell' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; border-top: 0;\n" +
+                    " height: 100%; margin: 0; padding: 0; width: 100%' valign='top'>\n" +
+                    "          <!-- BEGIN TEMPLATE // -->\n" +
+                    "          <!--[if gte mso 9]>\n" +
+                    "              <table align='center' border='0' cellspacing='0' cellpadding='0' width='600' style='width:600px;'>\n" +
                     "                <tr>\n" +
-                    "                    <td style='padding: 55px 10px 30px 10px;' class='p30-20' align='center'>\n" +
-                    "                        <table width='650' border='0' cellspacing='0' cellpadding='0' class='m-shell'>\n" +
+                    "                  <td align='center' valign='top' width='600' style='width:600px;'>\n" +
+                    "                  <![endif]-->\n" +
+                    "          <table border='0' cellpadding='0' cellspacing='0' class='templateContainer' style='border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; max-width:\n" +
+                    " 600px; border: 0' width='100%'>\n" +
+                    "            <tr>\n" +
+                    "              <td id='templatePreheader' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #fed149;\n" +
+                    " border-top: 0; border-bottom: 0; padding-top: 16px; padding-bottom: 8px' valign='top'>\n" +
+                    "                <table border='0' cellpadding='0' cellspacing='0' class='mcnTextBlock' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
+                    " min-width:100%;' width='100%'>\n" +
+                    "                  <tbody class='mcnTextBlockOuter'>\n" +
+                    "                    <tr>\n" +
+                    "                      <td class='mcnTextBlockInner' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%' valign='top'>\n" +
+                    "                        <table align='left' border='0' cellpadding='0' cellspacing='0' class='mcnTextContentContainer' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust:\n" +
+                    " 100%; min-width:100%;' width='100%'>\n" +
+                    "                          <tbody>\n" +
                     "                            <tr>\n" +
-                    "                                <td class='td' style='width:650px; min-width:650px; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;'>\n" +
-                    "                                    <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                        <tr>\n" +
-                    "                                            <td class='logo img' style='font-size:0pt; line-height:0pt; text-align:left;'><img src='images/logo.jpg' width='206' height='30' editable='true' border='0' alt='' /></td>\n" +
-                    "                                            <td align='right' width='100'>\n" +
-                    "                                                <table border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                                    <tr>\n" +
-                    "                                                        <td class='text-top' style='color:#999999; font-family:'Roboto', Arial, sans-serif; font-size:13px; line-height:18px; text-align:right; min-width:auto !important;'><multiline><webversion class='link-grey-u' style='color:#999999; text-decoration:underline;'>view online</webversion></multiline></td>\n" +
-                    "                                                    </tr>\n" +
-                    "                                                </table>\n" +
-                    "                                            </td>\n" +
-                    "                                        </tr>\n" +
-                    "                                    </table>\n" +
-                    "                                </td>\n" +
+                    "                              <td class='mcnTextContent' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; word-break: break-word;\n" +
+                    " color: #2a2a2a; font-family: 'Asap', Helvetica, sans-serif; font-size: 12px;\n" +
+                    " line-height: 150%; text-align: left; padding-top:9px; padding-right: 18px;\n" +
+                    " padding-bottom: 9px; padding-left: 18px;' valign='top'>\n" +
+                    "                                <a href='https://www.lingoapp.com' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #2a2a2a;\n" +
+                    " font-weight: normal; text-decoration: none' target='_blank' title='Lingo is the\n" +
+                    " best way to organize, share and use all your visual assets in one place -\n" +
+                    " all on your desktop.'>\n" +
+                    "                                  <img align='none' alt='Lingo is the best way to\n" +
+                    " organize, share and use all your visual assets in one place - all on your desktop.' height='32' src='https://firebasestorage.googleapis.com/v0/b/sprint2-1452b.appspot.com/o/image.png?alt=media&token=683228a2-2155-425e-beab-987b8a401089' style='-ms-interpolation-mode: bicubic; border: 0; outline: none;\n" +
+                    " text-decoration: none; height: auto; width: 107px; height: 32px; margin: 0px;' width='107' />\n" +
+                    "                                </a>\n" +
+                    "                              </td>\n" +
                     "                            </tr>\n" +
+                    "                          </tbody>\n" +
                     "                        </table>\n" +
-                    "                    </td>\n" +
-                    "                </tr>\n" +
-                    "            </table>\n" +
-                    "            <!-- END Header -->\n" +
-                    "            \n" +
-                    "            <!-- Footer -->\n" +
-                    "            <table width='100%' border='0' cellspacing='0' cellpadding='0' bgcolor='#a63434'>\n" +
-                    "                <tr>\n" +
-                    "                    <td align='center' style='padding: 60px 0px 50px 0px;' class='p30-20'>\n" +
-                    "                        <table width='650' border='0' cellspacing='0' cellpadding='0' class='m-shell'>\n" +
+                    "                      </td>\n" +
+                    "                    </tr>\n" +
+                    "                  </tbody>\n" +
+                    "                </table>\n" +
+                    "              </td>\n" +
+                    "            </tr>\n" +
+                    "            <tr>\n" +
+                    "              <td id='templateHeader' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: white;\n" +
+                    " border-top: 0; border-bottom: 0; padding-top: 16px; padding-bottom: 0' valign='top'>\n" +
+                    "                <table border='0' cellpadding='0' cellspacing='0' class='mcnImageBlock' style='border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
+                    " min-width:100%;' width='100%'>\n" +
+                    "                  <tbody class='mcnImageBlockOuter'>\n" +
+                    "                    <tr>\n" +
+                    "                      <td class='mcnImageBlockInner' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding:0px' valign='top'>\n" +
+                    "                        <table align='left' border='0' cellpadding='0' cellspacing='0' class='mcnImageContentContainer' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust:\n" +
+                    " 100%; min-width:100%;' width='100%'>\n" +
+                    "                          <tbody>\n" +
                     "                            <tr>\n" +
-                    "                                <td class='td' style='width:650px; min-width:650px; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;'>\n" +
-                    "                                    <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                        <tr>\n" +
-                    "                                            <td style='padding-bottom: 32px;'>\n" +
-                    "                                                <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                                    <tr>\n" +
-                    "                                                        <th class='column' width='150' style='font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;'>\n" +
-                    "                                                            <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                                                <tr>\n" +
-                    "                                                                    <td class='img m-center' style='font-size:0pt; line-height:0pt; text-align:left;'><img src='images/footer_logo.jpg' width='207' height='30' editable='true' border='0' alt='' /></td>\n" +
-                    "                                                                </tr>\n" +
-                    "                                                            </table>\n" +
-                    "                                                        </th>\n" +
-                    "                                                        <th style='padding-bottom: 25px !important; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;' class='column' width='1'></th>\n" +
-                    "                                                        <th class='column' style='font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;'>\n" +
-                    "                                                            <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                                                <tr>\n" +
-                    "                                                                    <td align='right'>\n" +
-                    "                                                                        <table class='center' border='0' cellspacing='0' cellpadding='0' style='text-align:center;'>\n" +
-                    "                                                                            <tr>\n" +
-                    "                                                                                <td class='img' width='55' style='font-size:0pt; line-height:0pt; text-align:left;'><img src='images/ico_facebook.jpg' width='34' height='34' editable='true' border='0' alt='' /></td>\n" +
-                    "                                                                                <td class='img' width='55' style='font-size:0pt; line-height:0pt; text-align:left;'><img src='images/ico_twitter.jpg' width='34' height='34' editable='true' border='0' alt='' /></td>\n" +
-                    "                                                                                <td class='img' width='55' style='font-size:0pt; line-height:0pt; text-align:left;'><img src='images/ico_instagram.jpg' width='34' height='34' editable='true' border='0' alt='' /></td>\n" +
-                    "                                                                                <td class='img' width='34' style='font-size:0pt; line-height:0pt; text-align:left;'><img src='images/ico_linkedin.jpg' width='34' height='34' editable='true' border='0' alt='' /></td>\n" +
-                    "                                                                            </tr>\n" +
-                    "                                                                        </table>\n" +
-                    "                                                                    </td>\n" +
-                    "                                                                </tr>\n" +
-                    "                                                            </table>\n" +
-                    "                                                        </th>\n" +
-                    "                                                    </tr>\n" +
-                    "                                                </table>\n" +
-                    "                                            </td>\n" +
-                    "                                        </tr>\n" +
-                    "                                        <tr>\n" +
-                    "                                            <td>\n" +
-                    "                                                <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                                    <tr>\n" +
-                    "                                                        <th class='column-top' width='370' style='font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top;'>\n" +
-                    "                                                            <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                                                <tr>\n" +
-                    "                                                                    <td class='text-footer m-center' style='color:#ffffff; font-family:'Roboto', Arial, sans-serif; font-size:12px; line-height:26px; text-align:left; min-width:auto !important;'><multiline>LuxuryEstates - Free HTML Email Template<br /> East Pixel Bld. 99, Creative City 9000, Republic of Design</multiline></td>\n" +
-                    "                                                                </tr>\n" +
-                    "                                                            </table>\n" +
-                    "                                                        </th>\n" +
-                    "                                                        <th style='padding-bottom: 25px !important; font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;' class='column' width='1'></th>\n" +
-                    "                                                        <th class='column-bottom' style='font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:bottom;'>\n" +
-                    "                                                            <table width='100%' border='0' cellspacing='0' cellpadding='0'>\n" +
-                    "                                                                <tr>\n" +
-                    "                                                                    <td class='text-footer right m-center' style='color:#ffffff; font-family:'Roboto', Arial, sans-serif; font-size:12px; line-height:26px; min-width:auto !important; text-align:right;'><unsubscribe class='link-white-u' style='color:#ffffff; text-decoration:underline;'>Unsubscribe</unsubscribe></td>\n" +
-                    "                                                                </tr>\n" +
-                    "                                                            </table>\n" +
-                    "                                                        </th>\n" +
-                    "                                                    </tr>\n" +
-                    "                                                </table>\n" +
-                    "                                            </td>\n" +
-                    "                                        </tr>\n" +
-                    "                                    </table>\n" +
-                    "                                </td>\n" +
+                    "                              <td class='mcnImageContent' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-right: 0px;\n" +
+                    " padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;' valign='top'>\n" +
+                    "                                <a class='' href='https://www.lingoapp.com' style='mso-line-height-rule:\n" +
+                    " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color:\n" +
+                    " #f57153; font-weight: normal; text-decoration: none' target='_blank' title=''>\n" +
+                    "                                  <a class='' href='https://www.lingoapp.com/' style='mso-line-height-rule:\n" +
+                    " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color:\n" +
+                    " #f57153; font-weight: normal; text-decoration: none' target='_blank' title=''>\n" +
+                    "                                    <img align='center' alt='Forgot your password?' class='mcnImage' src='https://img.freepik.com/premium-vector/online-payment-technology-concept-cashless-society-safety-payment-bills-coins-credit-card-pay-online-with-smartphone-flat-design-illustration_73903-384.jpg?w=2000' style='-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none;\n" +
+                    " text-decoration: none; vertical-align: bottom; max-width:1200px; padding-bottom:\n" +
+                    " 0; display: inline !important; vertical-align: bottom;' width='600'></img>\n" +
+                    "                                  </a>\n" +
+                    "                                </a>\n" +
+                    "                              </td>\n" +
                     "                            </tr>\n" +
+                    "                          </tbody>\n" +
                     "                        </table>\n" +
-                    "                    </td>\n" +
+                    "                      </td>\n" +
+                    "                    </tr>\n" +
+                    "                  </tbody>\n" +
+                    "                </table>\n" +
+                    "              </td>\n" +
+                    "            </tr>\n" +
+                    "            <tr>\n" +
+                    "              <td id='templateBody' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: white;\n" +
+                    " border-top: 0; border-bottom: 0; padding-top: 0; padding-bottom: 0' valign='top'>\n" +
+                    "                <table border='0' cellpadding='0' cellspacing='0' class='mcnTextBlock' style='border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; min-width:100%;' width='100%'>\n" +
+                    "                  <tbody class='mcnTextBlockOuter'>\n" +
+                    "                    <tr>\n" +
+                    "                      <td class='mcnTextBlockInner' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%' valign='top'>\n" +
+                    "                        <table align='left' border='0' cellpadding='0' cellspacing='0' class='mcnTextContentContainer' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust:\n" +
+                    " 100%; min-width:100%;' width='100%'>\n" +
+                    "                          <tbody>\n" +
+                    "                            <tr>\n" +
+                    "                              <td class='mcnTextContent' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; word-break: break-word;\n" +
+                    " color: #2a2a2a; font-family: Asap, Helvetica, sans-serif; font-size: 16px;\n" +
+                    " line-height: 150%; text-align: center; padding-top:9px; padding-right: 18px;\n" +
+                    " padding-bottom: 9px; padding-left: 18px;' valign='top'>\n" +
+                    "\n" +
+                    "                                <h1 class='null' style='color: #2a2a2a; font-family: Asap, Helvetica,\n" +
+                    " sans-serif; font-size: 32px; font-style: normal; font-weight: bold; line-height:\n" +
+                    " 125%; letter-spacing: 2px; text-align: center; display: block; margin: 0;\n" +
+                    " padding: 0'><span style='text-transform:uppercase'>" + productName + "</span></h1>\n" +
+                    "\n" +
+                    "\n" +
+                    "                                <h2 class='null' style='color: #2a2a2a; font-family: Asap, Helvetica,\n" +
+                    " sans-serif; font-size: 24px; font-style: normal; font-weight: bold; line-height:\n" +
+                    " 125%; letter-spacing: 1px; text-align: center; display: block; margin: 0;\n" +
+                    " padding: 0'><span style='text-transform:uppercase'>Payment For Auction Product</span></h2>\n" +
+                    "\n" +
+                    "                              </td>\n" +
+                    "                            </tr>\n" +
+                    "                          </tbody>\n" +
+                    "                        </table>\n" +
+                    "                      </td>\n" +
+                    "                    </tr>\n" +
+                    "                  </tbody>\n" +
+                    "                </table>\n" +
+                    "                <table border='0' cellpadding='0' cellspacing='0' class='mcnTextBlock' style='border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace:\n" +
+                    " 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
+                    " min-width:100%;' width='100%'>\n" +
+                    "                  <tbody class='mcnTextBlockOuter'>\n" +
+                    "                    <tr>\n" +
+                    "                      <td class='mcnTextBlockInner' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%' valign='top'>\n" +
+                    "                        <table align='left' border='0' cellpadding='0' cellspacing='0' class='mcnTextContentContainer' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust:\n" +
+                    " 100%; min-width:100%;' width='100%'>\n" +
+                    "                          <tbody>\n" +
+                    "                            <tr>\n" +
+                    "                              <td class='mcnTextContent' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; word-break: break-word;\n" +
+                    " color: #2a2a2a; font-family: Asap, Helvetica, sans-serif; font-size: 16px;\n" +
+                    " line-height: 150%; text-align: center; padding-top:9px; padding-right: 18px;\n" +
+                    " padding-bottom: 9px; padding-left: 18px;' valign='top'>Click the button below to pay for the product.\n" +
+                    "                                <br></br>\n" +
+                    "                              </td>\n" +
+                    "                            </tr>\n" +
+                    "                          </tbody>\n" +
+                    "                        </table>\n" +
+                    "                      </td>\n" +
+                    "                    </tr>\n" +
+                    "                  </tbody>\n" +
+                    "                </table>\n" +
+                    "                <table border='0' cellpadding='0' cellspacing='0' class='mcnButtonBlock' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
+                    " min-width:100%;' width='100%'>\n" +
+                    "                  <tbody class='mcnButtonBlockOuter'>\n" +
+                    "                    <tr>\n" +
+                    "                      <td align='center' class='mcnButtonBlockInner' style='mso-line-height-rule:\n" +
+                    " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
+                    " padding-top:18px; padding-right:18px; padding-bottom:18px; padding-left:18px;' valign='top'>\n" +
+                    "                        <table border='0' cellpadding='0' cellspacing='0' class='mcnButtonBlock' style='border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; min-width:100%;' width='100%'>\n" +
+                    "                          <tbody class='mcnButtonBlockOuter'>\n" +
+                    "                            <tr>\n" +
+                    "                              <td align='center' class='mcnButtonBlockInner' style='mso-line-height-rule:\n" +
+                    " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
+                    " padding-top:0; padding-right:18px; padding-bottom:18px; padding-left:18px;' valign='top'>\n" +
+                    "                                <table border='0' cellpadding='0' cellspacing='0' class='mcnButtonContentContainer' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
+                    " border-collapse: separate !important;border-radius: 48px;background-color:\n" +
+                    " #F57153;'>\n" +
+                    "                                  <tbody>\n" +
+                    "                                    <tr>\n" +
+                    "                                      <td align='center' class='mcnButtonContent' style='mso-line-height-rule:\n" +
+                    " exactly; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\n" +
+                    " font-family: Asap, Helvetica, sans-serif; font-size: 16px; padding-top:24px;\n" +
+                    " padding-right:48px; padding-bottom:24px; padding-left:48px;' valign='middle'>\n" +
+                    "                                        <a class='mcnButton ' href='" + paymentLink + "' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; display: block; color: #f57153;\n" +
+                    " font-weight: normal; text-decoration: none; font-weight: normal;letter-spacing:\n" +
+                    " 1px;line-height: 100%;text-align: center;text-decoration: none;color:\n" +
+                    " #FFFFFF; text-transform:uppercase;' target='_blank' title='Review Lingo kit\n" +
+                    " invitation'>Payment</a>\n" +
+                    "                                      </td>\n" +
+                    "                                    </tr>\n" +
+                    "                                  </tbody>\n" +
+                    "                                </table>\n" +
+                    "                              </td>\n" +
+                    "                            </tr>\n" +
+                    "                          </tbody>\n" +
+                    "                        </table>\n" +
+                    "                      </td>\n" +
+                    "                    </tr>\n" +
+                    "                  </tbody>\n" +
+                    "                </table>\n" +
+                    "                <table border='0' cellpadding='0' cellspacing='0' class='mcnImageBlock' style='border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; min-width:100%;' width='100%'>\n" +
+                    "                  <tbody class='mcnImageBlockOuter'>\n" +
+                    "                    <tr>\n" +
+                    "                      <td class='mcnImageBlockInner' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding:0px' valign='top'>\n" +
+                    "                        <table align='left' border='0' cellpadding='0' cellspacing='0' class='mcnImageContentContainer' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust:\n" +
+                    " 100%; min-width:100%;' width='100%'>\n" +
+                    "                          <tbody>\n" +
+                    "                            <tr>\n" +
+                    "                              <td class='mcnImageContent' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding-right: 0px;\n" +
+                    " padding-left: 0px; padding-top: 0; padding-bottom: 0; text-align:center;' valign='top'></td>\n" +
+                    "                            </tr>\n" +
+                    "                          </tbody>\n" +
+                    "                        </table>\n" +
+                    "                      </td>\n" +
+                    "                    </tr>\n" +
+                    "                  </tbody>\n" +
+                    "                </table>\n" +
+                    "              </td>\n" +
+                    "            </tr>\n" +
+                    "            <tr>\n" +
+                    "              <td id='templateFooter' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; background-color: #fed149;\n" +
+                    " border-top: 0; border-bottom: 0; padding-top: 8px; padding-bottom: 80px' valign='top'>\n" +
+                    "                <table border='0' cellpadding='0' cellspacing='0' class='mcnTextBlock' style='border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; min-width:100%;' width='100%'>\n" +
+                    "                  <tbody class='mcnTextBlockOuter'>\n" +
+                    "                    <tr>\n" +
+                    "                      <td class='mcnTextBlockInner' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%' valign='top'>\n" +
+                    "                        <table align='center' bgcolor='white' border='0' cellpadding='32' cellspacing='0' class='card' style='border-collapse: collapse; mso-table-lspace: 0;\n" +
+                    " mso-table-rspace: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust:\n" +
+                    " 100%; background:white; margin:auto; text-align:left; max-width:600px;\n" +
+                    " font-family: 'Asap', Helvetica, sans-serif;' text-align='left' width='100%'>\n" +
+                    "                          <tr>\n" +
+                    "                            <td style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%'>\n" +
+                    "\n" +
+                    "                              <h3 style='color: red; font-family: Asap, Helvetica, sans-serif;\n" +
+                    " font-size: 20px; font-style: normal; font-weight: normal; line-height: 125%;\n" +
+                    " letter-spacing: normal; text-align: center; display: block; margin: 0; padding:\n" +
+                    " 0; text-align: left; width: 100%; font-size: 16px; font-weight: bold; '>\n" +
+                    "Notice for payment of auction products!</h3>\n" +
+                    "\n" +
+                    "                              <p style='margin: 10px 0; padding: 0; mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #2a2a2a;\n" +
+                    " font-family: Asap, Helvetica, sans-serif; font-size: 12px; line-height: 150%;\n" +
+                    " text-align: left; text-align: left; font-size: 14px; '>\n" +
+                    "Time to pay for successful auction products is 24 hours after receiving the first notice. Please make sure you have successfully paid for the product. In case you have not paid for the product within 24 hours, we will proceed to lock your account.\n" +
+                    "                              </p>\n" +
+                    "                            </td>\n" +
+                    "                          </tr>\n" +
+                    "                        </table>\n" +
+                    "                        <table align='center' border='0' cellpadding='0' cellspacing='0' style='border-collapse: collapse; mso-table-lspace: 0; mso-table-rspace: 0;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; min-width:100%;' width='100%'>\n" +
+                    "                          <tbody>\n" +
+                    "                            <tr>\n" +
+                    "                              <td style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%; padding-top: 24px; padding-right: 18px;\n" +
+                    " padding-bottom: 24px; padding-left: 18px; color: #7F6925; font-family: Asap,\n" +
+                    " Helvetica, sans-serif; font-size: 12px;' valign='top'>\n" +
+                    "                                <div style='text-align: center;'>Made with\n" +
+                    "                                  <a href='https://thenounproject.com/' style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%; color: #f57153; font-weight: normal; text-decoration:\n" +
+                    " none' target='_blank'>\n" +
+                    "                                    <img align='none' alt='Heart icon' height='10' src='https://static.lingoapp.com/assets/images/email/made-with-heart.png' style='-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none;\n" +
+                    " text-decoration: none; width: 10px; height: 10px; margin: 0px;' width='10' />\n" +
+                    "                                  </a>by\n" +
+                    "                                  <a href='https://thenounproject.com/' style='mso-line-height-rule: exactly;\n" +
+                    " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; color: #f57153;\n" +
+                    " font-weight: normal; text-decoration: none; color:#7F6925;' target='_blank' title='Noun Project - Icons for Everything'>A0721I1 Auction</a></div>\n" +
+                    "                              </td>\n" +
+                    "                            </tr>\n" +
+                    "                            <tbody></tbody>\n" +
+                    "                          </tbody>\n" +
+                    "                        </table>\n" +
+                    "                        <table align='center' border='0' cellpadding='12' style='border-collapse:\n" +
+                    " collapse; mso-table-lspace: 0; mso-table-rspace: 0; -ms-text-size-adjust:\n" +
+                    " 100%; -webkit-text-size-adjust: 100%; '>\n" +
+                    "                          <tbody>\n" +
+                    "                            <tr>\n" +
+                    "                              <td style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%'>\n" +
+                    "                                <a href='https://twitter.com/@lingo_app' style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%; color: #f57153; font-weight: normal; text-decoration: none' target='_blank'>\n" +
+                    "                                  <img alt='twitter' height='32' src='https://static.lingoapp.com/assets/images/email/twitter-ic-32x32-email@2x.png' style='-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none; text-decoration:\n" +
+                    " none' width='32' />\n" +
+                    "                                </a>\n" +
+                    "                              </td>\n" +
+                    "                              <td style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%'>\n" +
+                    "                                <a href='https://www.instagram.com/lingo_app/' style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%; color: #f57153; font-weight: normal; text-decoration:\n" +
+                    " none' target='_blank'>\n" +
+                    "                                  <img alt='Instagram' height='32' src='https://static.lingoapp.com/assets/images/email/instagram-ic-32x32-email@2x.png' style='-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none;\n" +
+                    " text-decoration: none' width='32' />\n" +
+                    "                                </a>\n" +
+                    "                              </td>\n" +
+                    "                              <td style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%'>\n" +
+                    "                                <a href='https://medium.com/@lingo_app' style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%; color: #f57153; font-weight: normal; text-decoration: none' target='_blank'>\n" +
+                    "                                  <img alt='medium' height='32' src='https://static.lingoapp.com/assets/images/email/medium-ic-32x32-email@2x.png' style='-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none; text-decoration: none' width='32' />\n" +
+                    "                                </a>\n" +
+                    "                              </td>\n" +
+                    "                              <td style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%'>\n" +
+                    "                                <a href='https://www.facebook.com/Lingoapp/' style='mso-line-height-rule: exactly; -ms-text-size-adjust: 100%;\n" +
+                    " -webkit-text-size-adjust: 100%; color: #f57153; font-weight: normal; text-decoration: none' target='_blank'>\n" +
+                    "                                  <img alt='facebook' height='32' src='https://static.lingoapp.com/assets/images/email/facebook-ic-32x32-email@2x.png' style='-ms-interpolation-mode: bicubic; border: 0; height: auto; outline: none;\n" +
+                    " text-decoration: none' width='32' />\n" +
+                    "                                </a>\n" +
+                    "                              </td>\n" +
+                    "                            </tr>\n" +
+                    "                          </tbody>\n" +
+                    "                        </table>\n" +
+                    "                      </td>\n" +
+                    "                    </tr>\n" +
+                    "                  </tbody>\n" +
+                    "                </table>\n" +
+                    "              </td>\n" +
+                    "            </tr>\n" +
+                    "          </table>\n" +
+                    "          <!--[if gte mso 9]>\n" +
+                    "                  </td>\n" +
                     "                </tr>\n" +
-                    "            </table>\n" +
-                    "            <!-- END Footer -->\n" +
+                    "              </table>\n" +
+                    "            <![endif]-->\n" +
+                    "          <!-- // END TEMPLATE -->\n" +
                     "        </td>\n" +
-                    "    </tr>\n" +
-                    "</table>";
+                    "      </tr>\n" +
+                    "    </table>";
             helper.setText(content, true);
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", 465, "a0721i1.2022@gmail.com", "ykddrsefedbcbvos");
@@ -281,6 +575,7 @@ public class ProductController {
         } catch (Exception exc) {
             System.out.println(exc);
         }
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 
     //VinhTQ
@@ -299,7 +594,6 @@ public class ProductController {
     @GetMapping("/list/auction")
     public ResponseEntity<List<Product>> showListProductAuction() {
         List<Product> productList = productService.getAllProductAuntion();
-
         if (productList.isEmpty()) {
             return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);
         } else {
@@ -337,15 +631,54 @@ public class ProductController {
         }
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
+    //ToanPT
+    @GetMapping("/type")
+    public ResponseEntity<List<TypeProduct>>  findByAllTypeProduct() {
+        List<TypeProduct> typeProducts = typeProductService.findByAll();
+        if (typeProducts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(typeProducts,  HttpStatus.OK);
+        }
+    }
+    @GetMapping("/img")
+    public ResponseEntity<List<ImageProduct>> findByAllImageProduct() {
+        List<ImageProduct> imageProducts = imageProductService.findByAll();
+        if (imageProducts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(imageProducts,HttpStatus.OK);
+        }
+    }
+//
+//    @GetMapping("/get/{id}")
+//    public ResponseEntity<Product> getProductById(@PathVariable Long id){
+//        Product product = productService.getProductById(id);
+//        return new ResponseEntity<>(product , HttpStatus.OK);
+//
+//    }
+
+    @GetMapping("/member/{id}")
+    public ResponseEntity<Member> getMemberById(@PathVariable Long id){
+        Optional<Member> member = memberService.findByIdMember(id);
+        return new ResponseEntity<Member>(member.get() , HttpStatus.OK);
+    }
+
+    @PatchMapping("/edit")
+    public ResponseEntity editProduct(@RequestBody Product product){
+        productService.updateProduct(product);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
 
     //HieuDV
-    @GetMapping("/list-not-pagination")
-    public ResponseEntity<List<Product>> getAllNotDeletedYetNotPagination() {
-        List<Product> productList = productService.getAllNotDeletedYet();
-        if (productList.isEmpty()) {
+    @GetMapping("list-bidding-status")
+    public ResponseEntity<Iterable<BiddingStatus>> getAllBiddingStatus() {
+        List<BiddingStatus> biddingStatusList = biddingStatusService.findByAll();
+        if (biddingStatusList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(biddingStatusList,  HttpStatus.OK);
         }
-        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
     //HauLST
@@ -359,31 +692,46 @@ public class ProductController {
     }
 
     //HieuDV
-    @GetMapping("/search")
-    public ResponseEntity<Iterable<Product>> getAllProductByNameTypeSellerPriceStatus(@RequestParam(defaultValue = "") String name,
-                                                                                      @RequestParam(defaultValue = "") String typeProduct,
-                                                                                      @RequestParam(defaultValue = "") String sellerName,
-                                                                                      @RequestParam(defaultValue = "") String maxPrice,
-                                                                                      @RequestParam(defaultValue = "") String minPrice,
-                                                                                      @RequestParam(defaultValue = "") String biddingStatus,
-                                                                                      @RequestParam int page) {
-        Pageable pageable = PageRequest.of(page, 10);
-        Page<Product> productList = this.productService.getAllProductByNameTypeSellerPriceStatus(name, typeProduct, sellerName, maxPrice, minPrice, biddingStatus, pageable);
-        if (productList.isEmpty()) {
+    @GetMapping("list-approval-status")
+    public ResponseEntity<Iterable<ApprovalStatus>> getAllApprovalStatus() {
+        List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
+        if (approvalStatusList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(productList, HttpStatus.OK);
+        return new ResponseEntity<>(approvalStatusList, HttpStatus.OK);
     }
 
+
     //HieuDV
-    @GetMapping("/search-not-pagination")
-    public ResponseEntity<List<Product>> getAllProductByNameTypeSellerPriceStatusNotPagination(@RequestParam(defaultValue = "") String name,
-                                                                                               @RequestParam(defaultValue = "") String typeProduct,
-                                                                                               @RequestParam(defaultValue = "") String sellerName,
-                                                                                               @RequestParam(defaultValue = "") String maxPrice,
-                                                                                               @RequestParam(defaultValue = "") String minPrice,
-                                                                                               @RequestParam(defaultValue = "") String BiddingStatus) {
-        List<Product> productList = this.productService.getAllProductByNameTypeSellerPriceStatusNotPagination(name, typeProduct, sellerName, maxPrice, minPrice, BiddingStatus);
+    @GetMapping("/search/{name}/{typeProduct}/{sellerName}/{maxPrice}/{minPrice}/{biddingStatus}/{page}")
+    public ResponseEntity<Iterable<Product>> getAllProductByNameTypeSellerPriceStatus(@PathVariable String name,
+                                                                                      @PathVariable String typeProduct,
+                                                                                      @PathVariable String sellerName,
+                                                                                      @PathVariable String maxPrice,
+                                                                                      @PathVariable String minPrice,
+                                                                                      @PathVariable String biddingStatus,
+                                                                                      @PathVariable int page) {
+        if (name.equals("null")) {
+            name = "";
+        }
+        if (typeProduct.equals("null")) {
+            typeProduct = "";
+        }
+        if (sellerName.equals("null")) {
+            sellerName = "";
+        }
+        if (maxPrice.equals("null")) {
+            maxPrice = "10000000";
+        }
+        if (minPrice.equals("null")) {
+            minPrice = "0";
+        }
+        if (biddingStatus.equals("null")) {
+            biddingStatus = "";
+        }
+
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<Product> productList = productService.getAllProductByNameTypeSellerPriceStatus(name, typeProduct, sellerName, maxPrice, minPrice, biddingStatus, pageable);
         if (productList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -401,10 +749,64 @@ public class ProductController {
     }
 
     //HieuDV
-    @PostMapping("/update-bidding-status")
+    @PutMapping("/update-bidding-status")
     public ResponseEntity<Product> updateProductBiddingStatus(@RequestBody Product product) {
         this.productService.saveProduct(product);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-}
+    //thao
+    @GetMapping( "listProduct")
+    public ResponseEntity<List<Product>> findByAll() {
+        List<Product> productList = productService.findAll();
 
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(productList, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("postProduct")
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
+        LocalDateTime localDateTime=LocalDateTime.now();
+        DateTimeFormatter fm=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String myfm=fm.format(localDateTime);
+        product.setStartDate(myfm);
+        product.setEndDate(myfm);
+        product.setBiddingStatus(this.biddingStatusService.findById((long) 1));
+//        product.setCart(cartService.findById((long) 1));
+        List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
+        for (ApprovalStatus a : approvalStatusList) {
+            if (a.getIdApprovalStatus() == 1) {
+                /* Get approval status by id */
+                ApprovalStatus approvalStatus = approvalStatusService.getApprovalStatusById(a.getIdApprovalStatus());
+                product.setApprovalStatus(approvalStatus);
+            }
+        }
+        Product productCreated = productService.postProduct(product);
+        return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
+
+    }
+
+    @GetMapping(value = "/typeProduct")
+    public ResponseEntity<List<TypeProduct>> findByAllTypeproduct() {
+        List<TypeProduct> typeProducts = typeProductService.findByAll();
+        if (typeProducts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(typeProducts, HttpStatus.OK);
+        }
+    }
+
+    @PostMapping( "/create-images")
+    public ResponseEntity<ImageProduct> createImages(@RequestBody ImageProduct imageProduct) {
+        /* Save each picture */
+        ImageProduct imageProduct1 = this.imageProductService.save(imageProduct);
+        return new ResponseEntity<>(imageProduct1, HttpStatus.OK);
+    }
+
+    @GetMapping("/typeProduct/{id}")
+    public ResponseEntity<TypeProduct> getTypeProductById(@PathVariable long id) {
+        return new ResponseEntity<TypeProduct>(typeProductService.findById(id), HttpStatus.OK);
+    }
+}
