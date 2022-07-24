@@ -26,8 +26,6 @@ public class AccountService implements IAccountService,UserDetailsService {
     @Autowired
     private IAccountRepository iAccountRepository;
 
-
-
     @Override
     public Account save(Account account) {
         return iAccountRepository.save(account);
@@ -57,7 +55,6 @@ public class AccountService implements IAccountService,UserDetailsService {
     public void delele(Account account) {
 
     }
-
 
     // HuyNN
     @Override
@@ -89,6 +86,7 @@ public class AccountService implements IAccountService,UserDetailsService {
     public Account findAccountByEmailAndUsername(String email, String username) {
         return iAccountRepository.findAccountByUsernameAndEnmail(username, email);
     }
+
 
 
     /* Get accounts by role name -TuanNHA */

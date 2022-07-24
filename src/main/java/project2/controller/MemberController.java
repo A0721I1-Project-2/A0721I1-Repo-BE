@@ -39,7 +39,7 @@ import java.util.Set;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class MemberController {
     @Autowired
     private IRankService iRankService;
@@ -161,6 +161,7 @@ public class MemberController {
                 break;
             }
         }
+
         if (bindingResult.hasErrors() || !check) {
             if (bindingResult.hasErrors()) {
                 return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_MODIFIED);
@@ -235,13 +236,10 @@ public class MemberController {
         iMemberService.editMember(member);
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
+
     // HuyNN get member by id method
     @GetMapping("/getMemberById/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable Long id) {
         return new ResponseEntity<Member>(iMemberService.findByIdMember(id).get(), HttpStatus.OK);
     }
 }
-
-
-
-

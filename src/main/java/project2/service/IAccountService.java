@@ -20,7 +20,6 @@ public interface IAccountService {
 
     void delele(Account account);
 
-
     // HuyNN find account by member
     Account findByMember(Member member);
 

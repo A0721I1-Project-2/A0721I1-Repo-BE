@@ -50,6 +50,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             manager.setLast_login(LocalDate.now());
             HashSet<Role> roles = new HashSet<>();
             roles.add(roleRepository.findByNameRole("ROLE_MANAGER"));
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
             manager.setRoles(roles);
             accountRepository.save(manager);
         }
@@ -59,6 +60,31 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         if (accountRepository.findAccountByUsername("member@aution.com") == null){
             Account member = new Account();
             member.setUsername("member@aution.com");
+            member.setPassword(EncrypPasswordUtils("123123"));
+            member.setFlagDelete(false);
+            member.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            member.setRoles(roles);
+            accountRepository.save(member);
+        }
+
+        if (accountRepository.findAccountByUsername("member1@aution.com") == null){
+            Account member = new Account();
+            member.setUsername("member1@aution.com");
+            member.setPassword(EncrypPasswordUtils("123123"));
+            member.setFlagDelete(false);
+            member.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            member.setRoles(roles);
+            accountRepository.save(member);
+        }
+
+
+        if (accountRepository.findAccountByUsername("member2@aution.com") == null){
+            Account member = new Account();
+            member.setUsername("member2@aution.com");
             member.setPassword(EncrypPasswordUtils("123123"));
             member.setFlagDelete(false);
             member.setLast_login(LocalDate.now());

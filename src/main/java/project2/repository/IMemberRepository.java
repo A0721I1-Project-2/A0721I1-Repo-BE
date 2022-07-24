@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import project2.model.Member;
 import java.util.Optional;
-
 import java.util.List;
 @Repository
 public interface IMemberRepository extends JpaRepository<Member, Long> {
@@ -41,11 +40,11 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
     Page<Member> searchAllMember(String name, String email, String address, String phoneNumber, String nameRank, Pageable pageable);
 
     //SonLT View-Member
-    Member findMemberByAccount_IdAccount(Long id);
-
-
     @Query(value = "select nameMember from Member")
     void getTransactionByMember();
+
+    //SonLT View-Member
+    Member findMemberByAccount_IdAccount(Long id);
 
     Member findByEmailMember(String email);
 }

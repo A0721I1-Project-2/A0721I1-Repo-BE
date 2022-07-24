@@ -145,10 +145,4 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "and (Product.final_price >?3)\n" +
             "order by Product.end_date asc", nativeQuery = true)
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> d7902aaa82febe4cd90244fc3eedd1eccc80223f
 }
