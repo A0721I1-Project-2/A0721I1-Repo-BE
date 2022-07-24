@@ -46,3 +46,6 @@ public interface IMemberRepository extends JpaRepository<Member, Long> {
 
     Member findByEmailMember(String email);
 }
+
+
+

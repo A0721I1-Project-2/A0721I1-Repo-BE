@@ -98,7 +98,7 @@ public class ProductController {
 
     //HieuDV
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
+        public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Product> productList = productService.getAllNotDeletedYet(pageable);
         if (productList.isEmpty()) {
