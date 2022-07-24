@@ -60,7 +60,7 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
-//    private Set<Member> members;
+    //    private Set<Member> members;
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "id_member", nullable = true)
     private Member members;

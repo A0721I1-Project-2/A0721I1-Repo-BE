@@ -13,7 +13,6 @@ import project2.service.IProductService;
 import java.util.List;
 import java.util.Optional;
 import java.util.List;
-
 @Service
 public class ProductService implements IProductService {
 
