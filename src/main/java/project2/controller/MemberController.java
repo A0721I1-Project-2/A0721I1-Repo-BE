@@ -198,7 +198,7 @@ public class MemberController {
             member.setPhoneMember(accountMemberDTO.getPhoneMember());
             member.setCheckedClause(false);
             /*Set rank default*/
-            Rank rank = iRankService.findByName("BRONZE").get();
+            Rank rank = iRankService.findByName("BROZER").get();
             member.setRank(rank);
 
             iMemberService.save(member);

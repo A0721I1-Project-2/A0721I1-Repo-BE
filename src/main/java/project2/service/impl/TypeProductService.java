@@ -9,6 +9,8 @@ import project2.service.ITypeProductService;
 import javax.persistence.Access;
 import java.util.List;
 
+import java.util.List;
+
 @Service
 public class TypeProductService implements ITypeProductService {
     @Autowired

@@ -5,6 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import project2.config.SmtpAuthenticator;
+import project2.model.Product;
+import project2.service.IFirebaseService;
+import project2.service.IImageProductService;
+import project2.service.IProductService;
+
+import java.io.IOException;
 
 import project2.model.*;
 import project2.service.*;
@@ -39,6 +47,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.ParseException;
 import java.util.*;
 
 
@@ -71,8 +80,16 @@ public class ProductController {
     @Autowired
     private ICartService iCartService;
 
+
+    // SamTV
+    @PostMapping
+    public ResponseEntity saveProduct(Product product, Long idPoster, List<MultipartFile> multipartFiles) throws IOException {
+        return this.productService.save(product,idPoster, multipartFiles);
+    }
+
     @Autowired
     private IAccountService iAccountService;
+
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -92,7 +109,7 @@ public class ProductController {
 
     //HieuDV
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
+        public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Product> productList = productService.getAllNotDeletedYet(pageable);
         if (productList.isEmpty()) {
@@ -198,6 +215,15 @@ public class ProductController {
     public ResponseEntity<Member> getMemberByIdAccount(@PathVariable Long idAccount) {
         Member member = this.memberService.findByIdAccount(idAccount);
         return new ResponseEntity(member, HttpStatus.OK);
+    }
+
+    @GetMapping("/updateIdBindingStatus/{idProduct}/{idBindingStatus}")
+    public ResponseEntity updateIdBindingStatus(@PathVariable Long idProduct, @PathVariable Long idBindingStatus) {
+        Product product = this.productService.getProductById(idProduct);
+        BiddingStatus biddingStatus = this.biddingStatusService.findById(idBindingStatus);
+        product.setBiddingStatus(biddingStatus);
+        this.productService.saveProduct(product);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //HuyNN
@@ -772,14 +798,12 @@ public class ProductController {
 
     //Thao
     @PostMapping("postProduct")
-    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
-        LocalDateTime localDateTime=LocalDateTime.now();
-        DateTimeFormatter fm=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String myfm=fm.format(localDateTime);
-        product.setStartDate(myfm);
-        product.setEndDate(myfm);
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) throws ParseException {
+        String timeFormatEndDate = product.getEndDate().replace ( "T" , " " );
+        String timeFormatStartDate =product.getStartDate().replace ( "T" , " " );
+        product.setStartDate(timeFormatStartDate);
+        product.setEndDate(timeFormatEndDate);
         product.setBiddingStatus(this.biddingStatusService.findById((long) 1));
-//        product.setCart(cartService.findById((long) 1));
         List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
         for (ApprovalStatus a : approvalStatusList) {
             if (a.getIdApprovalStatus() == 1) {
