@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import org.springframework.data.repository.query.Param;
+
 
 import org.springframework.stereotype.Repository;
-import project2.dto.TransactionDTO;
+
 import project2.model.Product;
 
 import java.util.List;
@@ -24,7 +24,6 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "inner join member on member.id_member = cart.id_member " +
             "where product.flag_delete = 0 and cart.id_member = ?1", nativeQuery = true)
     List<Product> getProductInCart(int i);
-
     // BachLT
     @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = false", nativeQuery = true)
     List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd, long biddingStatus);

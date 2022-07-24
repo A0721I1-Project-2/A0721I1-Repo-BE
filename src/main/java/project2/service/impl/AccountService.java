@@ -26,8 +26,6 @@ public class AccountService implements IAccountService,UserDetailsService {
     @Autowired
     private IAccountRepository iAccountRepository;
 
-
-
     @Override
     public Account save(Account account) {
         return iAccountRepository.save(account);
@@ -89,6 +87,13 @@ public class AccountService implements IAccountService,UserDetailsService {
         return iAccountRepository.findAccountByUsernameAndEnmail(username, email);
     }
 
+
+
+    /* Get accounts by role name -TuanNHA */
+    @Override
+    public List<Account> getAccountsByRoleName() {
+        return this.iAccountRepository.getAccountsByRoleMember();
+    }
 
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

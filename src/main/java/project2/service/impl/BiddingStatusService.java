@@ -18,6 +18,7 @@ public class BiddingStatusService implements IBiddingStatusService {
         return this.iBiddingStatusRepository.findById(id).orElse(null);
     }
     @Override
+
     public List<BiddingStatus> findByAll(){
         return this.iBiddingStatusRepository.findAll();
     }

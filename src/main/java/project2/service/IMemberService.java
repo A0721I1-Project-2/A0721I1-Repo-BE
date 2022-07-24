@@ -27,6 +27,9 @@ public interface IMemberService {
 
     void delele(Member member);
 
+
+    Optional<Member> getMemberByAccountId(Long accountId);
+
     //HauNT 
     Member findByIdAccount(Long IdAccount);
 
