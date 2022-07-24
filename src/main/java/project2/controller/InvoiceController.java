@@ -49,7 +49,7 @@ public class InvoiceController {
         MimeMessageHelper helper = new MimeMessageHelper(message,"UTF-8");
 
         helper.setFrom("\"contact@a0721i1.com\",");
-        helper.setTo("thieuthanhtu1994@gmail.com");
+        helper.setTo(mail);
         String subject = "Invoice-A0721I1-Aution Ltd.";
         helper.setSubject(subject);
         helper.setText("<!doctype html>\n" +
