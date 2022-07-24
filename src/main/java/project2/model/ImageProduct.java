@@ -21,6 +21,10 @@ public class ImageProduct {
     public ImageProduct() {
     }
 
+    public ImageProduct(String imageProduct) {
+        this(null, imageProduct, null);
+    }
+
     public ImageProduct(Long idImageProduct, String imageProduct, Product product) {
         this.idImageProduct = idImageProduct;
         this.imageProduct = imageProduct;
