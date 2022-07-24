@@ -65,6 +65,9 @@ public class ProductController {
     @Autowired
     private ICartService iCartService;
 
+    @Autowired
+    private IAccountService iAccountService;
+
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
     public ResponseEntity<List<Product>> statsProductFromDateToDate(@PathVariable Optional<String> statsBegin, @PathVariable Optional<String> statsEnd, @PathVariable int biddingStatus) {
@@ -179,9 +182,22 @@ public class ProductController {
     }
 
     //HuyNN
+    @GetMapping("/getAccountByUsername/{username}")
+    public ResponseEntity<Account> getAccountByUsername(@PathVariable String username) {
+        Account account = this.iAccountService.getAccountByUsername(username);
+        return new ResponseEntity(account, HttpStatus.OK);
+    }
+
+    @GetMapping("/getMemberByIdAccount/{idAccount}")
+    public ResponseEntity<Member> getMemberByIdAccount(@PathVariable Long idAccount) {
+        Member member = this.memberService.findByIdAccount(idAccount);
+        return new ResponseEntity(member, HttpStatus.OK);
+    }
+
+    //HuyNN
     @GetMapping("/sendPaymentEmail/{email}/{productName}")
     public ResponseEntity sendEmailAuctionProduct(@PathVariable String email, @PathVariable String productName) {
-        String paymentLink = "http://localhost:4200";
+        String paymentLink = "http://localhost:4200/payment/payment-cart";
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.stmp.user", "a0721i1.2022@gmail.com");

@@ -14,10 +14,6 @@ import java.util.Optional;
 @Service
 public class MemberService implements IMemberService {
 
-
-    @Autowired
-    private IMemberRepository iMemberRepository;
-
     @Autowired
     private IMemberRepository memberRepository;
 
@@ -63,12 +59,12 @@ public class MemberService implements IMemberService {
 
     @Override
     public Member findByIdAccount(Long IdAccount) {
-        return iMemberRepository.findMemberByAccount_IdAccount(IdAccount);
+        return memberRepository.findMemberByAccount_IdAccount(IdAccount);
     }
     //SonLT View-Member
     @Override
     public Member findMemberByIdAccount(Long id) {
-            return memberRepository.findMemberByAccount_IdAccount(id);
+        return memberRepository.findMemberByAccount_IdAccount(id);
     }
 
     //SonLT Edit-Member
@@ -79,7 +75,7 @@ public class MemberService implements IMemberService {
 
     @Override
     public void getTransactionMember() {
-        iMemberRepository.getTransactionByMember();
+        memberRepository.getTransactionByMember();
 
     }
 }
