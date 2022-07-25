@@ -60,8 +60,6 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
-
-    //    private Set<Member> members;
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "id_member", nullable = true)
     private Member members;
@@ -243,15 +241,8 @@ public class Product {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
-//    public String getPosterInformation() {
-//        return posterInformation;
-//    }
-//
-//    public void setPosterInformation(String posterInformation) {
-//        this.posterInformation = posterInformation;
-//    }
+
 
 }
-
 
 
