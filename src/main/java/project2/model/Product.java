@@ -15,7 +15,7 @@ public class Product {
     private String codeProduct;
     @Column(name = "name_product")
     private String nameProduct;
-//    @Column(name = "poster_information")
+    //    @Column(name = "poster_information")
 //    private String posterInformation;
     @Column(name = "initial_price")
     private Double initialPrice;
@@ -31,7 +31,7 @@ public class Product {
     private String endDate;
     @Column(name = "remaining_time")
     private String remainingTime;
-    @Column(name="create_day")
+    @Column(name = "create_day")
     private String createDay;
     @Column(name = "flag_delete")
     private Boolean flagDelete;
@@ -49,7 +49,7 @@ public class Product {
     private BiddingStatus biddingStatus;
 
     @OneToMany(mappedBy = "product")
-    @JsonBackReference(value = "product_imageProduct")
+//    @JsonBackReference(value = "product_imageProduct")
     private List<ImageProduct> imageProductList;
 
     @OneToMany(mappedBy = "product")
@@ -57,9 +57,8 @@ public class Product {
     private List<InvoiceDetail> invoiceDetailList;
 
     @ManyToOne(targetEntity = Cart.class)
-    @JoinColumn(name = "id_cart", nullable = false)
+    @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
-
 
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "id_member", nullable = true)
@@ -243,13 +242,7 @@ public class Product {
         this.cart = cart;
     }
 
-//    public String getPosterInformation() {
-//        return posterInformation;
-//    }
-//
-//    public void setPosterInformation(String posterInformation) {
-//        this.posterInformation = posterInformation;
-//    }
+
 }
 
 

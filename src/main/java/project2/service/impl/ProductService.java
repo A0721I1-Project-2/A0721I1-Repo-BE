@@ -1,6 +1,7 @@
 package project2.service.impl;
 
 
+import com.google.type.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -13,11 +14,11 @@ import project2.model.*;
 import project2.repository.*;
 import project2.service.IProductService;
 
+import java.time.LocalDate;
 import java.util.List;
-
 import java.util.Objects;
 import java.util.Optional;
-import java.util.List;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -42,20 +43,28 @@ public class ProductService implements IProductService {
     @Autowired
 
     private ICartRepository cartRepository;
+
+
     public ResponseEntity save(Product product, Long idMember, List<MultipartFile> multipartFile) {
         try {
-
             List<ApprovalStatus> all = this.approvalStatusRepository.findAll();
             List<BiddingStatus> all1 = this.biddingStatusRepository.findAll();
+            String timeFormatEndDate = product.getEndDate().replace ( "T" , " " );
+            String timeFormatStartDate =product.getStartDate().replace ( "T" , " " );
+            product.setStartDate(timeFormatStartDate);
+            product.setEndDate(timeFormatEndDate);
             Cart byMember = this.cartRepository.getByIdMember(idMember);
 
             Optional<Product> productOPT = this.productRepository.findByCodeProduct(product.getCodeProduct());
             if (productOPT.isPresent()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mã sản phẩm đã tồn tại");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product code existed");
             }
-
-            product.setBiddingStatus(all1.get(0));
-            product.setApprovalStatus(all.get(0));
+            product.setCreateDay(product.getCreateDay());
+            product.setFinalPrice(product.getInitialPrice());
+            product.setCreateDay(LocalDate.now().toString());
+            product.setFlagDelete(false);
+            product.setBiddingStatus(all1.get(1));
+            product.setApprovalStatus(all.get(1));
             product.setCart(byMember);
             product.setMember(memberRepository.findById(idMember).get());
             List<ImageProduct> imageProducts = multipartFile
@@ -69,7 +78,7 @@ public class ProductService implements IProductService {
             imageProducts.forEach(image -> image.setProduct(save));
             this.imageProductRepository.saveAll(imageProducts);
             return ResponseEntity.ok(save);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
@@ -90,15 +99,17 @@ public class ProductService implements IProductService {
         System.out.println(productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus));
         return productRepository.findProductByEndDateAndBiddingStatus(statsBegin, statsEnd, biddingStatus);
     }
+
     //BachLT
     @Override
     public List<Product> getAllProductAtCurrentMonth(int curMonth, int biddingStatus) {
         System.out.println(productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus));
         return productRepository.findProductByCurrentMonthAndBiddingStatus(curMonth, biddingStatus);
     }
+
     //Thao
     @Override
-    public  Product postProduct(Product product) {
+    public Product postProduct(Product product) {
         return productRepository.save(product);
     }
 
@@ -117,7 +128,7 @@ public class ProductService implements IProductService {
         return productRepository.save(product);
     }
 
-        //HieuDV
+    //HieuDV
     @Override
     public Page<Product> getAllNotDeletedYet(Pageable pageable) {
         return productRepository.findAllNotDeletedYet(pageable);

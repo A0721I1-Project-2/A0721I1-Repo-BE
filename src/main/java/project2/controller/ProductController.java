@@ -28,9 +28,7 @@ import project2.model.Member;
 import project2.model.Product;
 import project2.service.ICartService;
 import project2.service.IMemberService;
-
 import project2.service.IProductService;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +47,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.ParseException;
 import java.util.*;
 
 
@@ -59,16 +58,19 @@ import java.util.*;
 public class ProductController {
     @Autowired
     private TypeProductService typeProductService;
+
     @Autowired
     private ImageProductService imageProductService;
-    @Autowired
 
+    @Autowired
     private IProductService productService;
 
     @Autowired
     private IBiddingStatusService biddingStatusService;
+
     @Autowired
     private IMemberService memberService;
+
     @Autowired
     private IApprovalStatusService approvalStatusService;
 
@@ -85,6 +87,9 @@ public class ProductController {
         return this.productService.save(product,idPoster, multipartFiles);
     }
 
+
+    @Autowired
+    private IAccountService iAccountService;
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -104,7 +109,7 @@ public class ProductController {
 
     //HieuDV
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
+        public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Product> productList = productService.getAllNotDeletedYet(pageable);
         if (productList.isEmpty()) {
@@ -179,14 +184,10 @@ public class ProductController {
     public ResponseEntity addProductToCart(@PathVariable Long idMember, @PathVariable Long idProduct) {
         Cart cart = iCartService.findByIdMember(idMember);
         if (cart == null) {
-            Member member = this.memberService.findByIdMember(idMember).get();
-            Cart newCart = new Cart();
-            newCart.setWarning("0");
-            newCart.setMember(member);
-            this.iCartService.createCart(newCart);
-            cart = iCartService.findByIdMember(idMember);
+            this.iCartService.createCart("0", idMember);
+            Cart newCart = iCartService.findByIdMember(idMember);
             Product product = this.productService.getProductById(idProduct);
-            product.setCart(cart);
+            product.setCart(newCart);
             productService.updateIdCard(product);
         } else {
             Product product = this.productService.getProductById(idProduct);
@@ -200,13 +201,35 @@ public class ProductController {
     @PutMapping("/updateCart")
     public ResponseEntity updateCart(@RequestBody Cart cart) {
         this.iCartService.updateCart(cart);
-        return new ResponseEntity(null, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    //HuyNN
+    @GetMapping("/getAccountByUsername/{username}")
+    public ResponseEntity<Account> getAccountByUsername(@PathVariable String username) {
+        Account account = this.iAccountService.getAccountByUsername(username);
+        return new ResponseEntity(account, HttpStatus.OK);
+    }
+
+    @GetMapping("/getMemberByIdAccount/{idAccount}")
+    public ResponseEntity<Member> getMemberByIdAccount(@PathVariable Long idAccount) {
+        Member member = this.memberService.findByIdAccount(idAccount);
+        return new ResponseEntity(member, HttpStatus.OK);
+    }
+
+    @GetMapping("/updateIdBindingStatus/{idProduct}/{idBindingStatus}")
+    public ResponseEntity updateIdBindingStatus(@PathVariable Long idProduct, @PathVariable Long idBindingStatus) {
+        Product product = this.productService.getProductById(idProduct);
+        BiddingStatus biddingStatus = this.biddingStatusService.findById(idBindingStatus);
+        product.setBiddingStatus(biddingStatus);
+        this.productService.saveProduct(product);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //HuyNN
     @GetMapping("/sendPaymentEmail/{email}/{productName}")
     public ResponseEntity sendEmailAuctionProduct(@PathVariable String email, @PathVariable String productName) {
-        String paymentLink = "http://localhost:4200";
+        String paymentLink = "http://localhost:4200/payment/payment-cart";
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.stmp.user", "a0721i1.2022@gmail.com");
@@ -775,14 +798,12 @@ public class ProductController {
 
     //Thao
     @PostMapping("postProduct")
-    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
-        LocalDateTime localDateTime=LocalDateTime.now();
-        DateTimeFormatter fm=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String myfm=fm.format(localDateTime);
-        product.setStartDate(myfm);
-        product.setEndDate(myfm);
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) throws ParseException {
+        String timeFormatEndDate = product.getEndDate().replace ( "T" , " " );
+        String timeFormatStartDate =product.getStartDate().replace ( "T" , " " );
+        product.setStartDate(timeFormatStartDate);
+        product.setEndDate(timeFormatEndDate);
         product.setBiddingStatus(this.biddingStatusService.findById((long) 1));
-//        product.setCart(cartService.findById((long) 1));
         List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
         for (ApprovalStatus a : approvalStatusList) {
             if (a.getIdApprovalStatus() == 1) {

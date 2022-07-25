@@ -26,7 +26,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "where product.flag_delete = 0 and cart.id_member = ?1", nativeQuery = true)
     List<Product> getProductInCart(int i);
     // BachLT
-    @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = false", nativeQuery = true)
+    @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = 0", nativeQuery = true)
     List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd, long biddingStatus);
 
     // BachLT
