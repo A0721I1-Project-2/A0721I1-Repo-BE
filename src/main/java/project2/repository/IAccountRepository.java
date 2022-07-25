@@ -17,7 +17,7 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
 
 
     /* Get accounts by role name -TuanNHA */
-    @Query(value = "select * from `account` \n" +
+    @Query(value = "select account.* from `account` \n" +
             "inner join account_role\n" +
             "on account_role.id_account = `account`.id_account\n" +
             "group by `account`.id_account\n" +
