@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 
-
 import org.springframework.stereotype.Repository;
 
 import project2.model.Product;
@@ -25,12 +24,13 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "inner join member on member.id_member = cart.id_member " +
             "where product.flag_delete = 0 and cart.id_member = ?1", nativeQuery = true)
     List<Product> getProductInCart(int i);
-    // BachLT
-    @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = 0", nativeQuery = true)
+
+    // BachLT  - change flag_delete to 1
+    @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = 1", nativeQuery = true)
     List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd, long biddingStatus);
 
-    // BachLT
-    @Query(value = "SELECT * FROM Product  WHERE MONTH(end_date)=?1 and id_bidding_status= ?2 and product.flag_delete = 0", nativeQuery = true)
+    // BachLT  - change flag_delete to 1
+    @Query(value = "SELECT * FROM Product  WHERE MONTH(end_date)=?1 and id_bidding_status= ?2 and product.flag_delete = 1", nativeQuery = true)
     List<Product> findProductByCurrentMonthAndBiddingStatus(int currentMonth, long biddingStatus);
 
     //HieuDV
