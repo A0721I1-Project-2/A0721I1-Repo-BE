@@ -226,6 +226,17 @@ public class ProductController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping("/blockMemberAndAccount/{idMember}/{idAccount}")
+    public ResponseEntity blockMemberAndAccount(@PathVariable Long idMember, @PathVariable Long idAccount) {
+        Member member = this.memberService.findByIdMember(idMember).get();
+        member.setFlagDelete(true);
+        this.memberService.save(member);
+        Account account = this.iAccountService.findById(idAccount).get();
+        account.setFlagDelete(true);
+        this.iAccountService.save(account);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     //HuyNN
     @GetMapping("/sendPaymentEmail/{email}/{productName}")
     public ResponseEntity sendEmailAuctionProduct(@PathVariable String email, @PathVariable String productName) {
@@ -600,7 +611,7 @@ public class ProductController {
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", 465, "a0721i1.2022@gmail.com", "ykddrsefedbcbvos");
             transport.send(msg);
-            System.out.println("fine!!");
+            System.out.println("Send Email Successfully!!");
         } catch (Exception exc) {
             System.out.println(exc);
         }
