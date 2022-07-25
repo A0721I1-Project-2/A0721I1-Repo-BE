@@ -1,6 +1,17 @@
 package project2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import project2.model.Account;
+import project2.model.Member;
+import project2.service.impl.AccountService;
+import project2.service.impl.MemberService;
+
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,6 +32,7 @@ import project2.service.IRankService;
 import project2.service.IRoleService;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.HashSet;
 import java.util.List;
@@ -28,7 +40,7 @@ import java.util.Set;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class MemberController {
     @Autowired
     private IRankService iRankService;
@@ -56,21 +68,30 @@ public class MemberController {
     @Autowired
     private IRankService rankService;
 
+    /* Get member by account id */
+    @RequestMapping(value = "/account={accountId}", method = RequestMethod.GET)
+    public ResponseEntity<Member> getMemberByAccountId(@PathVariable("accountId") Long accountId) {
+        Optional<Member> member = this.memberService.getMemberByAccountId(accountId);
+        if (member.isPresent()) {
+            return new ResponseEntity<>(member.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
     @GetMapping("/allMember")
-    public ResponseEntity<Page<Member>> showListMember(@PageableDefault(size = 10) Pageable pageable){
+    public ResponseEntity<Page<Member>> showListMember(@PageableDefault(size = 10) Pageable pageable) {
         Page<Member> memberPage = memberService.findAll(pageable);
         return new ResponseEntity<>(memberPage, HttpStatus.OK);
     }
 
     @GetMapping("/getAccount")
-    public ResponseEntity<List<Account>> showListAccount(){
+    public ResponseEntity<List<Account>> showListAccount() {
         List<Account> accountList = accountService.findAll();
         return new ResponseEntity<>(accountList, HttpStatus.OK);
     }
 
     @GetMapping("/allRankMember")
-    public ResponseEntity<List<Rank>> showListRankMember(){
+    public ResponseEntity<List<Rank>> showListRankMember() {
         List<Rank> rankMembers = rankService.findAllRank();
         return new ResponseEntity<>(rankMembers, HttpStatus.OK);
     }
@@ -141,6 +162,7 @@ public class MemberController {
                 break;
             }
         }
+
         if (bindingResult.hasErrors() || !check) {
             if (bindingResult.hasErrors()) {
                 return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_MODIFIED);
@@ -161,7 +183,8 @@ public class MemberController {
             Role role = iRoleService.findByName("ROLE_MEMBER");
             roles.add(role);
             account.setRoles(roles);
-
+            account.setFlagDelete(false);
+            account.getLast_login(LocalDate.now());
             Account accountCreated = iAccountService.save(account);
             /* Set data for member */
             member.setAccount(iAccountService.findById(accountCreated.getIdAccount()).get());
@@ -175,7 +198,7 @@ public class MemberController {
             member.setPhoneMember(accountMemberDTO.getPhoneMember());
             member.setCheckedClause(false);
             /*Set rank default*/
-            Rank rank = iRankService.findByName("RANK_BẠC").get();
+            Rank rank = iRankService.findByName("BRONZE").get();
             member.setRank(rank);
 
             iMemberService.save(member);
@@ -200,7 +223,7 @@ public class MemberController {
 
     //SonLT View-Member
     @GetMapping("/profile/{idAccount}")
-    public ResponseEntity<Member> findMember(@PathVariable Long idAccount){
+    public ResponseEntity<Member> findMember(@PathVariable Long idAccount) {
         Member member = iMemberService.findMemberByIdAccount(idAccount);
         if (member == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -209,11 +232,13 @@ public class MemberController {
         }
     }
 
+
     //SonLT Edit-Member
-    @PutMapping("/profile/edit")
-    public ResponseEntity<Member> updateMember(@RequestBody Member member){
+    @PatchMapping("/profile/edit")
+    public ResponseEntity<Void> updateMember(@RequestBody Member member){
+        System.out.println(member);
         iMemberService.editMember(member);
-        return new ResponseEntity<Member>(member, HttpStatus.OK);
+        return new ResponseEntity<Void>( HttpStatus.OK);
     }
 
     // HuyNN get member by id method
@@ -222,5 +247,6 @@ public class MemberController {
         return new ResponseEntity<Member>(iMemberService.findByIdMember(id).get(), HttpStatus.OK);
     }
 }
+
 
 

@@ -8,4 +8,6 @@ public interface IPaymentService {
     Payment save(Payment payment);
 
     List<Payment> getAllPayment();
+
+    Payment getPaymentEnd();
 }

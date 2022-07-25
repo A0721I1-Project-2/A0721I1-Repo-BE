@@ -60,6 +60,7 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = false)
     private Cart cart;
 
+
     @ManyToOne(targetEntity = Member.class)
     @JoinColumn(name = "id_member", nullable = true)
     private Member members;
@@ -233,6 +234,7 @@ public class Product {
         this.members = member;
     }
 
+
     public Cart getCart() {
         return cart;
     }
@@ -249,3 +251,5 @@ public class Product {
 //        this.posterInformation = posterInformation;
 //    }
 }
+
+

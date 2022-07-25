@@ -19,15 +19,18 @@ import project2.service.*;
 import project2.service.impl.ImageProductService;
 
 import project2.config.SmtpAuthenticator;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import project2.model.Cart;
 import project2.model.Member;
 import project2.model.Product;
 import project2.service.ICartService;
 import project2.service.IMemberService;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import project2.service.IProductService;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +43,6 @@ import project2.service.impl.TypeProductService;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
 import project2.dto.AuctionDTO;
-import project2.service.impl.*;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -60,7 +62,9 @@ public class ProductController {
     @Autowired
     private ImageProductService imageProductService;
     @Autowired
-    private ProductService productService;
+
+    private IProductService productService;
+
     @Autowired
     private IBiddingStatusService biddingStatusService;
     @Autowired
@@ -74,11 +78,13 @@ public class ProductController {
     @Autowired
     private ICartService iCartService;
 
+
     // SamTV
     @PostMapping
     public ResponseEntity saveProduct(Product product, Long idPoster, List<MultipartFile> multipartFiles) throws IOException {
         return this.productService.save(product,idPoster, multipartFiles);
     }
+
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -766,6 +772,8 @@ public class ProductController {
         }
     }
 
+
+    //Thao
     @PostMapping("postProduct")
     public ResponseEntity<Product> postProduct(@RequestBody Product product) {
         LocalDateTime localDateTime=LocalDateTime.now();
@@ -801,7 +809,7 @@ public class ProductController {
     @PostMapping( "/create-images")
     public ResponseEntity<ImageProduct> createImages(@RequestBody ImageProduct imageProduct) {
         /* Save each picture */
-        ImageProduct imageProduct1 = this.imageProductService.save(imageProduct);
+        ImageProduct imageProduct1 = imageProductService.save(imageProduct);
         return new ResponseEntity<>(imageProduct1, HttpStatus.OK);
     }
 

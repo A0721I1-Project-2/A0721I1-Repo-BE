@@ -11,15 +11,14 @@ import project2.service.IMemberService;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class MemberService implements IMemberService {
-
+    @Autowired
+    private IMemberRepository memberRepository;
 
     @Autowired
     private IMemberRepository iMemberRepository;
-
-    @Autowired
-    private IMemberRepository memberRepository;
 
     @Override
     public Member save(Member member) {
@@ -61,14 +60,25 @@ public class MemberService implements IMemberService {
 
     }
 
+    /* Get member by account id */
+    @Override
+    public Optional<Member> getMemberByAccountId(Long accountId) {
+        Optional<Member> member = this.memberRepository.getMemberByAccountId(accountId);
+        if (member.isPresent()) {
+            return this.memberRepository.getMemberByAccountId(accountId);
+        }
+        return null;
+    }
+
     @Override
     public Member findByIdAccount(Long IdAccount) {
         return iMemberRepository.findMemberByAccount_IdAccount(IdAccount);
     }
+
     //SonLT View-Member
     @Override
     public Member findMemberByIdAccount(Long id) {
-            return memberRepository.findMemberByAccount_IdAccount(id);
+        return memberRepository.findMemberByAccount_IdAccount(id);
     }
 
     //SonLT Edit-Member

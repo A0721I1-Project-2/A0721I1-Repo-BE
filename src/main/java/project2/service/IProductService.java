@@ -21,6 +21,7 @@ import java.util.List;
 public interface IProductService {
     ResponseEntity save(Product product, Long idMember, List<MultipartFile> multipartFile);
 
+
     Product postProduct(Product product);
 
     List<Product> findAll();
