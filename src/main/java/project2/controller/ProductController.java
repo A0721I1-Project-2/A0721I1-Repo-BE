@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project2.config.SmtpAuthenticator;
 import project2.model.Product;
-import project2.service.IFirebaseService;
-import project2.service.IImageProductService;
 import project2.service.IProductService;
 
 import java.io.IOException;
@@ -18,17 +16,13 @@ import project2.model.*;
 import project2.service.*;
 import project2.service.impl.ImageProductService;
 
-import project2.config.SmtpAuthenticator;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import project2.model.Cart;
 import project2.model.Member;
-import project2.model.Product;
 import project2.service.ICartService;
 import project2.service.IMemberService;
-import project2.service.IProductService;
 import java.util.List;
 import java.util.Optional;
 
