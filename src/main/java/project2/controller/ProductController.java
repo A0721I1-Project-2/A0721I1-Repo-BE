@@ -81,9 +81,9 @@ public class ProductController {
         return this.productService.save(product,idPoster, multipartFiles);
     }
 
+
     @Autowired
     private IAccountService iAccountService;
-
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
