@@ -81,9 +81,9 @@ public class ProductController {
         return this.productService.save(product,idPoster, multipartFiles);
     }
 
+
     @Autowired
     private IAccountService iAccountService;
-
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -821,6 +821,19 @@ public class ProductController {
         }
         Product productCreated = productService.postProduct(product);
         return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
+    }
+    //Thao
+    @GetMapping("/checkId")
+    public ResponseEntity<List<Product>> checkId(@RequestParam String id) {
+        List<Product> list = productService.findAll();
+        List<Product> products = new ArrayList<>();
+        for (Integer i = 0; i < list.size(); i++) {
+            if (list.get(i).getCodeProduct().equals(id)) {
+                products.add(list.get(i));
+                return new ResponseEntity<>(products, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/typeProduct")
