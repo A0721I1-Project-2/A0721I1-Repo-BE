@@ -5,21 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import project2.config.SmtpAuthenticator;
+import project2.model.Product;
+import project2.service.IProductService;
+
+import java.io.IOException;
 
 import project2.model.*;
 import project2.service.*;
 import project2.service.impl.ImageProductService;
 
-import project2.config.SmtpAuthenticator;
-import project2.model.Cart;
-import project2.model.Member;
-import project2.model.Product;
-import project2.service.ICartService;
-import project2.service.IMemberService;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import project2.service.IProductService;
+
+import project2.model.Cart;
+import project2.model.Member;
+import project2.service.ICartService;
+import project2.service.IMemberService;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,13 +35,13 @@ import project2.service.impl.TypeProductService;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
 import project2.dto.AuctionDTO;
-import project2.service.impl.*;
 
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.ParseException;
 import java.util.*;
 
 
@@ -49,14 +52,19 @@ import java.util.*;
 public class ProductController {
     @Autowired
     private TypeProductService typeProductService;
+
     @Autowired
     private ImageProductService imageProductService;
+
     @Autowired
-    private ProductService productService;
+    private IProductService productService;
+
     @Autowired
     private IBiddingStatusService biddingStatusService;
+
     @Autowired
     private IMemberService memberService;
+
     @Autowired
     private IApprovalStatusService approvalStatusService;
 
@@ -65,6 +73,17 @@ public class ProductController {
 
     @Autowired
     private ICartService iCartService;
+
+
+    // SamTV
+    @PostMapping
+    public ResponseEntity saveProduct(Product product, Long idPoster, List<MultipartFile> multipartFiles) throws IOException {
+        return this.productService.save(product,idPoster, multipartFiles);
+    }
+
+
+    @Autowired
+    private IAccountService iAccountService;
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -84,7 +103,7 @@ public class ProductController {
 
     //HieuDV
     @GetMapping("/list")
-    public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
+        public ResponseEntity<Iterable<Product>> getAllNotDeletedYet(@RequestParam int page) {
         Pageable pageable = PageRequest.of(page, 10);
         Page<Product> productList = productService.getAllNotDeletedYet(pageable);
         if (productList.isEmpty()) {
@@ -159,14 +178,10 @@ public class ProductController {
     public ResponseEntity addProductToCart(@PathVariable Long idMember, @PathVariable Long idProduct) {
         Cart cart = iCartService.findByIdMember(idMember);
         if (cart == null) {
-            Member member = this.memberService.findByIdMember(idMember).get();
-            Cart newCart = new Cart();
-            newCart.setWarning("0");
-            newCart.setMember(member);
-            this.iCartService.createCart(newCart);
-            cart = iCartService.findByIdMember(idMember);
+            this.iCartService.createCart("0", idMember);
+            Cart newCart = iCartService.findByIdMember(idMember);
             Product product = this.productService.getProductById(idProduct);
-            product.setCart(cart);
+            product.setCart(newCart);
             productService.updateIdCard(product);
         } else {
             Product product = this.productService.getProductById(idProduct);
@@ -180,13 +195,46 @@ public class ProductController {
     @PutMapping("/updateCart")
     public ResponseEntity updateCart(@RequestBody Cart cart) {
         this.iCartService.updateCart(cart);
-        return new ResponseEntity(null, HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    //HuyNN
+    @GetMapping("/getAccountByUsername/{username}")
+    public ResponseEntity<Account> getAccountByUsername(@PathVariable String username) {
+        Account account = this.iAccountService.getAccountByUsername(username);
+        return new ResponseEntity(account, HttpStatus.OK);
+    }
+
+    @GetMapping("/getMemberByIdAccount/{idAccount}")
+    public ResponseEntity<Member> getMemberByIdAccount(@PathVariable Long idAccount) {
+        Member member = this.memberService.findByIdAccount(idAccount);
+        return new ResponseEntity(member, HttpStatus.OK);
+    }
+
+    @GetMapping("/updateIdBindingStatus/{idProduct}/{idBindingStatus}")
+    public ResponseEntity updateIdBindingStatus(@PathVariable Long idProduct, @PathVariable Long idBindingStatus) {
+        Product product = this.productService.getProductById(idProduct);
+        BiddingStatus biddingStatus = this.biddingStatusService.findById(idBindingStatus);
+        product.setBiddingStatus(biddingStatus);
+        this.productService.saveProduct(product);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/blockMemberAndAccount/{idMember}/{idAccount}")
+    public ResponseEntity blockMemberAndAccount(@PathVariable Long idMember, @PathVariable Long idAccount) {
+        Member member = this.memberService.findByIdMember(idMember).get();
+        member.setFlagDelete(true);
+        this.memberService.save(member);
+        Account account = this.iAccountService.findById(idAccount).get();
+        account.setFlagDelete(true);
+        this.iAccountService.save(account);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //HuyNN
     @GetMapping("/sendPaymentEmail/{email}/{productName}")
     public ResponseEntity sendEmailAuctionProduct(@PathVariable String email, @PathVariable String productName) {
-        String paymentLink = "http://localhost:4200";
+        String paymentLink = "http://localhost:4200/payment/payment-cart";
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.stmp.user", "a0721i1.2022@gmail.com");
@@ -557,7 +605,7 @@ public class ProductController {
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", 465, "a0721i1.2022@gmail.com", "ykddrsefedbcbvos");
             transport.send(msg);
-            System.out.println("fine!!");
+            System.out.println("Send Email Successfully!!");
         } catch (Exception exc) {
             System.out.println(exc);
         }
@@ -752,15 +800,17 @@ public class ProductController {
         }
     }
 
+
+    //Thao
     @PostMapping("postProduct")
-    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
-        LocalDateTime localDateTime=LocalDateTime.now();
-        DateTimeFormatter fm=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String myfm=fm.format(localDateTime);
-        product.setStartDate(myfm);
-        product.setEndDate(myfm);
-        product.setBiddingStatus(this.biddingStatusService.findById((long) 1));
-//        product.setCart(cartService.findById((long) 1));
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) throws ParseException {
+        String timeFormatEndDate = product.getEndDate().replace ( "T" , " " );
+        String timeFormatStartDate =product.getStartDate().replace ( "T" , " " );
+        product.setStartDate(timeFormatStartDate);
+        product.setEndDate(timeFormatEndDate);
+        product.setBiddingStatus(this.biddingStatusService.findById((long) 2));
+        product.setFlagDelete(false);
+        product.setFinalPrice(product.getInitialPrice());
         List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
         for (ApprovalStatus a : approvalStatusList) {
             if (a.getIdApprovalStatus() == 1) {
@@ -771,7 +821,6 @@ public class ProductController {
         }
         Product productCreated = productService.postProduct(product);
         return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
-
     }
 
     @GetMapping(value = "/typeProduct")
@@ -787,7 +836,7 @@ public class ProductController {
     @PostMapping( "/create-images")
     public ResponseEntity<ImageProduct> createImages(@RequestBody ImageProduct imageProduct) {
         /* Save each picture */
-        ImageProduct imageProduct1 = this.imageProductService.save(imageProduct);
+        ImageProduct imageProduct1 = imageProductService.save(imageProduct);
         return new ResponseEntity<>(imageProduct1, HttpStatus.OK);
     }
 

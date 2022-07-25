@@ -5,13 +5,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import org.springframework.data.repository.query.Param;
 
 import org.springframework.stereotype.Repository;
-import project2.dto.TransactionDTO;
+
 import project2.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
@@ -25,12 +25,12 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "where product.flag_delete = 0 and cart.id_member = ?1", nativeQuery = true)
     List<Product> getProductInCart(int i);
 
-    // BachLT
-    @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = false", nativeQuery = true)
+    // BachLT  - change flag_delete to 1
+    @Query(value = "SELECT * FROM Product  WHERE DATE(Product.end_date) between ?1 and ?2 and Product.id_bidding_status= ?3 and Product.flag_delete = 1", nativeQuery = true)
     List<Product> findProductByEndDateAndBiddingStatus(String statsBegin, String statsEnd, long biddingStatus);
 
-    // BachLT
-    @Query(value = "SELECT * FROM Product  WHERE MONTH(end_date)=?1 and id_bidding_status= ?2 and product.flag_delete = 0", nativeQuery = true)
+    // BachLT  - change flag_delete to 1
+    @Query(value = "SELECT * FROM Product  WHERE MONTH(end_date)=?1 and id_bidding_status= ?2 and product.flag_delete = 1", nativeQuery = true)
     List<Product> findProductByCurrentMonthAndBiddingStatus(int currentMonth, long biddingStatus);
 
     //HieuDV
@@ -146,4 +146,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "and (Product.final_price >?3)\n" +
             "order by Product.end_date asc", nativeQuery = true)
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
+
+    // SamTV
+    Optional<Product> findByCodeProduct(String codeProduct);
 }

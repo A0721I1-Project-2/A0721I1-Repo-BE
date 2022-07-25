@@ -19,12 +19,16 @@ public class ImageProductService implements IImageProductService {
         return iImageProductRepository.save(imageProduct);
     }
 
-    @Override
     public List<ImageProduct> findByAll() {
         return iImageProductRepository.findAll();
     }
 
     public List<ImageProduct> findByProduct(Product product) {
         return iImageProductRepository.findByProduct(product);
+    }
+
+    @Override
+    public List<ImageProduct> findAllByProduct_IdProduct(Long idProduct) {
+        return this.iImageProductRepository.findAllByProduct_IdProduct(idProduct);
     }
 }
