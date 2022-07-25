@@ -55,6 +55,9 @@ public class PaymentController {
     @Autowired
     private ICartService cartService;
 
+    @Autowired
+    private IBiddingStatusService biddingStatusService;
+
     @ModelAttribute("cart")
     public PaymentDTO setupCart(){
         return new PaymentDTO();
@@ -127,6 +130,7 @@ public class PaymentController {
     //QuangNV write method save payment
     @PostMapping("/savePayment")
     public ResponseEntity<project2.model.Payment> createPayment(@Valid @RequestBody PaymentDTO paymentDTO, BindingResult bindingResult){
+        List<BiddingStatus> biddingStatusList = biddingStatusService.findByAll();
         if (bindingResult.hasFieldErrors()){
             System.out.println("ss");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -150,6 +154,7 @@ public class PaymentController {
             Double total = 0.0;
             for (Integer i = 0 ; i< productList.size() ; i++){
                 productList.get(i).setFlagDelete(true);
+                productList.get(i).setBiddingStatus(biddingStatusList.get(2));
                 productList.get(i).setCart(payment.getCart());
                 total = total + productList.get(i).getFinalPrice();
             }
@@ -167,7 +172,7 @@ public class PaymentController {
                 invoice.setPayment(paymentService.getPaymentEnd());
                 LocalDate date = LocalDate.now();
                 invoice.setDateCreated(date);
-                invoice.setIdStatusInvoice(false);
+                invoice.setIdStatusInvoice(true);
                 invoice.setTotalPrice(paymentDTO.getTotal());
                 invoiceService.save(invoice);
                 //Set invoice detail
