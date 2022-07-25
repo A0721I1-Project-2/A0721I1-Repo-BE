@@ -814,7 +814,9 @@ public class ProductController {
         String timeFormatStartDate =product.getStartDate().replace ( "T" , " " );
         product.setStartDate(timeFormatStartDate);
         product.setEndDate(timeFormatEndDate);
-        product.setBiddingStatus(this.biddingStatusService.findById((long) 1));
+        product.setBiddingStatus(this.biddingStatusService.findById((long) 2));
+        product.setFlagDelete(false);
+        product.setFinalPrice(product.getInitialPrice());
         List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
         for (ApprovalStatus a : approvalStatusList) {
             if (a.getIdApprovalStatus() == 1) {
@@ -825,7 +827,6 @@ public class ProductController {
         }
         Product productCreated = productService.postProduct(product);
         return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
-
     }
 
     @GetMapping(value = "/typeProduct")
