@@ -31,7 +31,7 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, L
 //            "inner join imageproduct " +
 //            "on product.id_product=imageproduct.id_product where payment.id_payment = ?1", nativeQuery = true)
 
-    @Query(value ="SELECT invoicedetail.id_invoice,invoice.date_created,paymentmethod.id_payment_method,transport.id_transport,invoicedetail.id_product ,invoice.id_payment, paymentmethod.name_payment_method,transport.name_transport,transport.fee_transport,invoicedetail.id_invoice_detail,payment.full_name_receiver,payment.phone_receiver,payment.email_receiver,payment.address_receiver,product.name_product,product.final_price\n" +
+    @Query(value = "SELECT invoicedetail.id_invoice,invoice.date_created,paymentmethod.id_payment_method,transport.id_transport,invoicedetail.id_product ,invoice.id_payment, paymentmethod.name_payment_method,transport.name_transport,transport.fee_transport,invoicedetail.id_invoice_detail,payment.full_name_receiver,payment.phone_receiver,payment.email_receiver,payment.address_receiver,product.name_product,product.final_price\n" +
             "            FROM invoicedetail inner JOIN invoice\n" +
             "            ON invoicedetail.id_invoice = `invoice`.id_invoice\n" +
             "            inner join payment\n" +
@@ -99,18 +99,18 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, L
             "            and name_product like concat('%', ?3, '%') " +
             "            and invoice.status_invoice = ?4",
             countQuery = "select invoice.id_invoice, end_date, invoicedetail.id_invoice_detail, invoice.flag_delete, payment.full_name_receiver, invoice.id_payment, invoice.id_member, invoicedetail.id_product, invoice.status_invoice, `member`.name_member,final_price, initial_price, payment.fee_service  from product  " +
-            "            inner join `invoicedetail` " +
-            "            on `invoicedetail`.id_product = product.id_product " +
-            "            inner join `invoice` " +
-            "            on `invoice`.id_invoice = `invoicedetail`.id_invoice " +
-            "            inner join `payment` " +
-            "            on `invoice`.id_payment = `payment`.id_payment " +
-            "            inner join `member` " +
-            "            on `invoice`.id_member = `member`.id_member " +
-            "            where `invoice`.flag_delete = 0 " +
-            "            and name_member like concat('%', ?1, '%')" +
-            "            and full_name_receiver like concat('%', ?2, '%')" +
-            "            and name_product like concat('%', ?3, '%') " +
+                    "            inner join `invoicedetail` " +
+                    "            on `invoicedetail`.id_product = product.id_product " +
+                    "            inner join `invoice` " +
+                    "            on `invoice`.id_invoice = `invoicedetail`.id_invoice " +
+                    "            inner join `payment` " +
+                    "            on `invoice`.id_payment = `payment`.id_payment " +
+                    "            inner join `member` " +
+                    "            on `invoice`.id_member = `member`.id_member " +
+                    "            where `invoice`.flag_delete = 0 " +
+                    "            and name_member like concat('%', ?1, '%')" +
+                    "            and full_name_receiver like concat('%', ?2, '%')" +
+                    "            and name_product like concat('%', ?3, '%') " +
                     "    and invoice.status_invoice = ?4", nativeQuery = true)
     Page<InvoiceDetail> searchTransaction(String nameSeller, String nameBuyer, String nameProduct, String status, Pageable pageable);
 
@@ -125,7 +125,7 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, L
             "            inner join `member` " +
             "            on invoice.id_member = `member`.id_member " +
             "            where invoice.flag_delete = 0 " +
-            "            and product.end_date between ?1 and ?2 " ,
+            "            and Date(product.end_date) between ?1 and ?2 ",
             countQuery = "select invoice.id_invoice, end_date, invoicedetail.id_invoice_detail, invoice.flag_delete, payment.full_name_receiver, invoice.id_payment, invoice.id_member, invoicedetail.id_product, invoice.status_invoice, `member`.name_member,final_price, initial_price, payment.fee_service from product\n" +
                     "            inner join invoicedetail " +
                     "            on invoicedetail.id_product = product.id_product " +
@@ -136,7 +136,7 @@ public interface IInvoiceDetailRepository extends JpaRepository<InvoiceDetail, L
                     "            inner join `member` " +
                     "            on invoice.id_member = `member`.id_member " +
                     "            where invoice.flag_delete = 0 " +
-                    "            and product.end_date between ?1 and ?2 ", nativeQuery = true)
+                    "            and Date(product.end_date) between ?1 and ?2 ", nativeQuery = true)
     Page<InvoiceDetail> searchDate(String startDate, String endDate, Pageable pageable);
 
     // Huy-NCQ ẩn record flag_delete
