@@ -172,7 +172,7 @@ public class PaymentController {
                 invoice.setPayment(paymentService.getPaymentEnd());
                 LocalDate date = LocalDate.now();
                 invoice.setDateCreated(date);
-                invoice.setIdStatusInvoice(false);
+                invoice.setIdStatusInvoice(true);
                 invoice.setTotalPrice(paymentDTO.getTotal());
                 invoiceService.save(invoice);
                 //Set invoice detail
