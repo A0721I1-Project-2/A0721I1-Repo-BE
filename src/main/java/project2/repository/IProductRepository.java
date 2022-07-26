@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import project2.model.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IProductRepository extends JpaRepository<Product, Long> {
@@ -145,4 +146,5 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "and (Product.final_price >?3)\n" +
             "order by Product.end_date asc", nativeQuery = true)
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
+    Optional<Product> findByCodeProduct(String codeProduct);
 }

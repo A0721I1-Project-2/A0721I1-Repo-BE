@@ -4,14 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import project2.model.*;
+import project2.repository.IProductRepository;
 import project2.service.*;
 import project2.service.impl.ImageProductService;
 
 import project2.config.SmtpAuthenticator;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -754,18 +759,28 @@ public class ProductController {
             return new ResponseEntity<>(productList, HttpStatus.OK);
         }
     }
-
-
+//    @GetMapping("/checkId")
+//    public ResponseEntity<List<Product>> checkId(@RequestParam String id) {
+//        List<Product> list = productService.findAll();
+//        List<Product> products = new ArrayList<>();
+//        for (Integer i = 0; i < list.size(); i++) {
+//            if (list.get(i).getCodeProduct().equals(id)) {
+//                products.add(list.get(i));
+//                return new ResponseEntity<>(products, HttpStatus.OK);
+//            }
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
     //Thao
     @PostMapping("postProduct")
-    public ResponseEntity<Product> postProduct(@RequestBody Product product) {
-        LocalDateTime localDateTime=LocalDateTime.now();
-        DateTimeFormatter fm=DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String myfm=fm.format(localDateTime);
-        product.setStartDate(myfm);
-        product.setEndDate(myfm);
-        product.setBiddingStatus(this.biddingStatusService.findById((long) 1));
-//        product.setCart(cartService.findById((long) 1));
+    public ResponseEntity<Product> postProduct(@RequestBody Product product) throws ParseException {
+        String timeFormatEndDate = product.getEndDate().replace ( "T" , " " );
+        String timeFormatStartDate =product.getStartDate().replace ( "T" , " " );
+        product.setStartDate(timeFormatStartDate);
+        product.setEndDate(timeFormatEndDate);
+        product.setBiddingStatus(this.biddingStatusService.findById((long) 2));
+        product.setFlagDelete(false);
+        product.setFinalPrice(product.getInitialPrice());
         List<ApprovalStatus> approvalStatusList = approvalStatusService.findAllBy();
         for (ApprovalStatus a : approvalStatusList) {
             if (a.getIdApprovalStatus() == 1) {
@@ -776,9 +791,7 @@ public class ProductController {
         }
         Product productCreated = productService.postProduct(product);
         return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
-
     }
-
     @GetMapping(value = "/typeProduct")
     public ResponseEntity<List<TypeProduct>> findByAllTypeproduct() {
         List<TypeProduct> typeProducts = typeProductService.findByAll();
@@ -788,14 +801,12 @@ public class ProductController {
             return new ResponseEntity<>(typeProducts, HttpStatus.OK);
         }
     }
-
     @PostMapping( "/create-images")
     public ResponseEntity<ImageProduct> createImages(@RequestBody ImageProduct imageProduct) {
         /* Save each picture */
         ImageProduct imageProduct1 = imageProductService.save(imageProduct);
         return new ResponseEntity<>(imageProduct1, HttpStatus.OK);
     }
-
     @GetMapping("/typeProduct/{id}")
     public ResponseEntity<TypeProduct> getTypeProductById(@PathVariable long id) {
         return new ResponseEntity<TypeProduct>(typeProductService.findById(id), HttpStatus.OK);
