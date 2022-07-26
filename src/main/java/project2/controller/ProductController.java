@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project2.config.SmtpAuthenticator;
 import project2.model.Product;
-import project2.service.IFirebaseService;
-import project2.service.IImageProductService;
 import project2.service.IProductService;
 
 import java.io.IOException;
@@ -18,17 +16,13 @@ import project2.model.*;
 import project2.service.*;
 import project2.service.impl.ImageProductService;
 
-import project2.config.SmtpAuthenticator;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import project2.model.Cart;
 import project2.model.Member;
-import project2.model.Product;
 import project2.service.ICartService;
 import project2.service.IMemberService;
-import project2.service.IProductService;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,9 +81,9 @@ public class ProductController {
         return this.productService.save(product,idPoster, multipartFiles);
     }
 
+
     @Autowired
     private IAccountService iAccountService;
-
 
     //  BachLT
     @GetMapping("/statistic/{statsBegin}&{statsEnd}&{biddingStatus}")
@@ -223,6 +217,17 @@ public class ProductController {
         BiddingStatus biddingStatus = this.biddingStatusService.findById(idBindingStatus);
         product.setBiddingStatus(biddingStatus);
         this.productService.saveProduct(product);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/blockMemberAndAccount/{idMember}/{idAccount}")
+    public ResponseEntity blockMemberAndAccount(@PathVariable Long idMember, @PathVariable Long idAccount) {
+        Member member = this.memberService.findByIdMember(idMember).get();
+        member.setFlagDelete(true);
+        this.memberService.save(member);
+        Account account = this.iAccountService.findById(idAccount).get();
+        account.setFlagDelete(true);
+        this.iAccountService.save(account);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -600,7 +605,7 @@ public class ProductController {
             Transport transport = session.getTransport("smtp");
             transport.connect("smtp.gmail.com", 465, "a0721i1.2022@gmail.com", "ykddrsefedbcbvos");
             transport.send(msg);
-            System.out.println("fine!!");
+            System.out.println("Send Email Successfully!!");
         } catch (Exception exc) {
             System.out.println(exc);
         }
@@ -816,6 +821,19 @@ public class ProductController {
         }
         Product productCreated = productService.postProduct(product);
         return new ResponseEntity<>(productCreated, HttpStatus.CREATED);
+    }
+    //Thao
+    @GetMapping("/checkId")
+    public ResponseEntity<List<Product>> checkId(@RequestParam String id) {
+        List<Product> list = productService.findAll();
+        List<Product> products = new ArrayList<>();
+        for (Integer i = 0; i < list.size(); i++) {
+            if (list.get(i).getCodeProduct().equals(id)) {
+                products.add(list.get(i));
+                return new ResponseEntity<>(products, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/typeProduct")

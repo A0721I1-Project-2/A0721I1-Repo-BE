@@ -1,6 +1,7 @@
 package project2.service.impl;
 
 
+import com.google.type.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
@@ -13,9 +14,11 @@ import project2.model.*;
 import project2.repository.*;
 import project2.service.IProductService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -46,15 +49,21 @@ public class ProductService implements IProductService {
         try {
             List<ApprovalStatus> all = this.approvalStatusRepository.findAll();
             List<BiddingStatus> all1 = this.biddingStatusRepository.findAll();
+            String timeFormatEndDate = product.getEndDate().replace ( "T" , " " );
+            String timeFormatStartDate =product.getStartDate().replace ( "T" , " " );
+            product.setStartDate(timeFormatStartDate);
+            product.setEndDate(timeFormatEndDate);
             Cart byMember = this.cartRepository.getByIdMember(idMember);
 
             Optional<Product> productOPT = this.productRepository.findByCodeProduct(product.getCodeProduct());
             if (productOPT.isPresent()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Mã sản phẩm đã tồn tại");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product code existed");
             }
             product.setCreateDay(product.getCreateDay());
+            product.setFinalPrice(product.getInitialPrice());
+            product.setCreateDay(LocalDate.now().toString());
             product.setFlagDelete(false);
-            product.setBiddingStatus(all1.get(0));
+            product.setBiddingStatus(all1.get(1));
             product.setApprovalStatus(all.get(0));
             product.setCart(byMember);
             product.setMember(memberRepository.findById(idMember).get());
