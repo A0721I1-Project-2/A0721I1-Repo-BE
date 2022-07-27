@@ -64,7 +64,7 @@ public class ProductService implements IProductService {
             product.setCreateDay(LocalDate.now().toString());
             product.setFlagDelete(false);
             product.setBiddingStatus(all1.get(1));
-            product.setApprovalStatus(all.get(1));
+            product.setApprovalStatus(all.get(0));
             product.setCart(byMember);
             product.setMember(memberRepository.findById(idMember).get());
             List<ImageProduct> imageProducts = multipartFile

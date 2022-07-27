@@ -15,8 +15,6 @@ public class Product {
     private String codeProduct;
     @Column(name = "name_product")
     private String nameProduct;
-    //    @Column(name = "poster_information")
-//    private String posterInformation;
     @Column(name = "initial_price")
     private Double initialPrice;
     @Column(name = "final_price")
