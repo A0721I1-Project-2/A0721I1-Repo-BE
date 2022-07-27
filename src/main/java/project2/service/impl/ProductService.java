@@ -164,6 +164,11 @@ public class ProductService implements IProductService {
         productRepository.save(product);
     }
 
+    @Override
+    public void setFlagDeleteProduct(Long id) {
+        productRepository.setFlagDeleteProduct(id);
+    }
+
 
     //HuyNN
     @Override

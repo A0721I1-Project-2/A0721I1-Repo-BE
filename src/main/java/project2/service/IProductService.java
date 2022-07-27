@@ -46,6 +46,9 @@ public interface IProductService {
     //HieuDV
     void saveProduct(Product product);
 
+    //HieuDV
+    void setFlagDeleteProduct(Long id);
+
     //BachLT
     List<Product> getAllProductByEndDate(String statsBegin, String statsEnd, int biddingStatus);
 
