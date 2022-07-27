@@ -55,8 +55,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             accountRepository.save(manager);
         }
 //
-//
-//        //Them Người Dùng
+
+
+        //Them Người Dùng
         if (accountRepository.findAccountByUsername("member@aution.com") == null){
             Account member = new Account();
             member.setUsername("member@aution.com");
