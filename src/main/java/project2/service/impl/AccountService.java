@@ -117,4 +117,10 @@ public class AccountService implements IAccountService,UserDetailsService {
     public Account getAccountByUsername(String username) {
         return iAccountRepository.getAccountByUsername(username);
     }
+
+    //HauNT
+    @Override
+    public Account findAccountBlock(String username) {
+        return iAccountRepository.findAccountBlockByUsername(username);
+    }
 }
