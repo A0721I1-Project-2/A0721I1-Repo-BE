@@ -112,6 +112,13 @@ public class ProductController {
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
+    //HieuDV
+    @PatchMapping("/delete/{id}")
+    public ResponseEntity<InvoiceDetail> delete(@PathVariable Long id) {
+        productService.setFlagDeleteProduct(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     //HuyNN
     Map<Long, List<AuctionDTO>> auctionList = new HashMap<>();
 

@@ -3,6 +3,7 @@ package project2.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import project2.model.Product;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +85,11 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             nativeQuery = true)
     Page<Product> findAllProductByNameTypeSellerPriceStatus(String name, String typeProduct, String sellerName, String maxPrice, String minPrice, String BiddingStatus, Pageable pageable);
 
+    //HieuDV
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE `project2`.`product` SET `product`.flag_delete = true WHERE (`product`.id_product = ?1);", nativeQuery = true)
+    void setFlagDeleteProduct(Long id);
     //VinhTQ
 //    @Query(value = "select * from product " +
 //            "join product_member on product_member.id_product = product.id_product " +
@@ -96,7 +103,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select * from Product inner join TypeProduct on Product.id_product_type = TypeProduct.id_product_type \n" +
             " inner join BiddingStatus on Product.id_bidding_status = BiddingStatus.id_bidding_status \n" +
             " inner join ApprovalStatus on Product.id_approval_status = ApprovalStatus.id_approval_status \n" +
-            " where BiddingStatus.name_bidding_status= \"auction\" and ApprovalStatus.name_approval_status = \"posted\" and (Product.end_date > now()) \n" +
+            " where BiddingStatus.name_bidding_status= \"auction\" and ApprovalStatus.name_approval_status = \"posted\" and Product.flag_delete = 0 and (Product.end_date > now()) \n" +
             " order by Product.end_date  asc", nativeQuery = true)
     List<Product> findAllProductAuction();
 
@@ -105,7 +112,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             " inner join BiddingStatus on Product.id_bidding_status = BiddingStatus.id_bidding_status \n" +
             " inner join ApprovalStatus on Product.id_approval_status = ApprovalStatus.id_approval_status\n" +
             " where ApprovalStatus.name_approval_status = \"posted\"\n" +
-            " and (Product.end_date <now()) \n" +
+            " and Product.flag_delete = 0 and (Product.end_date <now()) \n" +
             " order by Product.end_date desc", nativeQuery = true)
     List<Product> findAllProductFinishedAuction();
 
@@ -117,7 +124,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             " where BiddingStatus.name_bidding_status= \"auction\" \n" +
             " and ApprovalStatus.name_approval_status = \"posted\"\n" +
             " and TypeProduct.name_product_type like %?1% \n" +
-            " and (Product.end_date > now()) \n" +
+            " and Product.flag_delete = 0 and (Product.end_date > now()) \n" +
             " order by Product.end_date asc", nativeQuery = true)
     List<Product> gettAllProductAuntionAndTypeProduct(String nameTypeProduct);
 
@@ -130,7 +137,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "and ApprovalStatus.name_approval_status = \"posted\"\n" +
             "and Product.name_product like %?1% \n" +
             "and TypeProduct.name_product_type like %?2% \n" +
-            "and (Product.final_price between ?3 and ?4)\n" +
+            "and Product.flag_delete = 0 and (Product.final_price between ?3 and ?4)\n" +
             "order by Product.end_date asc", nativeQuery = true)
     List<Product> searchProductByNameByTypeProductByPrice(String nameProduct, String nameTypeProduct, Double min, Double max);
 
@@ -143,7 +150,7 @@ public interface IProductRepository extends JpaRepository<Product, Long> {
             "and ApprovalStatus.name_approval_status = \"posted\" and (Product.end_date > now()) \n" +
             "and Product.name_product like %?1% \n" +
             "and TypeProduct.name_product_type like %?2% \n" +
-            "and (Product.final_price >?3)\n" +
+            "and Product.flag_delete = 0 and (Product.final_price >?3)\n" +
             "order by Product.end_date asc", nativeQuery = true)
     List<Product> searchProductPricesOver250(String nameProduct, String nameTypeProduct, Double min);
 
