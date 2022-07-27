@@ -78,7 +78,7 @@ public class TransactionController {
         Page<InvoiceDetail> invoiceDetails = iInvoiceDetailRepository.searchTransaction(nameSeller, nameBuyer, nameProduct, status, pageable);
 
         if (invoiceDetails.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(invoiceDetails, HttpStatus.OK);
     }
@@ -91,7 +91,7 @@ public class TransactionController {
 
         Page<InvoiceDetail> invoiceDetails = iInvoiceDetailRepository.searchDate(startDate, endDate, pageable);
         if (invoiceDetails.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         return new ResponseEntity<>(invoiceDetails, HttpStatus.OK);
@@ -102,4 +102,10 @@ public class TransactionController {
         iInvoiceDetailRepository.setStatus(idInvoice);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+//
+//    @PatchMapping
+//    public ResponseEntity<InvoiceDetail> deleteAfter30Days() {
+//        iInvoiceDetailRepository.setFlagDeleteAfter30Days();
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }
