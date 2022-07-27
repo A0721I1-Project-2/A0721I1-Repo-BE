@@ -1,16 +1,23 @@
 package project2.controller;
+
+import jdk.nashorn.internal.parser.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import project2.dto.AuctionDTO;
+import project2.dto.TokenDTO;
 import project2.model.Account;
-import java.util.List;
-import java.util.Optional;
+
+import java.time.LocalDateTime;
+import java.util.*;
+
 import project2.model.Member;
 import project2.service.IAccountService;
 import project2.service.IMemberService;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
@@ -45,6 +52,7 @@ public class AccountController {
             return new ResponseEntity<>(member, HttpStatus.OK);
         }
     }
+
     // HuyNN
     @GetMapping("/getAccountByMemberId/{id}")
     public ResponseEntity<Account> getAccountByMember(@PathVariable Long id) {
@@ -53,6 +61,8 @@ public class AccountController {
     }
 
     // VinhTQ
+    public static List<TokenDTO> tokenList = new LinkedList<TokenDTO>();
+
     @GetMapping("/forgot-password")
     public ResponseEntity<Object> processForgotPasswordForm(@RequestParam String email, @RequestParam String username) {
         String message = "";
@@ -468,7 +478,7 @@ public class AccountController {
                 " -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; word-break: break-word;\n" +
                 " color: #2a2a2a; font-family: \"Asap\", Helvetica, sans-serif; font-size: 16px;\n" +
                 " line-height: 150%; text-align: center; padding-top:9px; padding-right: 18px;\n" +
-                " padding-bottom: 9px; padding-left: 18px;' valign=\"top\">Not to worry, we got you! Let’s get you a new password.\n" +
+                " padding-bottom: 9px; padding-left: 18px;' valign=\"top\">Not to worry, we got you! Let’s get you a new password. But this link only lasts for 10 minutes.\n" +
                 "                                <br></br>\n" +
                 "                              </td>\n" +
                 "                            </tr>\n" +
@@ -651,7 +661,6 @@ public class AccountController {
                 "</html>";
         helper.setSubject(subject);
         helper.setText(content, true);
-        // Đoạn nay de gui email/ không có sẽ rơi exception
         mailSender.send(message);
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
@@ -661,6 +670,16 @@ public class AccountController {
                                                        @RequestParam(value = "password") String password) {
         String message = "";
         Account account = accountService.findAccountByToken(token);
+        for (int i = 0; i < tokenList.size(); i++) {
+            TokenDTO tokenDTO = tokenList.get(i);
+            if (tokenDTO.getToken().equals(token)) {
+                int diff = LocalDateTime.now().compareTo(tokenDTO.getTime());
+                if(diff >=0){
+                    message = "Token is expired, please try again";
+                    return new ResponseEntity<Object>(message, HttpStatus.OK);
+                }
+            }
+        }
         if (account == null) {
             message = "Token invaid";
         } else {
@@ -671,36 +690,46 @@ public class AccountController {
     }
 
     /* Get account by id - TuanNHA */
-    @RequestMapping(value = "/account/id={accountId}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/account/id={accountId}", method = RequestMethod.GET)
     public ResponseEntity<Account> getAccountById(@PathVariable("accountId") Long id) {
         Optional<Account> account = this.accountService.findById(id);
 
-        if(account.isPresent()) {
-            return new ResponseEntity<>(account.get() , HttpStatus.OK);
+        if (account.isPresent()) {
+            return new ResponseEntity<>(account.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     /* Get accounts by role member -TuanNHA */
-    @RequestMapping(value = "/members" , method = RequestMethod.GET)
+    @RequestMapping(value = "/members", method = RequestMethod.GET)
     public ResponseEntity<List<Account>> getAccountsByRoleMember() {
         List<Account> accounts = this.accountService.getAccountsByRoleName();
 
-        if(accounts.isEmpty()) {
+        if (accounts.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(accounts , HttpStatus.OK);
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
     /* Get account by username -TuanNHA */
-    @RequestMapping(value = "/username&{username}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/username&{username}", method = RequestMethod.GET)
     public ResponseEntity<Account> getAccountByUsername(@PathVariable("username") String username) {
         Account account = accountService.getAccountByUsername(username);
 
-        if(account != null) {
-            return new ResponseEntity<>(account , HttpStatus.OK);
+        if (account != null) {
+            return new ResponseEntity<>(account, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+    //HauNT
+    @GetMapping("/accountBlock/{username}")
+    public ResponseEntity<Account> findAccountBlock(@PathVariable("username") String  username) {
+        Account account = accountService.findAccountBlock(username);
+        if (account == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(account, HttpStatus.OK);
+        }
     }
 }

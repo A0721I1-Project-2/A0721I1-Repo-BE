@@ -17,7 +17,7 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
 
 
     /* Get accounts by role name -TuanNHA */
-    @Query(value = "select * from `account` \n" +
+    @Query(value = "select account.* from `account` \n" +
             "inner join account_role\n" +
             "on account_role.id_account = `account`.id_account\n" +
             "group by `account`.id_account\n" +
@@ -34,7 +34,14 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
             "where account.username = ?1 and member.email_member = ?2",nativeQuery = true)
     Account findAccountByUsernameAndEnmail(String username, String email);
 
+//    @Query(value = "select * from `account`\n" +
+//            "inner join `member` on `member`.id_account=`account`.id_account\n" +
+//            "inner join account_role on account_role.id_account = `account`.id_account\n" +
+//            "inner join `role` on `role`.id_role=account_role.id_role\n" +
+//            "where `account`.`block`=false and `account`.username=:username",nativeQuery = true)
     Account findAccountByUsername(String username);
 
     Account getAccountByUsername(String username);
+    @Query(value = "select * from `account` where `account`.username=:username and `account`.`block`=1",nativeQuery = true)
+    Account findAccountBlockByUsername(String username);
 }

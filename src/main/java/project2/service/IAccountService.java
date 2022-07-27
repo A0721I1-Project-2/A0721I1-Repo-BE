@@ -35,4 +35,7 @@ public interface IAccountService {
 
     /* Get accounts by role name -TuanNHA */
     List<Account> getAccountsByRoleName();
+
+    //HauNT
+    Account findAccountBlock(String username);
 }

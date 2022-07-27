@@ -56,6 +56,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         }
 //
 
+
         //Them Người Dùng
         if (accountRepository.findAccountByUsername("member@aution.com") == null){
             Account member = new Account();
@@ -93,35 +94,5 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             member.setRoles(roles);
             accountRepository.save(member);
         }
-
-//        if (userRepository.findByUsername("staff2") == null){
-//            User staff = new User();
-//            staff.setUsername("staff2");
-//            staff.setPassword(EncrypPasswordUtils.EncrypPasswordUtils("123456"));
-//            HashSet<Role> roles = new HashSet<>();
-//            roles.add(roleRepository.findByNameRole("ROLE_STAFF"));
-//            staff.setRoles(roles);
-//            userRepository.save(staff);
-//        }
-//
-//        if (userRepository.findByUsername("staff3") == null){
-//            User staff = new User();
-//            staff.setUsername("staff3");
-//            staff.setPassword(EncrypPasswordUtils.EncrypPasswordUtils("123456"));
-//            HashSet<Role> roles = new HashSet<>();
-//            roles.add(roleRepository.findByNameRole("ROLE_STAFF"));
-//            staff.setRoles(roles);
-//            userRepository.save(staff);
-//        }
-//
-//        if (userRepository.findByUsername("staff4") == null){
-//            User staff = new User();
-//            staff.setUsername("staff4");
-//            staff.setPassword(EncrypPasswordUtils.EncrypPasswordUtils("123456"));
-//            HashSet<Role> roles = new HashSet<>();
-//            roles.add(roleRepository.findByNameRole("ROLE_STAFF"));
-//            staff.setRoles(roles);
-//            userRepository.save(staff);
-//        }
     }
 }
