@@ -1,4 +1,5 @@
 package project2.service.impl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,12 +11,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project2.controller.AccountController;
+import project2.dto.TokenDTO;
 import project2.model.Account;
 import project2.model.Member;
 import project2.model.Role;
 import project2.repository.IAccountRepository;
 import project2.service.IAccountService;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -74,6 +78,7 @@ public class AccountService implements IAccountService,UserDetailsService {
     public void updateToken(Account account) {
         String token = RandomString.make(45);
         account.setToken(token);
+        AccountController.tokenList.add(new TokenDTO(account.getToken(), LocalDateTime.now().plusMinutes(10)));
         iAccountRepository.save(account);
     }
 
@@ -116,5 +121,11 @@ public class AccountService implements IAccountService,UserDetailsService {
     @Override
     public Account getAccountByUsername(String username) {
         return iAccountRepository.getAccountByUsername(username);
+    }
+
+    //HauNT
+    @Override
+    public Account findAccountBlock(String username) {
+        return iAccountRepository.findAccountBlockByUsername(username);
     }
 }

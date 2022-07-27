@@ -41,58 +41,59 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         if (roleRepository.findByNameRole("ROLE_BLOCK")==null){
             roleRepository.save(new Role("ROLE_BLOCK"));
         }
-//        // Them Quản lý
-//        if (accountRepository.findAccountByUsername("manager@aution.com") == null){
-//            Account manager = new Account();
-//            manager.setUsername("manager@aution.com");
-//            manager.setPassword(EncrypPasswordUtils("123123"));
-//            manager.setFlagDelete(false);
-//            manager.setLast_login(LocalDate.now());
-//            HashSet<Role> roles = new HashSet<>();
-//            roles.add(roleRepository.findByNameRole("ROLE_MANAGER"));
-//            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
-//            manager.setRoles(roles);
-//            accountRepository.save(manager);
-//        }
-////
+        // Them Quản lý
+        if (accountRepository.findAccountByUsername("manager@aution.com") == null){
+            Account manager = new Account();
+            manager.setUsername("manager@aution.com");
+            manager.setPassword(EncrypPasswordUtils("123123"));
+            manager.setFlagDelete(false);
+            manager.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MANAGER"));
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            manager.setRoles(roles);
+            accountRepository.save(manager);
+        }
 //
-//        //Them Người Dùng
-//        if (accountRepository.findAccountByUsername("member@aution.com") == null){
-//            Account member = new Account();
-//            member.setUsername("member@aution.com");
-//            member.setPassword(EncrypPasswordUtils("123123"));
-//            member.setFlagDelete(false);
-//            member.setLast_login(LocalDate.now());
-//            HashSet<Role> roles = new HashSet<>();
-//            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
-//            member.setRoles(roles);
-//            accountRepository.save(member);
-//        }
-//
-//        if (accountRepository.findAccountByUsername("member1@aution.com") == null){
-//            Account member = new Account();
-//            member.setUsername("member1@aution.com");
-//            member.setPassword(EncrypPasswordUtils("123123"));
-//            member.setFlagDelete(false);
-//            member.setLast_login(LocalDate.now());
-//            HashSet<Role> roles = new HashSet<>();
-//            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
-//            member.setRoles(roles);
-//            accountRepository.save(member);
-//        }
-//
-//
-//        if (accountRepository.findAccountByUsername("member2@aution.com") == null){
-//            Account member = new Account();
-//            member.setUsername("member2@aution.com");
-//            member.setPassword(EncrypPasswordUtils("123123"));
-//            member.setFlagDelete(false);
-//            member.setLast_login(LocalDate.now());
-//            HashSet<Role> roles = new HashSet<>();
-//            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
-//            member.setRoles(roles);
-//            accountRepository.save(member);
-//        }
+
+
+        //Them Người Dùng
+        if (accountRepository.findAccountByUsername("member@aution.com") == null){
+            Account member = new Account();
+            member.setUsername("member@aution.com");
+            member.setPassword(EncrypPasswordUtils("123123"));
+            member.setFlagDelete(false);
+            member.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            member.setRoles(roles);
+            accountRepository.save(member);
+        }
+
+        if (accountRepository.findAccountByUsername("member1@aution.com") == null){
+            Account member = new Account();
+            member.setUsername("member1@aution.com");
+            member.setPassword(EncrypPasswordUtils("123123"));
+            member.setFlagDelete(false);
+            member.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            member.setRoles(roles);
+            accountRepository.save(member);
+        }
+
+
+        if (accountRepository.findAccountByUsername("member2@aution.com") == null){
+            Account member = new Account();
+            member.setUsername("member2@aution.com");
+            member.setPassword(EncrypPasswordUtils("123123"));
+            member.setFlagDelete(false);
+            member.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            member.setRoles(roles);
+            accountRepository.save(member);
+        }
 
 //        if (userRepository.findByUsername("staff2") == null){
 //            User staff = new User();
@@ -123,5 +124,45 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 //            staff.setRoles(roles);
 //            userRepository.save(staff);
 //        }
+
+
+        //Them Người Dùng
+        if (accountRepository.findAccountByUsername("member@aution.com") == null){
+            Account member = new Account();
+            member.setUsername("member@aution.com");
+            member.setPassword(EncrypPasswordUtils("123123"));
+            member.setFlagDelete(false);
+            member.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            member.setRoles(roles);
+            accountRepository.save(member);
+        }
+
+        if (accountRepository.findAccountByUsername("member1@aution.com") == null){
+            Account member = new Account();
+            member.setUsername("member1@aution.com");
+            member.setPassword(EncrypPasswordUtils("123123"));
+            member.setFlagDelete(false);
+            member.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            member.setRoles(roles);
+            accountRepository.save(member);
+        }
+
+
+        if (accountRepository.findAccountByUsername("member2@aution.com") == null){
+            Account member = new Account();
+            member.setUsername("member2@aution.com");
+            member.setPassword(EncrypPasswordUtils("123123"));
+            member.setFlagDelete(false);
+            member.setLast_login(LocalDate.now());
+            HashSet<Role> roles = new HashSet<>();
+            roles.add(roleRepository.findByNameRole("ROLE_MEMBER"));
+            member.setRoles(roles);
+            accountRepository.save(member);
+        }
+
     }
 }
