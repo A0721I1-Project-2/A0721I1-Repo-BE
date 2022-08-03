@@ -97,9 +97,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         ;
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.authorizeRequests().and() //
-                .rememberMe().tokenRepository(this.persistentTokenRepository()) //
-                .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
+//        http.authorizeRequests().and() //
+//                .rememberMe().tokenRepository(this.persistentTokenRepository()) //
+//                .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
     }
 
     @Bean

@@ -19,6 +19,8 @@ public interface IAccountService{
     void deleteById(Long id);
 
     void delele(Account account);
+    //HauNT find account block
+    Account findAccountBlock(String username);
 
     // HuyNN find account by member
     Account findByMember(Member member);

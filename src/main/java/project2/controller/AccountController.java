@@ -42,6 +42,15 @@ public class AccountController {
             return new ResponseEntity<>(member, HttpStatus.OK);
         }
     }
+    @GetMapping("/accountBlock/{username}")
+    public ResponseEntity<Account> findAccountBlock(@PathVariable("username") String  username) {
+        Account account = accountService.findAccountBlock(username);
+        if (account == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(account, HttpStatus.OK);
+        }
+    }
     // HuyNN
     @GetMapping("/getAccountByMemberId/{id}")
     public ResponseEntity<Account> getAccountByMember(@PathVariable Long id) {

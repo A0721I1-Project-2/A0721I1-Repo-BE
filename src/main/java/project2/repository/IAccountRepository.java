@@ -18,7 +18,11 @@ public interface IAccountRepository extends JpaRepository<Account, Long> {
             "where account.username = ?1 and member.email_member = ?2",nativeQuery = true)
     Account findAccountByUsernameAndEnmail(String username, String email);
 
+
     Account findAccountByUsername(String username);
+    //HauNT
+    @Query(value = "select * from `account` where `account`.username=:username and `account`.`block`=1",nativeQuery = true)
+    Account findAccountBlockByUsername(String username);
 
     Account getAccountByUsername(String username);
 }

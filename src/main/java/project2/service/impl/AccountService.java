@@ -57,6 +57,11 @@ public class AccountService implements IAccountService,UserDetailsService {
     public void delele(Account account) {
 
     }
+    //HauNT
+    @Override
+    public Account findAccountBlock(String username) {
+        return iAccountRepository.findAccountBlockByUsername(username);
+    }
 
     // HuyNN
     @Override
