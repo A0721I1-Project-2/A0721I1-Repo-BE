@@ -3,9 +3,7 @@ package project2.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Product {
@@ -17,13 +15,15 @@ public class Product {
     private String codeProduct;
     @Column(name = "name_product")
     private String nameProduct;
+    //    @Column(name = "poster_information")
+//    private String posterInformation;
     @Column(name = "initial_price")
     private Double initialPrice;
     @Column(name = "final_price")
     private Double finalPrice;
     @Column(name = "increment_price")
     private Double incrementPrice;
-    @Column(name = "product_description", length = 1000)
+    @Column(name = "product_description")
     private String productDescription;
     @Column(name = "start_date")
     private String startDate;
@@ -49,7 +49,7 @@ public class Product {
     private BiddingStatus biddingStatus;
 
     @OneToMany(mappedBy = "product")
-// bỏ không dùng:->    @JsonBackReference(value = "product_imageProduct")
+//    @JsonBackReference(value = "product_imageProduct")
     private List<ImageProduct> imageProductList;
 
     @OneToMany(mappedBy = "product")
@@ -60,19 +60,16 @@ public class Product {
     @JoinColumn(name = "id_cart", nullable = true)
     private Cart cart;
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_member",
-            joinColumns = @JoinColumn(name = "id_product"),
-            inverseJoinColumns = @JoinColumn(name = "id_member")
-    )
-    private Set<Member> members;
+
+    //    private Set<Member> members;
+    @ManyToOne(targetEntity = Member.class)
+    @JoinColumn(name = "id_member", nullable = true)
+    private Member members;
 
     public Product() {
     }
 
-
-    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Set<Member> members) {
+    public Product(Long idProduct, String codeProduct, String nameProduct, Double initialPrice, Double finalPrice, Double incrementPrice, String productDescription, String startDate, String endDate, String remainingTime, String createDay, Boolean flagDelete, TypeProduct typeProduct, ApprovalStatus approvalStatus, BiddingStatus biddingStatus, List<ImageProduct> imageProductList, List<InvoiceDetail> invoiceDetailList, Cart cart, Member member) {
         this.idProduct = idProduct;
         this.codeProduct = codeProduct;
         this.nameProduct = nameProduct;
@@ -91,7 +88,7 @@ public class Product {
         this.imageProductList = imageProductList;
         this.invoiceDetailList = invoiceDetailList;
         this.cart = cart;
-        this.members = members;
+        this.members = member;
     }
 
     public Long getIdProduct() {
@@ -108,14 +105,6 @@ public class Product {
 
     public void setCodeProduct(String codeProduct) {
         this.codeProduct = codeProduct;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public String getNameProduct() {
@@ -238,12 +227,31 @@ public class Product {
         this.invoiceDetailList = invoiceDetailList;
     }
 
-    public Set<Member> getMembers() {
+    public Member getMember() {
         return members;
     }
 
-    public void setMembers(Set<Member> members) {
-        this.members = members;
+    public void setMember(Member member) {
+        this.members = member;
     }
 
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+//    public String getPosterInformation() {
+//        return posterInformation;
+//    }
+//
+//    public void setPosterInformation(String posterInformation) {
+//        this.posterInformation = posterInformation;
+//    }
+
 }
+
+
+

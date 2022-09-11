@@ -19,6 +19,9 @@ import project2.service.impl.PaymentService;
 import project2.service.impl.TransportService;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,6 +30,12 @@ import java.util.List;
 public class PaymentController {
 
     private static final Gson gson = new Gson();
+
+    @Autowired
+    private IInvoiceDetailService invoiceDetailService;
+
+    @Autowired
+    private IInvoiceService invoiceService;
 
     @Autowired
     private IProductService iProductService;
@@ -45,6 +54,9 @@ public class PaymentController {
 
     @Autowired
     private ICartService cartService;
+
+    @Autowired
+    private IBiddingStatusService biddingStatusService;
 
     @ModelAttribute("cart")
     public PaymentDTO setupCart(){
@@ -92,7 +104,7 @@ public class PaymentController {
         try {
             com.paypal.api.payments.Payment payment = paymentMethodService.executePayment(paymentId, payerId);
             if(payment.getState().equals("approved")){
-                httpServletResponse.setHeader("Location", "http://localhost:4200/home/show-home");
+                httpServletResponse.setHeader("Location", "http://localhost:4200/payment/invoice-status");
             }
             else {
                 httpServletResponse.setHeader("Location", "http://localhost:4200/payment/payment-cart");
@@ -118,11 +130,13 @@ public class PaymentController {
     //QuangNV write method save payment
     @PostMapping("/savePayment")
     public ResponseEntity<project2.model.Payment> createPayment(@Valid @RequestBody PaymentDTO paymentDTO, BindingResult bindingResult){
+        List<BiddingStatus> biddingStatusList = biddingStatusService.findByAll();
         if (bindingResult.hasFieldErrors()){
             System.out.println("ss");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         else {
+
             project2.model.Payment payment = new project2.model.Payment();
             payment.setIdPayment(paymentDTO.getIdPayment());
             payment.setFullNameReceiver(paymentDTO.getFirstNameReceiver() + " " + paymentDTO.getLastNameReceiver());
@@ -135,21 +149,41 @@ public class PaymentController {
             payment.setMember(paymentDTO.getMember());
             payment.setTransport(paymentDTO.getTransport());
             payment.setCart(paymentDTO.getCart());
-
             // Check total and set flag Delete Product
             List<Product> productList = paymentDTO.getProduct();
             Double total = 0.0;
             for (Integer i = 0 ; i< productList.size() ; i++){
                 productList.get(i).setFlagDelete(true);
+                productList.get(i).setBiddingStatus(biddingStatusList.get(2));
                 productList.get(i).setCart(payment.getCart());
                 total = total + productList.get(i).getFinalPrice();
             }
             total += new Double(productList.size()*1);
-
             // Check total fe success and save
             if (total.intValue() == paymentDTO.getTotal().intValue()){
                 iProductService.saveListProduct(productList);
                 project2.model.Payment payment1 = paymentService.save(payment);
+
+
+                // set invoice and invoice detail
+                Invoice invoice = new Invoice();
+                invoice.setFlagDelete(false);
+                invoice.setMember(paymentDTO.getMember());
+                invoice.setPayment(paymentService.getPaymentEnd());
+                LocalDate date = LocalDate.now();
+                invoice.setDateCreated(date);
+                invoice.setIdStatusInvoice(true);
+                invoice.setTotalPrice(paymentDTO.getTotal());
+                invoiceService.save(invoice);
+                //Set invoice detail
+                List<InvoiceDetail> invoiceDetailList = new ArrayList<>();
+                for (int i = 0 ; i<paymentDTO.getProduct().size();i++){
+                    InvoiceDetail invoiceDetail = new InvoiceDetail();
+                    invoiceDetail.setInvoice(invoice);
+                    invoiceDetail.setProduct(paymentDTO.getProduct().get(i));
+                    invoiceDetailList.add(invoiceDetail);
+                }
+                invoiceDetailService.saveList(invoiceDetailList);
                 return new ResponseEntity<>(payment1, HttpStatus.OK);
             }
             else {
@@ -173,7 +207,7 @@ public class PaymentController {
     //QuangNV write method get all member
     @GetMapping("/getMember/{id_member}")
     public ResponseEntity<Member> getMemberById(@PathVariable String id_member){
-        Member member = memberService.findById(Long.parseLong(id_member));
+        Member member = memberService.findByIdMember(Long.parseLong(id_member)).get();
         if (member ==  null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

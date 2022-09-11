@@ -15,7 +15,7 @@ public interface IMemberService {
 
     Iterable<Member> saveAll(Iterable<Member> members);
 
-    Member findById(Long id);
+    Optional<Member> findByIdMember(Long id);
 
     Page<Member> findAll(Pageable pageable);
 
@@ -27,6 +27,9 @@ public interface IMemberService {
 
     void delele(Member member);
 
+
+    Optional<Member> getMemberByAccountId(Long accountId);
+
     //HauNT 
     Member findByIdAccount(Long IdAccount);
 
@@ -37,5 +40,4 @@ public interface IMemberService {
     void editMember(Member member);
 
     void getTransactionMember();
-
 }
